@@ -59,8 +59,6 @@ Legacy list: `requirements.txt`.
 ## Documentation
 
 - `CLASS/README_DEVELOPMENT.md` — architecture, clustering, results
-- `PROJECT_SUMMARY.md` — full project notes
-- `AUDIT_REPORT.md` — experiment protocol audit
 
 ## Acknowledgements
 
