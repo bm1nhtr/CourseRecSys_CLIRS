@@ -16,7 +16,7 @@ wuir_class/
 ├── CLASS/
 │   ├── Scripts/          # pipeline, env, RL, dataset, clustering
 │   ├── config/
-│   │   └── run.yaml.example   # copy → run.yaml (local, gitignored)
+│   │   └── run.yaml
 │   ├── results/          # training outputs (gitignored)
 │   └── README_DEVELOPMENT.md
 ├── Data - Collection/Final/   # local dataset (gitignored)
@@ -34,17 +34,8 @@ poetry install
 
 Use `poetry shell` or prefix commands with `poetry run`.
 
-### 2. Config
 
-Copy the example config and edit as needed:
-
-```bash
-copy CLASS\config\run.yaml.example CLASS\config\run.yaml
-```
-
-(`run.yaml` and `Data - Collection/` are gitignored — keep them locally.)
-
-### 3. Run
+### 2. Run
 
 ```bash
 poetry run python CLASS/Scripts/pipeline.py --config CLASS/config/run.yaml
