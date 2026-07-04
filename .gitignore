@@ -1,0 +1,74 @@
+# --- Environments ---
+.venv/
+venv/
+env/
+ENV/
+.env
+
+# --- IDE ---
+.idea/
+.vscode/
+
+# --- Python ---
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+build/
+dist/
+*.egg-info/
+.installed.cfg
+*.egg
+.hypothesis/
+.pytest_cache/
+.mypy_cache/
+
+# --- OS / editor ---
+.DS_Store
+Thumbs.db
+*.swp
+*.swo
+
+# --- Notebooks ---
+.ipynb_checkpoints/
+*.ipynb
+
+# --- Logs & artifacts ---
+*.log
+*.sqlite
+*.db
+*.pkl
+*.h5
+*.pt
+*.pth
+*.onnx
+mlruns/
+mlflow/
+wandb/
+
+# --- Out of scope (keep locally) ---
+UIR/
+
+
+# --- CLASS local config & outputs ---
+CLASS/config/run.yaml
+CLASS/results/
+results/
+logs/
+backups/
+eda/
+AUDIT_REPORT.md
+PROJECT_SUMMARY.md
+
+# --- Misc project clutter ---
+trash*
+diag_*
+check_*
+~$*
+*_ss*
+ids.txt
+playground.ipynb
+setup.py
+Reproduct_pipeline.py
+Newfeature_pipeline.py
