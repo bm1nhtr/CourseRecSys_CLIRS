@@ -40,8 +40,7 @@ class Dataset:
     def __str__(self):
         return (
             f"Dataset with {len(self.learners)} learners "
-            f"(train={len(self.train_indices)}, val={len(self.val_indices)}, "
-            f"test={len(self.test_indices)}), "
+            f"(train={len(self.train_indices)}, test={len(self.test_indices)}), "
             f"{len(self.jobs)} jobs, "
             f"{len(self.courses)} courses and "
             f"{len(self.skills)} skills."
@@ -158,7 +157,7 @@ class Dataset:
         Each row is one learner's skill vector (columns = taxonomy skills,
         values = mastery levels 0–3). Row indices are mapped to CV ids via
         ``learners_index``. After loading, :meth:`split_learners` assigns rows
-        to train / val / test without moving data out of this matrix.
+        to train / test without moving data out of this matrix.
 
         Args:
             replace_unk (int, optional): Value substituted for unknown mastery levels.
@@ -282,37 +281,30 @@ class Dataset:
             self.courses_index.update({v: k for k, v in self.courses_index.items()})
 
     def split_learners(self):
-        """Assign learner row indices to train, validation, and test splits.
+        """Assign learner row indices to train and test splits.
 
         Called once after subsampling. Indices point into ``self.learners``;
         jobs and courses remain shared. Shuffling uses ``self.rng`` and config
-        ratios (default 70% / 15% / 15%). Training may still sample synthetic
-        profiles in the env; val supports ``EvaluateCallback``; test is reserved
-        for the final reported metrics in ``Reinforce.reinforce_recommendation``.
-        Train indices are consumed by ``CourseRecEnv`` when ``is_training=True``
-        and SB3 calls ``reset()`` without an explicit learner.
+        ratios (default 70% / 30%). Train indices feed RL episodes and
+        ``EvaluateCallback`` progress logs; test is reserved for final metrics
+        in ``Reinforce.reinforce_recommendation``.
         """
         train_ratio = self.config.get("train_ratio", 0.7)
-        val_ratio = self.config.get("val_ratio", 0.15)
-        test_ratio = self.config.get("test_ratio", 0.15)
-        ratio_sum = train_ratio + val_ratio + test_ratio
+        test_ratio = self.config.get("test_ratio", 0.3)
+        ratio_sum = train_ratio + test_ratio
         train_ratio /= ratio_sum
-        val_ratio /= ratio_sum
 
         n = len(self.learners)
         indices = list(range(n))
         self.rng.shuffle(indices)
 
         n_train = int(n * train_ratio)
-        n_val = int(n * val_ratio)
         self.train_indices = np.array(indices[:n_train], dtype=int)
-        self.val_indices = np.array(indices[n_train:n_train + n_val], dtype=int)
-        self.test_indices = np.array(indices[n_train + n_val:], dtype=int)
+        self.test_indices = np.array(indices[n_train:], dtype=int)
 
-        # Keep at least one test learner when the dataset is large enough.
-        if len(self.test_indices) == 0 and n >= 3 and len(self.val_indices) > 1:
-            self.test_indices = self.val_indices[-1:]
-            self.val_indices = self.val_indices[:-1]
+        if len(self.test_indices) == 0 and n >= 2 and len(self.train_indices) > 1:
+            self.test_indices = self.train_indices[-1:]
+            self.train_indices = self.train_indices[:-1]
 
     def get_avg_applicable_jobs(self, threshold, indices=None):
         """Average applicable jobs over learners, optionally restricted to a split.

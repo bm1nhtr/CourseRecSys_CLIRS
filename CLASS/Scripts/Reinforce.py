@@ -57,7 +57,7 @@ class Reinforce:
         self.eval_freq = eval_freq
         
         # train_env: learn() samples episodes from dataset.train_indices (+ clustering reward).
-        # eval_env: val/test CVs passed explicitly; raw job-count reward.
+        # eval_env: test CVs passed explicitly; raw job-count reward.
         self.train_env = CourseRecEnv(dataset, threshold=self.threshold, k=self.k, is_training=True)
         self.eval_env = CourseRecEnv(dataset, threshold=self.threshold, k=self.k, is_training=False)
         self.get_model()
@@ -214,11 +214,9 @@ class Reinforce:
 
         results["learner_split"] = {
             "train_size": int(len(self.dataset.train_indices)),
-            "val_size": int(len(self.dataset.val_indices)),
             "test_size": int(len(test_indices)),
             "train_ratio": self.dataset.config.get("train_ratio", 0.7),
-            "val_ratio": self.dataset.config.get("val_ratio", 0.15),
-            "test_ratio": self.dataset.config.get("test_ratio", 0.15),
+            "test_ratio": self.dataset.config.get("test_ratio", 0.3),
         }
         results["evaluation_split"] = "test"
         results["training_episodes_from"] = "train_split_cv"

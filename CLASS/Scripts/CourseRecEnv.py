@@ -161,7 +161,7 @@ class CourseRecEnv(gym.Env):
         """Choose the skill vector at episode start.
 
         Priority:
-        1. Explicit ``learner`` (validation callback, test evaluation).
+        1. Explicit ``learner`` (training callback, test evaluation).
         2. Train-split CV when ``is_training`` (``model.learn()``).
         3. Synthetic random profile (fallback if no train indices exist).
         """
@@ -257,9 +257,9 @@ class CourseRecEnv(gym.Env):
 class EvaluateCallback(BaseCallback):
     """Callback for evaluating the RL model during training.
     
-    Runs the current policy on the **validation** learner split only
-    (``dataset.val_indices``). Metrics logged here guide training progress;
-    held-out test learners are evaluated once in ``Reinforce.reinforce_recommendation``.
+    Runs the current policy on the **training** learner split
+    (``dataset.train_indices``) for progress logging only. Held-out test
+    learners are evaluated once in ``Reinforce.reinforce_recommendation``.
     
     Attributes:
         eval_env: Environment used for evaluation (raw reward, no cluster shaping)
@@ -299,10 +299,10 @@ class EvaluateCallback(BaseCallback):
         if self.n_calls % self.eval_freq == 0:
             time_start = process_time()
             avg_jobs = 0
-            val_indices = self.eval_env.dataset.val_indices
+            monitor_indices = self.eval_env.dataset.train_indices
 
-            # Validation split only — do not log metrics on test learners during training.
-            for idx in val_indices:
+            # Training split only — test learners stay held out until final eval.
+            for idx in monitor_indices:
                 learner = self.eval_env.dataset.learners[idx]
                 self.eval_env.reset(learner=learner)
                 done = False
@@ -320,13 +320,13 @@ class EvaluateCallback(BaseCallback):
                 avg_jobs += tmp_avg_jobs
 
             time_end = process_time()
-            n_val = len(val_indices)
-            mean_jobs = avg_jobs / n_val if n_val else 0.0
+            n_monitor = len(monitor_indices)
+            mean_jobs = avg_jobs / n_monitor if n_monitor else 0.0
 
             print(
                 f"Iteration {self.n_calls}. "
-                f"Validation avg jobs: {mean_jobs} "
-                f"(n={n_val}) "
+                f"Training split avg jobs: {mean_jobs} "
+                f"(n={n_monitor}) "
                 f"Time: {time_end - time_start}"
             )
 
