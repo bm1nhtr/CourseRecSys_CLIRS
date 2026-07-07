@@ -16,11 +16,11 @@ nb_runs: 30                                                          # FIX - do 
 seed: 42   # data seed: subsample, train/test split, clustering
 
 # --- data (run.json → data) ---
-taxonomy_path: "Data - Collection/Final/taxonomy.csv"                # FIX - do not change
-mastery_levels_path: "Data - Collection/Final/mastery_levels.json"   # FIX - do not change
-cv_path: "Data - Collection/Final/resumes.json"                      # FIX - do not change
-job_path: "Data - Collection/Final/jobs.json"                        # FIX - do not change
-course_path: "Data - Collection/Final/courses.json"                  # FIX - do not change
+taxonomy_path: "Data/Final/taxonomy.csv"                             # FIX - do not change
+mastery_levels_path: "Data/Final/mastery_levels.json"                # FIX - do not change
+cv_path: "Data/Final/resumes.json"                                   # FIX - do not change
+job_path: "Data/Final/jobs.json"                                     # FIX - do not change
+course_path: "Data/Final/courses.json"                               # FIX - do not change
 level_3: true                                                        # FIX - do not change
 max_cv_skills: 15                                                    # FIX - do not change
 nb_cvs: -1      # -1 = use all learners after filtering              # FIX - do not change

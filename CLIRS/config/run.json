@@ -17,11 +17,11 @@
   },
 
   "data": {
-    "taxonomy_path": "Data - Collection/Final/taxonomy.csv",
-    "mastery_levels_path": "Data - Collection/Final/mastery_levels.json",
-    "cv_path": "Data - Collection/Final/resumes.json",
-    "job_path": "Data - Collection/Final/jobs.json",
-    "course_path": "Data - Collection/Final/courses.json",
+    "taxonomy_path": "Data/Final/taxonomy.csv",
+    "mastery_levels_path": "Data/Final/mastery_levels.json",
+    "cv_path": "Data/Final/resumes.json",
+    "job_path": "Data/Final/jobs.json",
+    "course_path": "Data/Final/courses.json",
     "level_3": true,
     "max_cv_skills": 15,
     "nb_cvs": -1,
