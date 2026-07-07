@@ -51,9 +51,8 @@ wandb/
 UIR/
 
 
-# --- CLASS local config & outputs ---
-CLASS/config/run.yaml
-CLASS/results/
+# --- CLIRS outputs (run.json is the config source of truth; run.yaml is documentation) ---
+CLIRS/results/
 results/
 logs/
 backups/

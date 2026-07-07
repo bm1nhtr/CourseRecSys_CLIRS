@@ -103,7 +103,7 @@ max_clusters: 10
 
 ### Directory Structure
 ```
-CLASS/results/
+CLIRS/results/
 ├── [branch_name]/      # Results for specific branch
 │   ├── plots/          # Plot files
 │   └── data/           # Training data
@@ -113,17 +113,17 @@ CLASS/results/
 ### Management Commands
 1. List results:
 ```bash
-python CLASS/manage_results.py list
+python CLIRS/manage_results.py list
 ```
 
 2. Backup results:
 ```bash
-python CLASS/manage_results.py backup [branch_name]
+python CLIRS/manage_results.py backup [branch_name]
 ```
 
 3. Clean up old results:
 ```bash
-python CLASS/manage_results.py clean [branch_name]
+python CLIRS/manage_results.py clean [branch_name]
 ```
 
 

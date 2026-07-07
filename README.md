@@ -1,22 +1,23 @@
-# CIRS — Course Recommendation with Clustering-Informed Reward Shaping RL
+# CLIRS — Course Recommendation with Clustering-Informed Reward Shaping RL
 
-Reinforcement learning system that recommends courses to learners using **clustering-based reward shaping** and mastery-level skill profiles.
+Reinforcement learning system that recommends courses to learners using **CLustering-Informed Reward Shaping** and mastery-level skill profiles.
 
 ## Overview
 
 - K-means clustering on course features; reward adjusted by cluster transitions during training
 - RL algorithms: DQN, A2C, PPO (Stable-Baselines3)
-- Learner train / validation / test split; metrics reported on held-out test CVs
+- Learner train / test split (70/30); metrics reported on held-out test CVs
 - Primary metric: number of applicable jobs (configurable threshold)
 
 ## Project structure
 
 ```
 wuir_class/
-├── CLASS/
+├── CLIRS/
 │   ├── Scripts/          # pipeline, env, RL, dataset, clustering
 │   ├── config/
-│   │   └── run.yaml
+│   │   ├── run.json      # primary config (pipeline reads this)
+│   │   └── run.yaml      # flat reference / documentation
 │   ├── results/          # training outputs (gitignored)
 │   └── README_DEVELOPMENT.md
 ├── Data - Collection/Final/   # local dataset (gitignored)
@@ -38,7 +39,7 @@ Use `poetry shell` or prefix commands with `poetry run`.
 ### 2. Run
 
 ```bash
-poetry run python CLASS/Scripts/pipeline.py --config CLASS/config/run.yaml
+poetry run python CLIRS/Scripts/pipeline.py --config CLIRS/config/run.json
 ```
 
 ## Dependencies
@@ -49,7 +50,7 @@ Legacy list: `requirements.txt`.
 
 ## Documentation
 
-- `CLASS/README_DEVELOPMENT.md` — architecture, clustering, results
+- `CLIRS/README_DEVELOPMENT.md` — architecture, clustering, results
 
 ## Acknowledgements
 

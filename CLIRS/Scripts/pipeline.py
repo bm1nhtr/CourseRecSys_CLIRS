@@ -1,10 +1,9 @@
 import os
 import argparse
-import yaml
-import numpy as np
 
 from Dataset import Dataset
 from Reinforce import Reinforce
+from load_config import load_config
 
 
 def create_and_print_dataset(config):
@@ -29,23 +28,23 @@ def main():
     
     This function orchestrates the entire recommendation process:
     1. Parses command line arguments to get the configuration file path
-    2. Loads the configuration from YAML file
+    2. Loads the configuration from run.json (or flat YAML)
     3. Runs the specified recommendation model for configured iterations
     
     Command line arguments:
-        --config: Path to the configuration file (default: "Code/config/run.yaml")
+        --config: Path to the configuration file (default: CLIRS/config/run.json)
     """
     parser = argparse.ArgumentParser(description="Run recommender models.")
 
     parser.add_argument(
-        "--config", help="Path to the configuration file", default=r"CLASS/config/run.yaml"
+        "--config",
+        help="Path to the configuration file (JSON primary, YAML flat override)",
+        default=r"CLIRS/config/run.json",
     )
 
     args = parser.parse_args()
 
-    # Load config
-    with open(args.config, "r") as f:
-        config = yaml.load(f, Loader=yaml.FullLoader)
+    config = load_config(args.config)
 
     for run in range(config["nb_runs"]):
         dataset = create_and_print_dataset(config)

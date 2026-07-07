@@ -1,0 +1,83 @@
+{
+  "_meta": {
+    "schema_version": 1,
+    "description": "Primary experiment configuration for CLIRS. Edit this file; see run.yaml for a flat readable reference.",
+    "status": "active — pipeline.py loads this file by default"
+  },
+
+  "experiment": {
+    "branch_name": "main",
+    "nb_runs": 1
+  },
+
+  "seeds": {
+    "data": 42,
+    "rl": [42],
+    "_note": "data seed: subsample + learner split + clustering. rl: one entry per trial (future multi-seed reporting)."
+  },
+
+  "data": {
+    "taxonomy_path": "Data - Collection/Final/taxonomy.csv",
+    "mastery_levels_path": "Data - Collection/Final/mastery_levels.json",
+    "cv_path": "Data - Collection/Final/resumes.json",
+    "job_path": "Data - Collection/Final/jobs.json",
+    "course_path": "Data - Collection/Final/courses.json",
+    "level_3": true,
+    "max_cv_skills": 15,
+    "nb_cvs": -1,
+    "nb_jobs": 100,
+    "nb_courses": 100
+  },
+
+  "split": {
+    "train_ratio": 0.7,
+    "test_ratio": 0.3
+  },
+
+  "model": {
+    "algorithm": "dqn",
+    "allowed_algorithms": ["dqn", "a2c", "ppo"],
+    "total_steps": 5000000,
+    "eval_freq": 1000,
+    "hyperparameters": {
+      "_note": "Not wired yet — SB3 defaults used today. Fill before tuning phase.",
+      "learning_rate": null,
+      "batch_size": null,
+      "policy_kwargs": {
+        "net_arch": null
+      }
+    }
+  },
+
+  "environment": {
+    "threshold": 0.8,
+    "k": 2
+  },
+
+  "clustering": {
+    "use_clustering": true,
+    "n_clusters": 4,
+    "auto_clusters": true,
+    "max_clusters": 10,
+    "reward_multipliers": {
+      "first_recommendation": 1.3,
+      "same_cluster_increase": 1.1,
+      "same_cluster_decrease": 0.8,
+      "diff_cluster_increase": 1.3,
+      "diff_cluster_decrease": 0.9,
+      "no_improvement": 1.0,
+      "_rules": {
+        "first_recommendation": "First course in a k-step sequence (uses diff_cluster_increase in code today)",
+        "same_cluster_increase": "Reward improved and same cluster as previous step",
+        "diff_cluster_increase": "Reward improved and different cluster, or first recommendation",
+        "same_cluster_decrease": "Disabled in current code (penalty removed, fixed at 1.0)",
+        "diff_cluster_decrease": "Disabled in current code (penalty removed, fixed at 1.0)",
+        "no_improvement": "Current reward not better than best so far (fixed at 1.0 in code)"
+      }
+    }
+  },
+
+  "results": {
+    "results_path": "CLIRS/results"
+  }
+}

@@ -12,7 +12,7 @@ The clustering is based on five key features for each course:
 4. Avg Level Gap: Average difference between required and provided skill levels
 5. Max Level Gap: Maximum difference between required and provided skill levels
 
-The reward adjustment follows these rules (note: reward decrease penalties from CLASS-v1 are not applied):
+The reward adjustment follows these rules (note: reward decrease penalties from CLIRS-v1 are not applied):
 1. First recommendation in any sequence: Strong encouragement (x1.3) to encourage exploration
 2. Better than best reward & same cluster: Moderate encouragement (x1.1)
    - Encourages the agent to continue exploring within the same cluster when it's working well
