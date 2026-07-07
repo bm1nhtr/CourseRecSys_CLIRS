@@ -10,7 +10,7 @@
 
 # --- experiment (run.json → experiment) ---
 branch_name: main
-nb_runs: 1
+nb_runs: 30                                                          # FIX - do not change
 
 # --- seeds (run.json → seeds) ---
 seed: 42   # data seed: subsample, train/test split, clustering
@@ -25,20 +25,20 @@ level_3: true                                                        # FIX - do 
 max_cv_skills: 15                                                    # FIX - do not change
 nb_cvs: -1      # -1 = use all learners after filtering              # FIX - do not change
 nb_jobs: 100                                                         # FIX - do not change
-nb_courses: 100
+nb_courses: 100                                                      # 100 and 500
 
 # --- split (run.json → split) ---
 train_ratio: 0.7                                                     # FIX - do not change
 test_ratio: 0.3                                                      # FIX - do not change
 
 # --- model (run.json → model) ---
-model: dqn      # dqn | a2c | ppo  (JSON key: algorithm)
+model: dqn                                                           # dqn | ppo  (JSON key: algorithm)
 total_steps: 5000000                                                 # FIX - do not change
 eval_freq: 5000                                                      # FIX - do not change
 
 # --- environment (run.json → environment) ---
 threshold: 0.8                                                       # FIX - do not change
-k: 2
+k: 2                                                                 # 2,3,4,5,6
 
 # --- clustering (run.json → clustering) ---
 use_clustering: true
