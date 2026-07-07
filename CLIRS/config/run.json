@@ -36,17 +36,8 @@
 
   "model": {
     "algorithm": "dqn",
-    "allowed_algorithms": ["dqn", "a2c", "ppo"],
     "total_steps": 5000000,
-    "eval_freq": 1000,
-    "hyperparameters": {
-      "_note": "Not wired yet — SB3 defaults used today. Fill before tuning phase.",
-      "learning_rate": null,
-      "batch_size": null,
-      "policy_kwargs": {
-        "net_arch": null
-      }
-    }
+    "eval_freq": 1000
   },
 
   "environment": {
@@ -62,9 +53,7 @@
     "reward_multipliers": {
       "first_recommendation": 1.3,
       "same_cluster_increase": 1.1,
-      "same_cluster_decrease": 0.8,
       "diff_cluster_increase": 1.3,
-      "diff_cluster_decrease": 0.9,
       "no_improvement": 1.0,
       "_rules": {
         "first_recommendation": "First course in a k-step sequence (uses diff_cluster_increase in code today)",
