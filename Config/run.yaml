@@ -1,26 +1,28 @@
 # =============================================================================
 # CLIRS configuration reference (human-readable documentation)
 # =============================================================================
-# The pipeline reads:  CLIRS/config/run.json  (source of truth)
+# The pipeline reads:  Config/run.json  (source of truth)
 #
 # Edit run.json when changing experiments. This file mirrors the effective
 # flat settings so you can read and compare without opening nested JSON.
-# You may still pass --config CLIRS/config/run.yaml for a flat YAML override.
+# You may still pass --Config Config/run.yaml for a flat YAML override.
 # =============================================================================
 
 # --- experiment (run.json → experiment) ---
 branch_name: main
+results_lineage: CLIRS                                               # Results/{lineage}/steps_*/data_*/courses_*/
 nb_runs: 30                                                          # FIX - do not change
 
 # --- seeds (run.json → seeds) ---
-seed: 42   # data seed: subsample, train/test split, clustering
+seed_data: 42                                                        # data seed: subsample, train/test split, clustering
+seed_agent: 42                                                       # 30 different agent seeds
 
 # --- data (run.json → data) ---
-taxonomy_path: "Data/Final/taxonomy.csv"                             # FIX - do not change
-mastery_levels_path: "Data/Final/mastery_levels.json"                # FIX - do not change
-cv_path: "Data/Final/resumes.json"                                   # FIX - do not change
-job_path: "Data/Final/jobs.json"                                     # FIX - do not change
-course_path: "Data/Final/courses.json"                               # FIX - do not change
+taxonomy_path: "Data/taxonomy.csv"                                   # FIX - do not change
+mastery_levels_path: "Data/mastery_levels.json"                      # FIX - do not change
+cv_path: "Data/resumes.json"                                         # FIX - do not change
+job_path: "Data/jobs.json"                                           # FIX - do not change
+course_path: "Data/courses.json"                                     # FIX - do not change
 level_3: true                                                        # FIX - do not change
 max_cv_skills: 15                                                    # FIX - do not change
 nb_cvs: -1      # -1 = use all learners after filtering              # FIX - do not change
@@ -33,8 +35,8 @@ test_ratio: 0.3                                                      # FIX - do 
 
 # --- model (run.json → model) ---
 model: dqn                                                           # dqn | ppo  (JSON key: algorithm)
-total_steps: 5000000                                                 # FIX - do not change
-eval_freq: 5000                                                      # FIX - do not change
+total_steps: 5000                                                # 3000000 and 5000000
+eval_freq: 100                                                      # FIX - do not change
 
 # --- environment (run.json → environment) ---
 threshold: 0.8                                                       # FIX - do not change
@@ -51,4 +53,5 @@ clustering:
   diff_cluster_increase: 1.3
 
 # --- results (run.json → results) ---
-results_path: CLIRS/results
+results_path: Results
+save_raw: true                                                       # per-trial raw/*_training.txt + *_eval.json

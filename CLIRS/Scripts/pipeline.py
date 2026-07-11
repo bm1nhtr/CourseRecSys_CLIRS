@@ -1,9 +1,18 @@
-import os
 import argparse
+import sys
+from pathlib import Path
+
+from stable_baselines3.common.utils import set_random_seed
 
 from Dataset import Dataset
 from Reinforce import Reinforce
 from load_config import load_config
+
+_REPO_ROOT = Path(__file__).resolve().parents[2]
+if str(_REPO_ROOT) not in sys.path:
+    sys.path.insert(0, str(_REPO_ROOT))
+
+from Utils.results_paths import ensure_experiment_dirs, rl_seed_for_trial
 
 
 def create_and_print_dataset(config):
@@ -32,24 +41,30 @@ def main():
     3. Runs the specified recommendation model for configured iterations
     
     Command line arguments:
-        --config: Path to the configuration file (default: CLIRS/config/run.json)
+        --Config: Path to the configuration file (default: Config/run.json)
     """
     parser = argparse.ArgumentParser(description="Run recommender models.")
 
     parser.add_argument(
-        "--config",
+        "--Config",
         help="Path to the configuration file (JSON primary, YAML flat override)",
-        default=r"CLIRS/config/run.json",
+        default=r"Config/run.json",
     )
 
     args = parser.parse_args()
 
-    config = load_config(args.config)
+    config = load_config(args.Config)
+    dirs = ensure_experiment_dirs(config)
+    config["clustering_plots_dir"] = dirs["clustering_plots"]
 
     for run in range(config["nb_runs"]):
+        rl_seed = rl_seed_for_trial(config, run)
+        set_random_seed(rl_seed)
+        config["current_rl_seed"] = rl_seed
+        config["current_trial_id"] = run
+
         dataset = create_and_print_dataset(config)
-        
-        # Use the Reinforce class for all models
+
         recommender = Reinforce(
             dataset,
             config["model"],

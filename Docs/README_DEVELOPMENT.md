@@ -6,7 +6,7 @@ This document provides detailed information for developers working on the course
 
 ### Core Components
 
-1. **RL Environment** (`CourseRecEnv.py`):
+1. **RL Environment** (`CLIRS/Scripts/CourseRecEnv.py`):
    - Implements Gymnasium environment for course recommendations
    - Handles state representation with mastery levels (0-3)
    - Supports clustering-based reward adjustment:
@@ -14,24 +14,26 @@ This document provides detailed information for developers working on the course
      - Different cluster & reward increase: x1.3
    
 
-2. **Data Management** (`Dataset.py`):
+2. **Data Management** (`CLIRS/Scripts/Dataset.py`):
    - Handles data loading and preprocessing
    - Manages learner, job, and course data with mastery levels
    - Provides skill matching functionality considering mastery levels
 
-3. **RL Implementation** (`Reinforce.py`):
+3. **RL Implementation** (`CLIRS/Scripts/Reinforce.py`):
    - Implements DQN, A2C, and PPO algorithms
    - Manages model training and evaluation
    - Handles hyperparameter tuning
    - Supports clustering-based reward adjustment
 
-4. **Pipeline** (`pipeline.py`):
+4. **Pipeline** (`CLIRS/Scripts/pipeline.py`):
    - Orchestrates the training process
    - Manages configuration and logging
    - Handles results storage and visualization
    - Supports multiple k values (1,2,3,...)
 
-
+5. **Utilities** (`Utils/`):
+   - `visualize_learning_curves.py` — plot learning curves from `Results/`
+   - `general_utils.py` — shared helpers (placeholder)
 ## Clustering Implementation
 
 The system uses K-means clustering to group similar courses based on their skill profiles. This helps improve the RL performance by adjusting rewards based on course cluster membership.
@@ -75,7 +77,7 @@ The clustering mechanism modifies rewards based on cluster transitions and track
 
 ## Configuration Guide
 
-The system is configured through `config/run.yaml` with the following parameters:
+The system is configured through `Config/run.yaml` (reference) and `Config/run.json` (source of truth) with the following parameters:
 
 ### Model Configuration
 ```yaml
@@ -101,40 +103,57 @@ max_clusters: 10
 
 ## Results Management
 
-### Directory Structure
+### Directory structure
+
+Paths are resolved by `Utils/results_paths.py` (used by `pipeline.py`, `Reinforce.py`, and `visualize_learning_curves.py`).
+
 ```
-CLIRS/results/
-├── [branch_name]/      # Results for specific branch
-│   ├── plots/          # Plot files
-│   └── data/           # Training data
-└── backups/            # Backup directories
+Results/
+└── {results_lineage}/              # default: CLIRS
+    └── steps_{total_steps}/
+        └── data_{data_seed}/
+            └── courses_{nb_courses}/   # courses_all when nb_courses=-1
+                ├── manifest.json
+                ├── sweeps/             # {method}_data{seed}.csv — one row per trial
+                ├── reports/            # statistical compare output (future)
+                ├── plots/
+                │   └── clustering/
+                └── raw/                # when save_raw: true
+                    ├── *_training.txt
+                    └── *_eval.json
 ```
 
-### Management Commands
-1. List results:
+### Management commands
+
+1. List experiment cells:
 ```bash
-python CLIRS/manage_results.py list
+python CLIRS/Scripts/manage_results.py list
 ```
 
-2. Backup results:
+2. Backup one experiment cell (from active config):
 ```bash
-python CLIRS/manage_results.py backup [branch_name]
+python CLIRS/Scripts/manage_results.py backup --config Config/run.json
 ```
 
-3. Clean up old results:
+### Learning curve plots
+
+From repo root (reads raw logs for the experiment cell in `Config/run.json`):
+
 ```bash
-python CLIRS/manage_results.py clean [branch_name]
+python Utils/visualize_learning_curves.py
+python Utils/visualize_learning_curves.py --config Config/run.json
 ```
 
+Plots are written to `Results/.../plots/`. No manual `BRANCH_NAME` setting is required.
 
 
 ## Important Notes
 
 1. **Results Management**:
-   - Always backup results before deleting or switching branches
-   - Results are organized by branch structure
-   - Do not delete main branch results
-   - Keep track of k values in filenames
+   - Always backup before deleting experiment cells
+   - Results are keyed by `results_lineage`, `total_steps`, and `data_seed`
+   - Do not commit `Results/` to git
+   - Sweep CSV holds one row per trial; aggregate stats are computed separately
 
 
 2. **Backup and Version Control**:

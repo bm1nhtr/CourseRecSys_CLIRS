@@ -7,6 +7,7 @@
 
   "experiment": {
     "branch_name": "main",
+    "results_lineage": "CLIRS",
     "nb_runs": 1
   },
 
@@ -17,11 +18,11 @@
   },
 
   "data": {
-    "taxonomy_path": "Data/Final/taxonomy.csv",
-    "mastery_levels_path": "Data/Final/mastery_levels.json",
-    "cv_path": "Data/Final/resumes.json",
-    "job_path": "Data/Final/jobs.json",
-    "course_path": "Data/Final/courses.json",
+    "taxonomy_path": "Data/taxonomy.csv",
+    "mastery_levels_path": "Data/mastery_levels.json",
+    "cv_path": "Data/resumes.json",
+    "job_path": "Data/jobs.json",
+    "course_path": "Data/courses.json",
     "level_3": true,
     "max_cv_skills": 15,
     "nb_cvs": -1,
@@ -36,7 +37,7 @@
 
   "model": {
     "algorithm": "dqn",
-    "total_steps": 5000000,
+    "total_steps": 5000,
     "eval_freq": 1000
   },
 
@@ -67,6 +68,7 @@
   },
 
   "results": {
-    "results_path": "CLIRS/results"
+    "results_path": "Results",
+    "save_raw": true
   }
 }

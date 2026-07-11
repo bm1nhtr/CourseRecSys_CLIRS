@@ -16,12 +16,14 @@ _PATH_KEYS = (
 
 
 def _project_root(config_path):
-    """Repo root: parent of CLIRS/ when config lives under CLIRS/config/."""
+    """Repo root from Config/run.json at repo root or legacy CLIRS/Config/."""
     config_dir = os.path.dirname(os.path.abspath(config_path))
-    class_dir = os.path.dirname(config_dir)
-    if os.path.basename(class_dir) == "CLIRS":
-        return os.path.dirname(class_dir)
-    return os.getcwd()
+    parent = os.path.dirname(config_dir)
+    if os.path.basename(config_dir).lower() == "config":
+        return parent
+    if os.path.basename(parent) == "CLIRS":
+        return os.path.dirname(parent)
+    return parent
 
 
 def _resolve_paths(config, config_path):
@@ -42,7 +44,7 @@ def flatten_run_json(raw):
     model = raw.get("model", {})
     environment = raw.get("environment", {})
     clustering = raw.get("clustering", {})
-    results = raw.get("results", {})
+    results = raw.get("results", raw.get("Results", {}))
 
     reward_multipliers = clustering.get("reward_multipliers", {})
     clustering_cfg = {
@@ -54,6 +56,9 @@ def flatten_run_json(raw):
     config = {}
     config.update(experiment)
     config["seed"] = seeds.get("data", 42)
+    config["rl_seeds"] = seeds.get("rl", [])
+    config["rl_seed_base"] = seeds.get("rl_base", config["seed"])
+    config["results_lineage"] = experiment.get("results_lineage", "CLIRS")
     config.update(data)
     config.update(split)
     config["model"] = model.get("algorithm", model.get("model", "dqn"))
@@ -72,7 +77,7 @@ def flatten_run_json(raw):
 
 
 def load_config(config_path):
-    """Load config from JSON (nested) or YAML (flat). Returns a flat runtime dict."""
+    """Load Config from JSON (nested) or YAML (flat). Returns a flat runtime dict."""
     config_path = os.path.abspath(config_path)
     with open(config_path, "r", encoding="utf-8") as f:
         if config_path.lower().endswith(".json"):

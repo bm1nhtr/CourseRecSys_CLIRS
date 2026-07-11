@@ -54,12 +54,20 @@ class CourseClusterer:
         auto_clusters (bool): Whether to automatically determine optimal number of clusters
         max_clusters (int): Maximum number of clusters to try when using elbow method
         optimal_k (int): Optimal number of clusters determined by elbow method
-        clustering_dir (str): Directory to save clustering results
+        clustering_dir (str): Directory to save clustering Results
         reward_multipliers (dict): Dictionary of reward adjustment multipliers
         best_reward_so_far (float): Track the best reward so far
     """
     
-    def __init__(self, n_clusters=5, random_state=42, auto_clusters=False, max_clusters=10, config=None):
+    def __init__(
+        self,
+        n_clusters=5,
+        random_state=42,
+        auto_clusters=False,
+        max_clusters=10,
+        config=None,
+        clustering_dir=None,
+    ):
         """Initialize the clusterer.
         
         Args:
@@ -80,7 +88,7 @@ class CourseClusterer:
         self.optimal_k = None
         self.best_reward_so_far = 0.0  # Track the best reward so far
         
-        # Set reward multipliers from config or use defaults
+        # Set reward multipliers from Config or use defaults
         # Removed penalties by setting them to 1.0
         # TODO : Review later ( Do not touch )
         self.reward_multipliers = {
@@ -90,19 +98,11 @@ class CourseClusterer:
             'diff_cluster_decrease': 1.0   # Removed penalty
         }
         
-        # Create Clustering directory if it doesn't exist
-        self.clustering_dir = "/home/student2/Project/Code/Clustering"
-        try:
-            os.makedirs(self.clustering_dir, exist_ok=True)
-            # Test write permission
-            test_file = os.path.join(self.clustering_dir, 'test.txt')
-            with open(test_file, 'w') as f:
-                f.write('test')
-            os.remove(test_file)
-            print(f"Successfully created and verified write access to {self.clustering_dir}")
-        except Exception as e:
-            print(f"Error creating/accessing directory {self.clustering_dir}: {str(e)}")
-            raise
+        if clustering_dir:
+            self.clustering_dir = clustering_dir
+        else:
+            self.clustering_dir = os.path.join("Results", "plots", "clustering")
+        os.makedirs(self.clustering_dir, exist_ok=True)
         
     def find_optimal_clusters(self, features_scaled):
         """Find optimal number of clusters using elbow method."""
@@ -308,7 +308,7 @@ class CourseClusterer:
         3. Scale features to have zero mean and unit variance
         4. Find optimal number of clusters if auto_clusters is enabled
         5. Perform K-means clustering on all courses
-        6. Visualize results using PCA and feature pairs
+        6. Visualize Results using PCA and feature pairs
         
         Args:
             courses: Array of courses, each containing required and provided skills
@@ -537,7 +537,7 @@ class CourseClusterer:
         # Store current cluster for next comparison
         self.prev_cluster = current_cluster
         
-        # Apply reward adjustment rules using multipliers from config
+        # Apply reward adjustment rules using multipliers from Config
         if reward_change > 0:  # Better than best adjusted reward so far
             if current_cluster == self.prev_cluster:  # Same cluster
                 adjusted_reward = original_reward * self.reward_multipliers['same_cluster_increase']  # 1.1

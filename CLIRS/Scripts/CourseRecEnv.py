@@ -45,7 +45,8 @@ class CourseRecEnv(gym.Env):
         max_skills (int): Maximum number of skills a learner can have
         threshold (float): Minimum matching score required for job applicability
         k (int): Maximum number of course recommendations per learner
-        use_clustering (bool): Whether to use clustering for reward adjustment
+        use_clustering (bool): Whether clustering reward shaping is active in this env
+            (True only when is_training=True and config use_clustering=True)
     """
     
     def __init__(self, dataset, threshold=0.5, k=1, is_training=False):
@@ -57,9 +58,13 @@ class CourseRecEnv(gym.Env):
             k (int): Maximum number of course recommendations per learner
             is_training (bool): Whether this is a training environment
         """
-        print(f"\nInitializing CourseRecEnv:")
-        print(f"use_clustering: {hasattr(dataset, 'config') and dataset.config.get('use_clustering', False)}")
-        print(f"is_training: {is_training}")
+        use_clustering_cfg = bool(
+            dataset.config.get("use_clustering", False)
+            if hasattr(dataset, "config")
+            else False
+        )
+        print(f"\nInitializing CourseRecEnv (is_training={is_training}):")
+        print(f"  use_clustering (config): {use_clustering_cfg}")
     
         
         self.dataset = dataset
@@ -87,20 +92,24 @@ class CourseRecEnv(gym.Env):
 
 
         # Clustering reward shaping applies only while SB3 runs on train_env (is_training=True).
-        if self.is_training and hasattr(dataset, 'config') and dataset.config.get("use_clustering", False):
+        if self.is_training and use_clustering_cfg:
             self.use_clustering = True
             self.clusterer = CourseClusterer(
                 n_clusters=dataset.config.get("n_clusters", 5),
                 random_state=dataset.config.get("seed", 42),
                 auto_clusters=dataset.config.get("auto_clusters", False),
                 max_clusters=dataset.config.get("max_clusters", 10),
-                config=dataset.config.get("clustering", {})
+                config=dataset.config.get("clustering", {}),
+                clustering_dir=dataset.config.get("clustering_plots_dir"),
             )
             # Fit clusters in training environment
             if self.clusterer.course_clusters is None:
                 self.clusterer.fit_course_clusters(dataset.courses)
-        
-        # Initialize environment state
+
+        print(
+            f"  clustering_reward_shaping (active): {self.use_clustering}"
+            " — reward multiplier applied only in train_env episodes"
+        )
         self.reset()
 
     def _get_obs(self):
@@ -264,23 +273,26 @@ class EvaluateCallback(BaseCallback):
     Attributes:
         eval_env: Environment used for evaluation (raw reward, no cluster shaping)
         eval_freq (int): Frequency of evaluation in training steps
-        all_results_filename (str): Path to save evaluation results
+        training_log_path (str): Path to save training-split monitoring log
+        save_raw (bool): Whether to persist the training log
         mode (str): File opening mode ('w' for first write, 'a' for append)
     """
     
-    def __init__(self, eval_env, eval_freq, all_results_filename, verbose=1):
+    def __init__(self, eval_env, eval_freq, training_log_path, save_raw=True, verbose=1):
         """Initialize the evaluation callback.
-        
+
         Args:
             eval_env: Environment to use for evaluation
             eval_freq (int): Frequency of evaluation in training steps
-            all_results_filename (str): Path to save evaluation results
+            training_log_path (str): Absolute path for training monitoring log
+            save_raw (bool): Whether to write the training log file
             verbose (int, optional): Verbosity level. Defaults to 1.
         """
         super(EvaluateCallback, self).__init__(verbose)
         self.eval_env = eval_env
         self.eval_freq = eval_freq
-        self.all_results_filename = all_results_filename
+        self.training_log_path = training_log_path
+        self.save_raw = save_raw
         self.mode = "w"
 
     def _on_step(self):
@@ -289,7 +301,7 @@ class EvaluateCallback(BaseCallback):
         This method:
         1. Evaluates the model every eval_freq steps
         2. Calculates average number of applicable jobs
-        3. Logs results to file
+        3. Logs Results to file
         4. Prints progress information
         
         Returns:
@@ -330,26 +342,15 @@ class EvaluateCallback(BaseCallback):
                 f"Time: {time_end - time_start}"
             )
 
-            # Write evaluation result to file
-            branch_dir = os.path.join(self.eval_env.dataset.config["results_path"], self.eval_env.dataset.config["branch_name"])
-            data_dir = os.path.join(branch_dir, "data")
-            os.makedirs(data_dir, exist_ok=True)
-            
-            with open(
-                os.path.join(
-                    data_dir,
-                    self.all_results_filename,
-                ),
-                self.mode,  # 'w' for first time, 'a' for append afterward
-            ) as f:
-                f.write(
-                    f"{self.n_calls} "
-                    f"{mean_jobs} "
-                    f"{time_end - time_start}\n"
-                )
-
-            # After first write, switch mode to append for future evaluations
-            if self.mode == "w":
-                self.mode = "a"
+            if self.save_raw:
+                os.makedirs(os.path.dirname(self.training_log_path), exist_ok=True)
+                with open(self.training_log_path, self.mode, encoding="utf-8") as f:
+                    f.write(
+                        f"{self.n_calls} "
+                        f"{mean_jobs} "
+                        f"{time_end - time_start}\n"
+                    )
+                if self.mode == "w":
+                    self.mode = "a"
 
         return True  # Returning True continues training

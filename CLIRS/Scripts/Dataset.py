@@ -47,7 +47,7 @@ class Dataset:
         )
 
     def load_data(self):
-        """Load the data from the files specified in the config and store it in the class attributes"""
+        """Load the data from the files specified in the Config and store it in the class attributes"""
         self.rng = random.Random(self.config["seed"])
         self.load_skills() 
         self.load_mastery_levels()
@@ -73,7 +73,7 @@ class Dataset:
             self.skills2int (dict): A dictionary mapping skill identifiers to integer indices.
 
         Raises:
-            FileNotFoundError: If the taxonomy file path in `self.config["taxonomy_path"]` is invalid.
+            FileNotFoundError: If the taxonomy file path in `self.Config["taxonomy_path"]` is invalid.
             KeyError: If required columns ('unique_id' or 'Type Level 3') are missing in the CSV file.
         """
         # load the skills from the taxonomy file
@@ -104,7 +104,7 @@ class Dataset:
             self.skills2int = {skill: i for i, skill in enumerate(self.skills)}
 
     def load_mastery_levels(self):
-        """Load the mastery levels from the file specified in the config and store it in the class attribute"""
+        """Load the mastery levels from the file specified in the Config and store it in the class attribute"""
         self.mastery_levels = json.load(open(self.config["mastery_levels_path"]))
 
     def get_avg_skills(self, skill_list, replace_unk):
@@ -193,7 +193,7 @@ class Dataset:
 
 
     def load_jobs(self, replace_unk=3):
-        """Load the jobs from the file specified in the config and store it in the class attribute.
+        """Load the jobs from the file specified in the Config and store it in the class attribute.
         Only jobs with at least one required skill are kept.
 
         Args:
@@ -215,7 +215,7 @@ class Dataset:
             index += 1
 
     def load_courses(self, replace_unk=2):
-        """Load the courses from the file specified in the config and store it in the class attribute.
+        """Load the courses from the file specified in the Config and store it in the class attribute.
         Only courses with at least one provided skill are kept.
 
         Args:
@@ -250,10 +250,10 @@ class Dataset:
 
 
     def get_subsample(self):
-        """Get a subsample of the dataset based on the config parameters"""
+        """Get a subsample of the dataset based on the Config parameters"""
         random.seed(self.config["seed"])
         if self.config["nb_cvs"] != -1:
-            # get a random sample of self.config["nb_cvs"] of ids from 0 to len(self.learners)
+            # get a random sample of self.Config["nb_cvs"] of ids from 0 to len(self.learners)
             learners_ids = random.sample(
                 range(len(self.learners)), self.config["nb_cvs"]
             )
@@ -284,7 +284,7 @@ class Dataset:
         """Assign learner row indices to train and test splits.
 
         Called once after subsampling. Indices point into ``self.learners``;
-        jobs and courses remain shared. Shuffling uses ``self.rng`` and config
+        jobs and courses remain shared. Shuffling uses ``self.rng`` and Config
         ratios (default 70% / 30%). Train indices feed RL episodes and
         ``EvaluateCallback`` progress logs; test is reserved for final metrics
         in ``Reinforce.reinforce_recommendation``.
