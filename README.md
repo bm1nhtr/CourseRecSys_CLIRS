@@ -25,9 +25,6 @@ CLIRS-Recsys/
 │   ├── results_paths.py              # canonical Results/ layout (used by pipeline + plots)
 │   ├── visualize_learning_curves.py  # learning-curve plots from raw logs
 │   └── general_utils.py              # shared helpers (placeholder)
-├── EvaluationOfRLAlgs/       # Jordan et al. (ICML 2020) eval reference subset
-├── PIPELINE_AGENT_BRIEFING.md
-├── EVAL_PIPELINE_DEVELOPMENT.md
 ├── Results/                  # training outputs (gitignored)
 └── pyproject.toml            # Poetry dependencies
 ```
