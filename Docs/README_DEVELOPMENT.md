@@ -113,6 +113,7 @@ Results/
     └── steps_{total_steps}/
         └── data_{data_seed}/
             └── courses_{nb_courses}/   # courses_all when nb_courses=-1
+                └── k_{k}/              # one Complete Algorithm cell per k (2..6)
                 ├── manifest.json
                 ├── split_indices.json
                 ├── sweeps/             # {method}_data{seed}.csv — one row per trial
@@ -149,7 +150,7 @@ Plots are written to `Results/.../plots/`. No manual `BRANCH_NAME` setting is re
 
 ## Complete Algorithm (frozen experiment cell)
 
-Each folder under `Results/.../courses_*/` is one **Complete Algorithm**: fixed method, budget, env, and data subsample. Implementation: `Utils/complete_algorithm.py`.
+Each folder under `Results/.../courses_*/k_*/` is one **Complete Algorithm**: fixed method, budget, env, **k**, and data subsample. Implementation: `Utils/complete_algorithm.py`.
 
 | Artifact | Purpose |
 |----------|---------|

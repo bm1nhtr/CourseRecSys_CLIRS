@@ -1,7 +1,7 @@
 """
 Learning curve plots from experiment raw logs.
 
-Reads training logs under Results/{lineage}/steps_*/data_*/courses_*/raw/*_training.txt
+Reads training logs under Results/{lineage}/steps_*/data_*/courses_*/k_*/raw/*_training.txt
 (layout from Utils.results_paths). Plots are written to .../plots/.
 
 Usage (repo root):

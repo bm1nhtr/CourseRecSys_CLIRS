@@ -1,16 +1,28 @@
 # =============================================================================
-# CLIRS configuration reference (human-readable documentation)
+# CLIRS configuration reference
 # =============================================================================
 # The pipeline reads:  Config/run.json  (source of truth)
 #
 # Edit run.json when changing experiments. This file mirrors the effective
 # flat settings so you can read and compare without opening nested JSON.
 # You may still pass --Config Config/run.yaml for a flat YAML override.
+#
+# Pipelines (repo root):
+#   poetry run python pipelines/run_pipeline.py --Config Config/run.json
+#   poetry run python pipelines/run_clirs_pipeline.py --Config Config/run.json
+#   poetry run python pipelines/run_jcrec_pipeline.py --Config Config/run.json
+#
+# Results layout (same per backend): Results/{lineage}/steps_*/data_*/courses_*/k_*/
+#   CLIRS  → results_lineage: CLIRS   (train/test split, optional clustering)
+#   JCRec  → results_lineage: JCRec   (author code in jcrec/; eval all learners)
 # =============================================================================
 
 # --- experiment (run.json → experiment) ---
-results_lineage: CLIRS                                               # Results/{lineage}/steps_*/data_*/courses_*/
+results_lineage: CLIRS                                               # Results/{lineage}/steps_*/data_*/courses_*/k_*/
 nb_runs: 30                                                          # FIX - do not change
+
+# --- orchestration (run.json → orchestration) — pipelines/run_pipeline.py only ---
+pipelines: [clirs, jcrec]                                           # subprocess order; omit key = CLIRS only
 
 # --- seeds (run.json → seeds) ---
 seed_data: 42                                                        # data seed: subsample, train/test split, clustering
@@ -32,10 +44,10 @@ nb_courses: 100                                                      # 100 and 5
 train_ratio: 0.7                                                     # FIX - do not change
 test_ratio: 0.3                                                      # FIX - do not change
 
-# --- model (run.json → model) ---
+# --- model (run.json → model) — shared by CLIRS and JCRec pipelines ---
 model: dqn                                                           # dqn | ppo  (JSON key: algorithm)
-total_steps: 5000                                                # 3000000 and 5000000
-eval_freq: 100                                                      # FIX - do not change
+total_steps: 5000                                                    # 5000000
+eval_freq: 100                                                       # FIX - do not change
 
 # --- environment (run.json → environment) ---
 threshold: 0.8                                                       # FIX - do not change

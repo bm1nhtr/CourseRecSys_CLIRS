@@ -67,23 +67,15 @@ All training outputs go under `Results/` (gitignored). Path resolution is centra
 
 ```
 Results/
-└── CLIRS/                          # results_lineage (Config/run.json)
-    └── steps_{total_steps}/        # e.g. steps_5000000
-        └── data_{data_seed}/       # e.g. data_42
-            └── courses_{nb_courses}/   # e.g. courses_100 (courses_all if nb_courses=-1)
-                ├── manifest.json          # frozen Complete Algorithm contract
-                ├── split_indices.json     # train/test row indices for data_seed
-                ├── sweeps/
-                │   └── {method}_data{data_seed}.csv   # 1 row per trial (T = nb_runs)
-                ├── reports/                           # compare.py output (future)
-                ├── plots/
-                │   └── clustering/                    # elbow / PCA plots from clustering
-                └── raw/                               # optional (save_raw: true)
-                    ├── {method}_data{d}_rl{r}_k{k}_training.txt
-                    └── {method}_data{d}_rl{r}_k{k}_eval.json
+├── CLIRS/steps_{steps}/data_{seed}/courses_{nb}/k_{k}/   # run_clirs_pipeline
+└── JCRec/steps_{steps}/data_{seed}/courses_{nb}/k_{k}/   # run_jcrec_pipeline
+    ├── manifest.json
+    ├── split_indices.json
+    ├── sweeps/{method}_data{seed}.csv
+    └── raw/{method}_data{seed}_rl{rl}_k{k}_eval.json
 ```
 
-**Naming:** `method` is `clirs_{algo}` or `baseline_{algo}` depending on `use_clustering`. Each trial uses `rl_seed` from `seeds.rl[trial_id]` or `seed + trial_id`. `nb_courses` scopes the experiment cell (folder); it is also stored in `manifest.json` and sweep CSV columns. Mean ± std across trials is computed downstream (e.g. `eval/compare.py`), not in the sweep CSV.
+**Naming:** CLIRS → `clirs_{algo}` / `baseline_{algo}`; JCRec → `jcrec_{algo}`. Both pipelines read `model.algorithm` in `Config/run.json` (e.g. `dqn`, `ppo`, `greedy`).
 
 **Complete Algorithm:** `Utils/complete_algorithm.py` writes `manifest.json` on the first trial of a cell (SB3 hyperparameters + metric definitions). Later runs validate config against that manifest and refuse to mix experiments in the same folder. See [`Docs/README_DEVELOPMENT.md`](Docs/README_DEVELOPMENT.md#evaluation-metrics-life-vs-end).
 

@@ -33,7 +33,9 @@ def repo_root() -> Path:
 
 
 def method_slug(config: Mapping[str, Any]) -> str:
-    """e.g. clirs_dqn, baseline_ppo."""
+    """e.g. clirs_dqn, baseline_ppo, jcrec_greedy."""
+    if config.get("pipeline") == "jcrec":
+        return f"jcrec_{config.get('model', 'dqn')}"
     prefix = "clirs" if config.get("use_clustering") else "baseline"
     algorithm = config.get("model", "dqn")
     return f"{prefix}_{algorithm}"
@@ -56,9 +58,14 @@ def courses_dir_slug(config: Mapping[str, Any]) -> str:
     return f"courses_{int(nb_courses)}"
 
 
+def k_dir_slug(config: Mapping[str, Any]) -> str:
+    """e.g. k_2 — one Complete Algorithm cell per recommendation horizon."""
+    return f"k_{int(config.get('k', 1))}"
+
+
 def experiment_root(config: Mapping[str, Any]) -> str:
     """
-    Results/{lineage}/steps_{total_steps}/data_{data_seed}/courses_{nb_courses}/
+    Results/{lineage}/steps_{total_steps}/data_{data_seed}/courses_{nb}/k_{k}/
 
     ``config["results_path"]`` must already be absolute (see load_config).
     """
@@ -73,6 +80,7 @@ def experiment_root(config: Mapping[str, Any]) -> str:
             f"steps_{total_steps}",
             f"data_{data_seed}",
             courses_dir_slug(config),
+            k_dir_slug(config),
         )
     )
 

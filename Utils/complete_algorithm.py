@@ -10,7 +10,7 @@ Workflow (Jordan et al. eval pipeline — Stage 3)
 
 Experiment cell path::
 
-    Results/{lineage}/steps_{total_steps}/data_{data_seed}/courses_{nb_courses}/
+    Results/{lineage}/steps_{total_steps}/data_{data_seed}/courses_{nb_courses}/k_{k}/
 
 If you change algorithm, steps, k, clustering, etc. and reuse that folder, the pipeline
 raises ``ManifestValidationError`` instead of mixing two experiments in one CSV.
@@ -78,6 +78,7 @@ METRIC_DEFINITIONS: dict[str, dict[str, str]] = {
 # Fields that define the Complete Algorithm. Config must match manifest on every re-run.
 # Tuple: (key in flat config from load_config, key in manifest.json)
 _FROZEN_FIELDS: tuple[tuple[str, str], ...] = (
+    ("pipeline", "pipeline"),
     ("results_lineage", "results_lineage"),
     ("seed", "data_seed"),
     ("total_steps", "total_steps"),
@@ -166,6 +167,7 @@ class CompleteAlgorithmManifest:
         manifest: dict[str, Any] = {
             "schema_version": 1,
             "complete_algorithm_id": _complete_algorithm_id(config),
+            "pipeline": config.get("pipeline", "clirs"),
             "results_lineage": config.get("results_lineage", "CLIRS"),
             "method": method_slug(config),
             "data_seed": config.get("seed"),
@@ -201,10 +203,17 @@ class CompleteAlgorithmManifest:
             "metrics_source": "Utils/complete_algorithm.METRIC_DEFINITIONS",
         }
         if dataset is not None:
-            manifest["split"] = {
-                "train_size": int(len(dataset.train_indices)),
-                "test_size": int(len(dataset.test_indices)),
-            }
+            if config.get("pipeline") == "jcrec":
+                manifest["split"] = {
+                    "evaluation": "all_learners",
+                    "n_learners": int(len(dataset.learners)),
+                }
+                manifest["evaluation_population"] = "all_learners"
+            else:
+                manifest["split"] = {
+                    "train_size": int(len(dataset.train_indices)),
+                    "test_size": int(len(dataset.test_indices)),
+                }
         if sb3_snapshot is not None:
             manifest["sb3"] = dict(sb3_snapshot)
         return manifest
@@ -228,6 +237,8 @@ class CompleteAlgorithmValidator:
             actual = config.get(config_key)
             if config_key == "use_clustering":
                 actual = bool(actual)
+            if config_key == "pipeline" and expected is None:
+                expected = "clirs"
             if not _values_equal(expected, actual):
                 errors.append(
                     f"{manifest_key}: manifest={expected!r} config={actual!r}"
@@ -246,7 +257,11 @@ class CompleteAlgorithmValidator:
             split_indices_path
         ):
             errors.extend(
-                _validate_split_indices(dataset, split_indices_path)
+                _validate_split_indices(
+                    dataset,
+                    split_indices_path,
+                    pipeline=str(config.get("pipeline", "clirs")),
+                )
             )
 
         return errors
@@ -273,7 +288,9 @@ class CompleteAlgorithmStage:
         First run in cell: write manifest + split_indices.
         Later runs: load manifest and validate config/split; never overwrite.
         """
-        sb3_snapshot = Sb3HyperparameterSnapshot.from_model(model)
+        sb3_snapshot = (
+            Sb3HyperparameterSnapshot.from_model(model) if model is not None else None
+        )
         candidate = CompleteAlgorithmManifest.build(
             self.config,
             dataset=dataset,
@@ -300,7 +317,7 @@ class CompleteAlgorithmStage:
             json.dump(candidate, f, indent=2)
         _write_split_indices(
             self.split_indices_path,
-            self.config.get("seed"),
+            self.config,
             dataset,
         )
         return candidate
@@ -311,25 +328,47 @@ def _complete_algorithm_id(config: Mapping[str, Any]) -> str:
     return (
         f"{method_slug(config)}_steps{config.get('total_steps')}"
         f"_data{config.get('seed')}_courses{config.get('nb_courses')}"
+        f"_k{config.get('k')}"
     )
 
 
-def _write_split_indices(path: str, data_seed: Any, dataset: Any) -> None:
-    """Persist learner row indices so split_learners() can be audited later."""
-    payload = {
-        "data_seed": data_seed,
-        "train_indices": [int(i) for i in dataset.train_indices],
-        "test_indices": [int(i) for i in dataset.test_indices],
-    }
+def _write_split_indices(path: str, config: Mapping[str, Any], dataset: Any) -> None:
+    """Persist learner indices for audit (CLIRS train/test or JCRec all learners)."""
+    data_seed = config.get("seed")
+    if config.get("pipeline") == "jcrec":
+        payload = {
+            "data_seed": data_seed,
+            "evaluation": "all_learners",
+            "learner_indices": list(range(len(dataset.learners))),
+        }
+    else:
+        payload = {
+            "data_seed": data_seed,
+            "train_indices": [int(i) for i in dataset.train_indices],
+            "test_indices": [int(i) for i in dataset.test_indices],
+        }
     with open(path, "w", encoding="utf-8") as f:
         json.dump(payload, f, indent=2)
 
 
-def _validate_split_indices(dataset: Any, path: str) -> list[str]:
-    """Detect data_seed or split_ratio changes that would invalidate old trials."""
+def _validate_split_indices(dataset: Any, path: str, *, pipeline: str) -> list[str]:
+    """Detect data/split changes that would invalidate old trials."""
     with open(path, encoding="utf-8") as f:
         saved = json.load(f)
     errors: list[str] = []
+
+    if pipeline == "jcrec":
+        if saved.get("evaluation") != "all_learners":
+            errors.append("split_indices: expected JCRec all_learners format")
+            return errors
+        n = len(dataset.learners)
+        if saved.get("learner_indices") != list(range(n)):
+            errors.append(
+                f"learner_indices: saved n={len(saved.get('learner_indices', []))} "
+                f"!= current n={n}"
+            )
+        return errors
+
     train_saved = [int(i) for i in saved.get("train_indices", [])]
     test_saved = [int(i) for i in saved.get("test_indices", [])]
     train_actual = [int(i) for i in dataset.train_indices]

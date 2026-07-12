@@ -40,6 +40,7 @@ def main() -> None:
     )
     args = parser.parse_args()
     config = load_config(args.Config)
+    config["pipeline"] = "clirs"
 
     dirs = ensure_experiment_dirs(config)
     config["clustering_plots_dir"] = dirs["clustering_plots"]

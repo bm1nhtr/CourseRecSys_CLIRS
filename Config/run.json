@@ -43,7 +43,8 @@
   "model": {
     "algorithm": "dqn",
     "total_steps": 5000,
-    "eval_freq": 1000
+    "eval_freq": 1000,
+    "_note": "algorithm: shared by CLIRS + JCRec (dqn | ppo)"
   },
 
   "environment": {
