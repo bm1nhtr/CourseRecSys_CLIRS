@@ -1,11 +1,11 @@
-# CLIRS — Course Recommendation with Clustering-Informed Reward Shaping RL
+# CLIRS — Course Recommendation with Cluster-Informed Reward Shaping RL
 
-Reinforcement learning system that recommends courses to learners using **CLustering-Informed Reward Shaping** and mastery-level skill profiles.
+Reinforcement learning system that recommends courses to learners using **CLuster-Informed Reward Shaping** and mastery-level skill profiles.
 
 ## Overview
 
 - K-means clustering on course features; reward adjusted by cluster transitions during training
-- RL algorithms: DQN, A2C, PPO (Stable-Baselines3)
+- RL algorithms: DQN, PPO (Stable-Baselines3)
 - Learner train / test split (70/30); metrics reported on held-out test CVs
 - Primary metric: number of applicable jobs (configurable threshold)
 
@@ -88,17 +88,3 @@ Managed in `pyproject.toml` (Python ^3.10): stable-baselines3, gymnasium, scikit
 
 Legacy list: `requirements.txt`.
 
-## Documentation
-
-| File | Purpose |
-|------|---------|
-| [`Docs/README_DEVELOPMENT.md`](Docs/README_DEVELOPMENT.md) | Architecture, clustering, results management |
-| [`Utils/visualize_learning_curves.py`](Utils/visualize_learning_curves.py) | Learning-curve plots from `Results/` |
-| [`EVAL_PIPELINE_DEVELOPMENT.md`](EVAL_PIPELINE_DEVELOPMENT.md) | Eval pipeline tracker (Jordan et al. methodology → CLIRS) |
-| [`PIPELINE_AGENT_BRIEFING.md`](PIPELINE_AGENT_BRIEFING.md) | Reference briefing for statistical eval protocol |
-
-## Acknowledgements
-
-Based on [JCRec](https://github.com/Jibril-Frej/JCRec) by [Jibril Frej](https://github.com/Jibril-Frej).
-
-Evaluation methodology references [EvaluationOfRLAlgs](https://github.com/scottjordan/EvaluationOfRLAlgs) (Jordan et al., ICML 2020).

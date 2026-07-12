@@ -6,7 +6,6 @@
   },
 
   "experiment": {
-    "branch_name": "main",
     "results_lineage": "CLIRS",
     "nb_runs": 1
   },

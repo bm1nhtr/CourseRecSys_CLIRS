@@ -9,7 +9,6 @@
 # =============================================================================
 
 # --- experiment (run.json → experiment) ---
-branch_name: main
 results_lineage: CLIRS                                               # Results/{lineage}/steps_*/data_*/courses_*/
 nb_runs: 30                                                          # FIX - do not change
 
