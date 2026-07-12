@@ -65,9 +65,11 @@ def flatten_run_json(raw):
     config["eval_freq"] = model.get("eval_freq", 1000)
     config.update(environment)
     config["use_clustering"] = clustering.get("use_clustering", False)
-    config["n_clusters"] = clustering.get("n_clusters", 5)
     config["auto_clusters"] = clustering.get("auto_clusters", False)
     config["max_clusters"] = clustering.get("max_clusters", 10)
+    config["cluster_selection"] = clustering.get("selection", "silhouette")
+    config["min_cluster_size"] = clustering.get("min_cluster_size", 5)
+    config["max_level"] = 3
     config["clustering"] = clustering_cfg
     config.update(results)
     if "results_path" not in config and config.get("results_dir"):

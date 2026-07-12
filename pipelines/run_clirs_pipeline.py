@@ -23,6 +23,7 @@ from Dataset import Dataset
 from Reinforce import Reinforce
 from load_config import load_config
 from pipelines.sweep_eval import run_sweep_eval
+from Utils.course_clusters import ensure_course_clusterer
 from Utils.complete_algorithm import CompleteAlgorithmStage, ManifestValidationError
 from Utils.experiment_log import ExperimentRunLog
 from Utils.results_paths import (
@@ -76,6 +77,7 @@ def _run_clirs_trial(
     run_log: ExperimentRunLog,
     *,
     freeze_manifest: bool,
+    clusterer=None,
 ) -> None:
     rl_seed = rl_seed_for_trial(config, trial_id)
     apply_rl_seed(rl_seed)
@@ -95,6 +97,7 @@ def _run_clirs_trial(
             trial_id,
             config["total_steps"],
             config["eval_freq"],
+            clusterer=clusterer,
         )
     except Exception as exc:
         run_log.record_exception(exc, trial_id=trial_id, phase="model_init")
@@ -194,6 +197,7 @@ def main() -> None:
         sys.exit(1)
 
     config["clustering_plots_dir"] = dirs["clustering_plots"]
+    config["clustering_reports_dir"] = dirs["reports"]
     trial_ids = trials_to_run(
         config,
         from_trial=args.from_trial,
@@ -228,6 +232,23 @@ def main() -> None:
                 run_log.record_exception(exc, phase="dataset_load")
                 raise
 
+            shared_clusterer = None
+            if config.get("use_clustering"):
+                try:
+                    shared_clusterer = ensure_course_clusterer(
+                        config, dataset, dirs
+                    )
+                except ManifestValidationError as exc:
+                    run_log.warn(str(exc))
+                    print(
+                        "Hint: use a new experiment cell or delete the existing "
+                        "Results folder."
+                    )
+                    sys.exit(1)
+                except Exception as exc:
+                    run_log.record_exception(exc, phase="course_clustering")
+                    raise
+
             need_manifest = not _manifest_exists(dirs["root"])
             for trial_id in trial_ids:
                 freeze = need_manifest
@@ -238,6 +259,7 @@ def main() -> None:
                     dataset,
                     run_log,
                     freeze_manifest=freeze,
+                    clusterer=shared_clusterer,
                 )
                 if freeze:
                     need_manifest = False

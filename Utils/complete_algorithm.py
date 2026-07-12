@@ -223,6 +223,9 @@ class CompleteAlgorithmManifest:
                 }
         if sb3_snapshot is not None:
             manifest["sb3"] = dict(sb3_snapshot)
+        if config.get("use_clustering") and config.get("_clustering_manifest"):
+            manifest["clustering"] = dict(config["_clustering_manifest"])
+            manifest["clustering"]["max_clusters"] = config.get("max_clusters")
         return manifest
 
 
@@ -236,6 +239,7 @@ class CompleteAlgorithmValidator:
         *,
         dataset: Any | None = None,
         split_indices_path: str | None = None,
+        course_clusters_path: str | None = None,
     ) -> list[str]:
         errors: list[str] = []
 
@@ -273,6 +277,16 @@ class CompleteAlgorithmValidator:
                 )
             )
 
+        if bool(manifest.get("use_clustering_in_config")):
+            errors.extend(
+                _validate_clustering_contract(
+                    config,
+                    manifest,
+                    dataset=dataset,
+                    course_clusters_path=course_clusters_path,
+                )
+            )
+
         return errors
 
 
@@ -290,6 +304,9 @@ class CompleteAlgorithmStage:
         self.manifest_path = os.path.join(experiment_root, "manifest.json")
         self.split_indices_path = os.path.join(
             experiment_root, "split_indices.json"
+        )
+        self.course_clusters_path = os.path.join(
+            experiment_root, "course_clusters.json"
         )
 
     def ensure(self, model: Any, dataset: Any) -> dict[str, Any]:
@@ -315,6 +332,7 @@ class CompleteAlgorithmStage:
                 existing,
                 dataset=dataset,
                 split_indices_path=self.split_indices_path,
+                course_clusters_path=self.course_clusters_path,
             )
             if errors:
                 raise ManifestValidationError(errors)
@@ -392,6 +410,50 @@ def _validate_split_indices(dataset: Any, path: str, *, pipeline: str) -> list[s
             "test_indices: saved split differs from current Dataset "
             "(data_seed or split logic may have changed)"
         )
+    return errors
+
+
+def _validate_clustering_contract(
+    config: Mapping[str, Any],
+    manifest: Mapping[str, Any],
+    *,
+    dataset: Any | None = None,
+    course_clusters_path: str | None = None,
+) -> list[str]:
+    """Validate frozen clustering config and course_clusters.json."""
+    from Utils.course_clusters import validate_course_clusters_artifact
+
+    errors: list[str] = []
+    clustering = manifest.get("clustering")
+    if clustering is None:
+        errors.append(
+            "clustering: manifest missing clustering block (use_clustering is true)"
+        )
+    else:
+        checks = (
+            ("auto_clusters", "auto_clusters"),
+            ("max_clusters", "max_clusters"),
+            ("cluster_selection", "selection_method"),
+            ("min_cluster_size", "min_cluster_size"),
+        )
+        for config_key, manifest_key in checks:
+            expected = clustering.get(manifest_key)
+            actual = config.get(config_key)
+            if expected is not None and actual is not None and expected != actual:
+                errors.append(
+                    f"clustering.{manifest_key}: manifest={expected!r} config={actual!r}"
+                )
+
+    if course_clusters_path and os.path.isfile(course_clusters_path):
+        if dataset is not None:
+            with open(course_clusters_path, encoding="utf-8") as f:
+                payload = json.load(f)
+            errors.extend(
+                validate_course_clusters_artifact(payload, config, dataset)
+            )
+    elif course_clusters_path:
+        errors.append("course_clusters.json missing for CLIRS clustering cell")
+
     return errors
 
 

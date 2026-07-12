@@ -12,29 +12,34 @@ The clustering is based on five key features for each course:
 4. Avg Level Gap: Average difference between required and provided skill levels
 5. Max Level Gap: Maximum difference between required and provided skill levels
 
-The reward adjustment follows these rules (note: reward decrease penalties from CLIRS-v1 are not applied):
-1. First recommendation in any sequence: Strong encouragement (x1.3) to encourage exploration
-2. Better than best reward & same cluster: Moderate encouragement (x1.1)
-   - Encourages the agent to continue exploring within the same cluster when it's working well
-3. Better than best reward & different cluster: Strong encouragement (x1.3)
-   - Encourages the agent to explore new clusters when it finds improvements
-4. Not better than best reward: Neutral multiplier (x1.0)
+Reward shaping (CLIRS): compare each course base reward against the persistent
+adjusted reference R'_adjusted,ref (the last bonused adjusted reward in the sequence).
+1. First recommendation C_1: fixed bonus (first_recommendation multiplier)
+2. Later steps: if R_base > R'_adjusted,ref, apply progress_increase and update the ref
+3. Otherwise: no_improvement multiplier; ref unchanged
    
 
 
 
 """
 
-import numpy as np
-from sklearn.cluster import KMeans
-from sklearn.preprocessing import StandardScaler
+import json
+import os
+
 import matplotlib
+import numpy as np
+import pandas as pd
+import seaborn as sns
+from sklearn.cluster import KMeans
+from sklearn.decomposition import PCA
+from sklearn.metrics import davies_bouldin_score, silhouette_score
+from sklearn.preprocessing import StandardScaler
+
 matplotlib.use('Agg')  # Use Agg backend for non-interactive environments
 import matplotlib.pyplot as plt
-import os
-from sklearn.decomposition import PCA
-import seaborn as sns
-import pandas as pd
+
+FEATURE_SPEC = "coverage_entropy_active_levelgap_v2"
+ARTIFACT_SCHEMA_VERSION = 1
 
 class CourseClusterer:
     """Class for clustering courses and adjusting rewards based on cluster membership.
@@ -48,7 +53,6 @@ class CourseClusterer:
         n_clusters (int): Number of clusters to create
         course_clusters (np.ndarray): Array of cluster assignments for each course
         scaler (StandardScaler): Scaler for normalizing features before clustering
-        prev_cluster (int): Cluster of the previous course recommendation
         features (np.ndarray): Original features used for clustering
         random_state (int): Random seed for reproducibility
         auto_clusters (bool): Whether to automatically determine optimal number of clusters
@@ -56,46 +60,51 @@ class CourseClusterer:
         optimal_k (int): Optimal number of clusters determined by elbow method
         clustering_dir (str): Directory to save clustering Results
         reward_multipliers (dict): Dictionary of reward adjustment multipliers
-        best_reward_so_far (float): Track the best reward so far
+        best_reward_so_far (float): R'_adjusted,ref for the current recommendation sequence
     """
     
     def __init__(
         self,
-        n_clusters=5,
         random_state=42,
         auto_clusters=False,
         max_clusters=10,
         config=None,
         clustering_dir=None,
+        reports_dir=None,
+        selection_method="silhouette",
+        min_cluster_size=5,
+        max_level=3,
+        fixed_n_clusters=5,
     ):
         """Initialize the clusterer.
-        
-        Args:
-            n_clusters (int): Number of clusters to create
-            random_state (int): Random seed for reproducibility
-            auto_clusters (bool): Whether to automatically determine optimal number of clusters
-            max_clusters (int): Maximum number of clusters to try when using elbow method
-            config (dict): Configuration dictionary containing reward multipliers
+
+        When ``auto_clusters`` is true (default CLIRS path), k is chosen from data.
+        ``fixed_n_clusters`` applies only when ``auto_clusters`` is false.
         """
-        self.n_clusters = n_clusters
+        self.n_clusters = fixed_n_clusters
         self.course_clusters = None
         self.scaler = StandardScaler()
-        self.prev_cluster = None
         self.features = None
         self.random_state = random_state
         self.auto_clusters = auto_clusters
         self.max_clusters = max_clusters
         self.optimal_k = None
-        self.best_reward_so_far = 0.0  # Track the best reward so far
-        
-        # Set reward multipliers from Config or use defaults
-        # Removed penalties by setting them to 1.0
-        # TODO : Review later ( Do not touch )
+        self.selection_method = selection_method
+        self.min_cluster_size = min_cluster_size
+        self.max_level = max_level
+        self.reports_dir = reports_dir
+        self.selection_report = None
+        self.quality_metrics = None
+        self.best_reward_so_far = 0.0  # R'_adjusted,ref for the current k-step sequence
+
+        cfg = config or {}
+        # CLIRS keys from Config/run.json clustering.reward_multipliers
         self.reward_multipliers = {
-            'same_cluster_increase': config.get('same_cluster_increase', 1.1) if config else 1.1,
-            'same_cluster_decrease': 1.0,  # Removed penalty
-            'diff_cluster_increase': config.get('diff_cluster_increase', 1.3) if config else 1.3,
-            'diff_cluster_decrease': 1.0   # Removed penalty
+            "first_recommendation": cfg.get("first_recommendation", 1.3),
+            "progress_increase": cfg.get(
+                "progress_increase", cfg.get("diff_cluster_increase", 1.3)
+            ),
+            "no_improvement": cfg.get("no_improvement", 1.0),
         }
         
         if clustering_dir:
@@ -103,46 +112,304 @@ class CourseClusterer:
         else:
             self.clustering_dir = os.path.join("Results", "plots", "clustering")
         os.makedirs(self.clustering_dir, exist_ok=True)
-        
-    def find_optimal_clusters(self, features_scaled):
-        """Find optimal number of clusters using elbow method."""
-        plot_path = os.path.join(self.clustering_dir, 'elbow_curve_skillslevels.png')
-        print("\nFinding optimal number of clusters...")
-        
-        inertias = []
-        K = range(1, self.max_clusters + 1)
-        
-        for k in K:
-            kmeans = KMeans(
-                n_clusters=k,
-                random_state=self.random_state,
-                n_init=10
-            )
-            kmeans.fit(features_scaled)
-            inertias.append(kmeans.inertia_)
-        
-        # Calculate the rate of change of inertia
+        if self.reports_dir:
+            os.makedirs(self.reports_dir, exist_ok=True)
+
+    def _build_features(self, courses):
+        """Extract course features for clustering (see FEATURE_SPEC)."""
+        required_skills = courses[:, 0]
+        provided_skills = courses[:, 1]
+        n_skills = required_skills.shape[1]
+        max_level = self.max_level
+
+        required_coverage = np.sum(required_skills, axis=1) / (n_skills * max_level)
+        provided_coverage = np.sum(provided_skills, axis=1) / (n_skills * max_level)
+        coverage = (required_coverage + provided_coverage) / 2
+
+        required_sums = np.sum(required_skills, axis=1, keepdims=True)
+        provided_sums = np.sum(provided_skills, axis=1, keepdims=True)
+        required_distribution = required_skills / (required_sums + 1e-10)
+        provided_distribution = provided_skills / (provided_sums + 1e-10)
+        required_entropy = np.where(
+            required_sums.ravel() > 0,
+            -np.sum(
+                required_distribution * np.log2(required_distribution + 1e-10),
+                axis=1,
+            ),
+            0.0,
+        )
+        provided_entropy = np.where(
+            provided_sums.ravel() > 0,
+            -np.sum(
+                provided_distribution * np.log2(provided_distribution + 1e-10),
+                axis=1,
+            ),
+            0.0,
+        )
+
+        level_gap = np.abs(provided_skills - required_skills)
+        active = (required_skills > 0) | (provided_skills > 0)
+        avg_level_gap = np.zeros(len(courses), dtype=float)
+        max_level_gap = np.zeros(len(courses), dtype=float)
+        for i in range(len(courses)):
+            if active[i].any():
+                gaps = level_gap[i, active[i]]
+                avg_level_gap[i] = float(np.mean(gaps))
+                max_level_gap[i] = float(np.max(gaps))
+
+        return np.column_stack(
+            [coverage, required_entropy, provided_entropy, avg_level_gap, max_level_gap]
+        )
+
+    def _evaluate_k(self, features_scaled, k):
+        """Score one k for cluster selection."""
+        kmeans = KMeans(
+            n_clusters=k,
+            random_state=self.random_state,
+            n_init=10,
+        )
+        labels = kmeans.fit_predict(features_scaled)
+        sizes = np.bincount(labels, minlength=k)
+        min_size = int(sizes.min()) if len(sizes) else 0
+        silhouette = (
+            float(silhouette_score(features_scaled, labels))
+            if k > 1 and len(features_scaled) > k
+            else float("nan")
+        )
+        return {
+            "k": int(k),
+            "inertia": float(kmeans.inertia_),
+            "silhouette": silhouette,
+            "cluster_sizes": [int(s) for s in sizes],
+            "min_cluster_size": min_size,
+        }
+
+    def _pick_k_from_elbow(self, records):
+        """Elbow on inertia over valid k candidates (k >= 2)."""
+        ks = [r["k"] for r in records]
+        inertias = [r["inertia"] for r in records]
+        if len(inertias) < 3:
+            return records[-1]["k"]
         changes = np.diff(inertias)
         changes_r = np.diff(changes)
-        
-        # Find the elbow point (where the rate of change changes most)
-        optimal_k = np.argmax(changes_r) + 2  # +2 because we took two diffs
-        
-        # Plot elbow curve
-        plt.figure(figsize=(10, 6))
-        plt.plot(K, inertias, 'bx-')
-        plt.xlabel('k')
-        plt.ylabel('Inertia')
-        plt.title('Elbow Method For Optimal k')
-        plt.axvline(x=optimal_k, color='r', linestyle='--', label=f'Optimal k = {optimal_k}')
-        plt.legend()
-        
-        # Save plot
+        idx = int(np.argmax(changes_r))
+        return ks[idx + 2]
+
+    def select_n_clusters(self, features_scaled):
+        """Choose k (fixed or auto) using silhouette or elbow; k starts at 2."""
+        n_samples = len(features_scaled)
+        max_k = min(self.max_clusters, n_samples - 1)
+        if max_k < 2:
+            return 1, []
+
+        if not self.auto_clusters:
+            k = min(max(int(self.n_clusters), 1), n_samples)
+            record = self._evaluate_k(features_scaled, k)
+            self._plot_selection_curve([record], k)
+            return k, [record]
+
+        print("\nSelecting number of clusters...")
+        records = [
+            self._evaluate_k(features_scaled, k) for k in range(2, max_k + 1)
+        ]
+        valid = [
+            r
+            for r in records
+            if r["min_cluster_size"] >= self.min_cluster_size
+        ]
+        if not valid:
+            valid = records
+
+        if self.selection_method == "elbow":
+            chosen_k = self._pick_k_from_elbow(valid)
+        else:
+            chosen_k = max(
+                valid,
+                key=lambda r: (
+                    r["silhouette"] if not np.isnan(r["silhouette"]) else -1.0
+                ),
+            )["k"]
+
+        self._plot_selection_curve(records, chosen_k)
+        print(
+            f"Selected k={chosen_k} via {self.selection_method} "
+            f"(min_cluster_size={self.min_cluster_size})"
+        )
+        return chosen_k, records
+
+    def _plot_selection_curve(self, records, chosen_k):
+        """Save inertia/silhouette vs k plot."""
+        if not records:
+            return
+        ks = [r["k"] for r in records]
+        inertias = [r["inertia"] for r in records]
+        silhouettes = [r["silhouette"] for r in records]
+
+        fig, ax1 = plt.subplots(figsize=(10, 6))
+        ax1.plot(ks, inertias, "bx-", label="Inertia")
+        ax1.set_xlabel("k")
+        ax1.set_ylabel("Inertia")
+        ax1.axvline(x=chosen_k, color="r", linestyle="--", label=f"Selected k = {chosen_k}")
+
+        ax2 = ax1.twinx()
+        ax2.plot(ks, silhouettes, "g+-", label="Silhouette")
+        ax2.set_ylabel("Silhouette")
+
+        lines1, labels1 = ax1.get_legend_handles_labels()
+        lines2, labels2 = ax2.get_legend_handles_labels()
+        ax1.legend(lines1 + lines2, labels1 + labels2, loc="best")
+        ax1.set_title("Cluster Selection")
+        fig.tight_layout()
+        plot_path = os.path.join(self.clustering_dir, "cluster_selection_curve.png")
         plt.savefig(plot_path)
         plt.close()
-        
-        print(f"Optimal number of clusters: {optimal_k}")
-        return optimal_k
+
+    def _compute_quality_metrics(self, features_scaled):
+        """Post-fit cluster quality metrics."""
+        labels = self.course_clusters
+        k = self.n_clusters
+        sizes = np.bincount(labels, minlength=k)
+        silhouette = (
+            float(silhouette_score(features_scaled, labels))
+            if k > 1 and len(features_scaled) > k
+            else float("nan")
+        )
+        davies_bouldin = (
+            float(davies_bouldin_score(features_scaled, labels))
+            if k > 1
+            else float("nan")
+        )
+        balance = float(sizes.min() / sizes.max()) if sizes.max() > 0 else 0.0
+        feature_names = [
+            "Coverage",
+            "Required Entropy",
+            "Provided Entropy",
+            "Avg Level Gap",
+            "Max Level Gap",
+        ]
+        per_cluster = []
+        for cluster_id in range(k):
+            mask = labels == cluster_id
+            cluster_feats = self.features[mask]
+            per_cluster.append(
+                {
+                    "id": int(cluster_id),
+                    "n": int(sizes[cluster_id]),
+                    "mean_features": {
+                        name: float(cluster_feats[:, j].mean())
+                        for j, name in enumerate(feature_names)
+                    },
+                }
+            )
+        return {
+            "n_clusters": int(k),
+            "silhouette": silhouette,
+            "davies_bouldin": davies_bouldin,
+            "inertia": float(self.inertia_),
+            "cluster_sizes": {str(i): int(s) for i, s in enumerate(sizes)},
+            "size_balance_ratio": balance,
+            "per_cluster": per_cluster,
+        }
+
+    def write_reports(self):
+        """Write cluster_selection.json and cluster_quality.json under reports_dir."""
+        if not self.reports_dir:
+            return
+        os.makedirs(self.reports_dir, exist_ok=True)
+        if self.selection_report is not None:
+            with open(
+                os.path.join(self.reports_dir, "cluster_selection.json"),
+                "w",
+                encoding="utf-8",
+            ) as f:
+                json.dump(
+                    {
+                        "selection_method": self.selection_method,
+                        "min_cluster_size": self.min_cluster_size,
+                        "chosen_k": self.n_clusters,
+                        "candidates": self.selection_report,
+                    },
+                    f,
+                    indent=2,
+                )
+        if self.quality_metrics is not None:
+            with open(
+                os.path.join(self.reports_dir, "cluster_quality.json"),
+                "w",
+                encoding="utf-8",
+            ) as f:
+                json.dump(self.quality_metrics, f, indent=2)
+
+    def to_artifact_payload(
+        self,
+        *,
+        data_seed,
+        nb_courses,
+        courses_index=None,
+    ):
+        """Serialize fitted state for course_clusters.json."""
+        labels = [int(x) for x in self.course_clusters.tolist()]
+        labels_by_course_id = {}
+        if courses_index:
+            for idx, cluster_id in enumerate(labels):
+                course_id = courses_index.get(idx)
+                if course_id is not None:
+                    labels_by_course_id[str(course_id)] = cluster_id
+        sizes = np.bincount(self.course_clusters, minlength=self.n_clusters)
+        return {
+            "schema_version": ARTIFACT_SCHEMA_VERSION,
+            "feature_spec": FEATURE_SPEC,
+            "data_seed": data_seed,
+            "nb_courses": int(nb_courses),
+            "auto_clusters": bool(self.auto_clusters),
+            "n_clusters_fitted": int(self.n_clusters),
+            "selection_method": self.selection_method,
+            "min_cluster_size": int(self.min_cluster_size),
+            "max_clusters": int(self.max_clusters),
+            "random_state": int(self.random_state),
+            "labels_by_index": labels,
+            "labels_by_course_id": labels_by_course_id,
+            "cluster_sizes": {str(i): int(s) for i, s in enumerate(sizes)},
+            "inertia": float(self.inertia_),
+            "scaler_mean": self.scaler.mean_.tolist(),
+            "scaler_scale": self.scaler.scale_.tolist(),
+            "selection_report": self.selection_report,
+            "quality_metrics": self.quality_metrics,
+        }
+
+    @classmethod
+    def from_artifact(cls, path, **runtime_kwargs):
+        """Restore a fitted clusterer from course_clusters.json."""
+        with open(path, encoding="utf-8") as f:
+            payload = json.load(f)
+        clusterer = cls(
+            random_state=payload.get("random_state", 42),
+            auto_clusters=payload.get("auto_clusters", False),
+            max_clusters=runtime_kwargs.get("max_clusters", 10),
+            config=runtime_kwargs.get("config"),
+            clustering_dir=runtime_kwargs.get("clustering_dir"),
+            reports_dir=runtime_kwargs.get("reports_dir"),
+            selection_method=payload.get("selection_method", "silhouette"),
+            min_cluster_size=payload.get("min_cluster_size", 5),
+            max_level=runtime_kwargs.get("max_level", 3),
+            fixed_n_clusters=payload["n_clusters_fitted"],
+        )
+        clusterer.n_clusters = payload["n_clusters_fitted"]
+        clusterer.max_clusters = payload.get(
+            "max_clusters", runtime_kwargs.get("max_clusters", 10)
+        )
+        if payload.get("auto_clusters"):
+            clusterer.optimal_k = payload["n_clusters_fitted"]
+        clusterer.course_clusters = np.array(
+            payload["labels_by_index"], dtype=int
+        )
+        clusterer.inertia_ = payload.get("inertia")
+        clusterer.selection_report = payload.get("selection_report")
+        clusterer.quality_metrics = payload.get("quality_metrics")
+        clusterer.scaler.mean_ = np.array(payload["scaler_mean"], dtype=float)
+        clusterer.scaler.scale_ = np.array(payload["scaler_scale"], dtype=float)
+        clusterer.scaler.n_features_in_ = len(clusterer.scaler.mean_)
+        return clusterer
         
     def visualize_feature_pairs(self, features_scaled):
         """Visualize relationships between features using correlation matrix.
@@ -294,101 +561,43 @@ class CourseClusterer:
             print(f"\nCluster {i} (n={len(cluster_data)}):")
             print(cluster_data.describe().round(3))
         
-    def fit_course_clusters(self, courses):
+    def fit_course_clusters(self, courses, courses_index=None, *, write_plots=True):
         """Fit clusters for courses based on their required and provided skills.
-        
-        This method performs the following steps:
-        1. Extract required and provided skills from courses
-        2. Calculate 5 features for each course:
-           - Coverage: Overall skill coverage ratio
-           - Required Entropy: Diversity of required skills
-           - Provided Entropy: Diversity of provided skills
-           - Avg Level Gap: Average difference between required and provided levels
-           - Max Level Gap: Maximum difference between required and provided levels
-        3. Scale features to have zero mean and unit variance
-        4. Find optimal number of clusters if auto_clusters is enabled
-        5. Perform K-means clustering on all courses
-        6. Visualize Results using PCA and feature pairs
         
         Args:
             courses: Array of courses, each containing required and provided skills
+            courses_index: Optional index→course_id map from Dataset
+            write_plots: When False, skip visualization (loaded-from-artifact path)
         """
         print("\nStarting course clustering...")
-        
-        # Extract required and provided skills from courses
-        # courses[:, 0] contains required skills for all courses
-        # courses[:, 1] contains provided skills for all courses
-        required_skills = courses[:, 0]  # Shape: (n_courses, n_skills)
-        provided_skills = courses[:, 1]  # Shape: (n_courses, n_skills)
-        
-        n_skills = required_skills.shape[1]  # Total number of skills
-        max_level = 3  # Maximum skill level in the system
-        
-        # 1. Coverage features: Calculate how much of the total possible skill levels are covered
-        # For each course, calculate coverage as ratio of actual levels to maximum possible levels
-        required_coverage = np.sum(required_skills, axis=1) / (n_skills * max_level)  # Shape: (n_courses,)
-        provided_coverage = np.sum(provided_skills, axis=1) / (n_skills * max_level)  # Shape: (n_courses,)
-        coverage = (required_coverage + provided_coverage) / 2  # Average coverage
-        
-        # 2. Entropy features: Measure the diversity of skill levels
-        # Higher entropy means more diverse/balanced distribution of skill levels
-        # For required skills
-        required_distribution = required_skills / (np.sum(required_skills, axis=1, keepdims=True) + 1e-10)
-        required_entropy = -np.sum(required_distribution * np.log2(required_distribution + 1e-10), axis=1)
-        
-        # For provided skills
-        provided_distribution = provided_skills / (np.sum(provided_skills, axis=1, keepdims=True) + 1e-10)
-        provided_entropy = -np.sum(provided_distribution * np.log2(provided_distribution + 1e-10), axis=1)
-        
-        # 3. Level gap features: Measure the difference between required and provided skill levels
-        # For each skill in each course, calculate absolute difference between required and provided levels
-        level_gap = np.abs(provided_skills - required_skills)  # Shape: (n_courses, n_skills)
-        avg_level_gap = np.mean(level_gap, axis=1)  # Average gap across all skills for each course
-        max_level_gap = np.max(level_gap, axis=1)  # Maximum gap across all skills for each course
-        
-        # Combine all features into a single matrix
-        # Each row represents a course, each column represents a feature
-        self.features = np.column_stack([
-            coverage,                    # 1D: Overall coverage of skills
-            required_entropy,           # 2D: Diversity of required skills
-            provided_entropy,           # 3D: Diversity of provided skills
-            avg_level_gap,             # 4D: Average gap between required and provided levels
-            max_level_gap              # 5D: Maximum gap between required and provided levels
-        ])  # Shape: (n_courses, 5)
-        
-        # Scale features to have zero mean and unit variance
-        # This is important for K-means clustering
+        self.features = self._build_features(courses)
         features_scaled = self.scaler.fit_transform(self.features)
-        
-        # Find optimal number of clusters if auto_clusters is enabled
+
+        chosen_k, self.selection_report = self.select_n_clusters(features_scaled)
         if self.auto_clusters:
-            self.optimal_k = self.find_optimal_clusters(features_scaled)
-            self.n_clusters = self.optimal_k
-        
-        # Perform K-means clustering on all courses
-        # This will assign each course to one of the clusters
+            self.optimal_k = chosen_k
+        self.n_clusters = chosen_k
+
         kmeans = KMeans(
             n_clusters=self.n_clusters,
             random_state=self.random_state,
-            n_init=10  # Run 10 times with different initializations and pick the best
+            n_init=10,
         )
-        self.course_clusters = kmeans.fit_predict(features_scaled)  # Shape: (n_courses,)
-        
-        # Store cluster centers and inertia for later use
-        self.cluster_centers_ = kmeans.cluster_centers_  # Shape: (n_clusters, 5)
-        self.inertia_ = kmeans.inertia_  # Sum of squared distances to closest centroid
-        
-        # Print cluster information
+        self.course_clusters = kmeans.fit_predict(features_scaled)
+        self.cluster_centers_ = kmeans.cluster_centers_
+        self.inertia_ = kmeans.inertia_
+        self.quality_metrics = self._compute_quality_metrics(features_scaled)
+
         print("\nCluster Information:")
         for i in range(self.n_clusters):
             n_formations = np.sum(self.course_clusters == i)
             print(f"Cluster {i}: {n_formations} formations")
-        
-        # Visualize clusters using PCA
-        self.visualize_clusters(features_scaled)
-        
-        # Visualize feature relationships
-        self.visualize_feature_pairs(features_scaled)
+
+        if write_plots:
+            self.visualize_clusters(features_scaled)
+            self.visualize_feature_pairs(features_scaled)
+
+        self.write_reports()
         
     def visualize_clusters(self, features_scaled):
         """Visualize the clusters using PCA for dimensionality reduction.
@@ -487,64 +696,33 @@ class CourseClusterer:
                 print(f"{feature}: {component[j]:.3f}")
         
     def adjust_reward(self, course_idx, original_reward, prev_reward):
-        """Adjust reward based on cluster membership and reward change.
-        
-        This method implements the reward adjustment rules based on whether the
-        course is in the same cluster as the previous course and whether the
-        reward has increased or decreased compared to the best adjusted reward so far.
-        
-        For first recommendation in any sequence (k=1,2,3), apply diff_cluster_increase multiplier
-        to encourage exploration.
-        
-        For subsequent recommendations (k>1), the reward is adjusted based on:
-        - Whether the course is in the same cluster as the previous course
-        - Whether the reward has increased or decreased compared to the best adjusted reward
-        
-        Reward adjustment rules:
-        1. First recommendation: x{diff_cluster_increase}
-        2. Better than best reward & same cluster: x{same_cluster_increase}
-        3. Better than best reward & different cluster: x{diff_cluster_increase}
-        4. Not better than best reward: x1.0 (neutral multiplier)
-        
+        """CLIRS persistent adjusted reference reward shaping.
+
+        Compares each course base reward (R_base) against R'_adjusted,ref stored in
+        ``best_reward_so_far``. The reference only advances when a bonus is applied.
+
         Args:
-            course_idx (int): Index of the current course
-            original_reward (float): Original reward value from the environment
-            prev_reward (float): Best adjusted reward value from previous steps
-            
+            course_idx (int): Index of the current course (unused; kept for API stability)
+            original_reward (float): Base reward (applicable jobs) from the environment
+            prev_reward (float): Adjusted reward from the previous step in the sequence
+
         Returns:
-            float: Adjusted reward value based on clustering rules
+            float: Shaped reward passed to the RL agent
         """
         if self.course_clusters is None:
             return original_reward
-            
-        # Get current course's cluster
-        current_cluster = self.course_clusters[course_idx]
-        
-        # For first recommendation in any sequence (k=1,2,3)
-        # Check if this is the first recommendation (prev_reward is None or 0)
-        if prev_reward is None or prev_reward == 0:
-            # Store current cluster for next comparison
-            self.prev_cluster = current_cluster
-            # Apply diff_cluster_increase multiplier for first recommendation
-            adjusted_reward = original_reward * self.reward_multipliers['diff_cluster_increase']
-            self.best_reward_so_far = adjusted_reward  # Update best reward
+
+        multipliers = self.reward_multipliers
+        first_step = prev_reward is None or prev_reward == 0
+
+        if first_step:
+            adjusted_reward = original_reward * multipliers["first_recommendation"]
+            self.best_reward_so_far = adjusted_reward
             return adjusted_reward
-            
-        # For subsequent recommendations in sequence (k>1)
-        # Calculate reward change compared to the best adjusted reward so far
-        reward_change = original_reward - self.best_reward_so_far
-        
-        # Store current cluster for next comparison
-        self.prev_cluster = current_cluster
-        
-        # Apply reward adjustment rules using multipliers from Config
-        if reward_change > 0:  # Better than best adjusted reward so far
-            if current_cluster == self.prev_cluster:  # Same cluster
-                adjusted_reward = original_reward * self.reward_multipliers['same_cluster_increase']  # 1.1
-            else:  # Different cluster
-                adjusted_reward = original_reward * self.reward_multipliers['diff_cluster_increase']  # 1.3
-            self.best_reward_so_far = adjusted_reward  # Update best reward
+
+        if original_reward > self.best_reward_so_far:
+            adjusted_reward = original_reward * multipliers["progress_increase"]
+            self.best_reward_so_far = adjusted_reward
             return adjusted_reward
-        else:  # Not better than best adjusted reward so far
-            # Keep the current reward with neutral multiplier
-            return original_reward * 1.0 
+
+        return original_reward * multipliers["no_improvement"] 

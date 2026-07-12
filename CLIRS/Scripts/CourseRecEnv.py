@@ -49,7 +49,7 @@ class CourseRecEnv(gym.Env):
             (True only when is_training=True and config use_clustering=True)
     """
     
-    def __init__(self, dataset, threshold=0.5, k=1, is_training=False):
+    def __init__(self, dataset, threshold=0.5, k=1, is_training=False, clusterer=None):
         """Initialize the course recommendation environment.
         
         Args:
@@ -95,18 +95,27 @@ class CourseRecEnv(gym.Env):
         # Clustering reward shaping applies only while SB3 runs on train_env (is_training=True).
         if self.is_training and use_clustering_cfg:
             self.use_clustering = True
-            print("  Clustering: fitting course clusters (once per trial)...")
-            self.clusterer = CourseClusterer(
-                n_clusters=dataset.config.get("n_clusters", 5),
-                random_state=dataset.config.get("seed", 42),
-                auto_clusters=dataset.config.get("auto_clusters", False),
-                max_clusters=dataset.config.get("max_clusters", 10),
-                config=dataset.config.get("clustering", {}),
-                clustering_dir=dataset.config.get("clustering_plots_dir"),
-            )
-            # Fit clusters in training environment
-            if self.clusterer.course_clusters is None:
-                self.clusterer.fit_course_clusters(dataset.courses)
+            if clusterer is not None:
+                print("  Clustering: using frozen labels (once per experiment cell)")
+                self.clusterer = clusterer
+            else:
+                print("  Clustering: fitting course clusters...")
+                self.clusterer = CourseClusterer(
+                    random_state=dataset.config.get("seed", 42),
+                    auto_clusters=dataset.config.get("auto_clusters", False),
+                    max_clusters=dataset.config.get("max_clusters", 10),
+                    config=dataset.config.get("clustering", {}),
+                    clustering_dir=dataset.config.get("clustering_plots_dir"),
+                    reports_dir=dataset.config.get("clustering_reports_dir"),
+                    selection_method=dataset.config.get("cluster_selection", "silhouette"),
+                    min_cluster_size=dataset.config.get("min_cluster_size", 5),
+                    max_level=dataset.config.get("max_level", 3),
+                )
+                if self.clusterer.course_clusters is None:
+                    self.clusterer.fit_course_clusters(
+                        dataset.courses,
+                        courses_index=getattr(dataset, "courses_index", None),
+                    )
 
         if self.is_training:
             if self.use_clustering:
@@ -212,7 +221,7 @@ class CourseRecEnv(gym.Env):
         # Reset clustering-related attributes
         self.prev_reward = None
         if self.use_clustering and self.clusterer is not None:
-            self.clusterer.prev_cluster = None
+            self.clusterer.best_reward_so_far = 0.0
             
         observation = self._get_obs()
         info = self._get_info()

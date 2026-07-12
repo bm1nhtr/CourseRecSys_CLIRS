@@ -25,7 +25,8 @@ class Reinforce:
     """Reinforcement Learning-based Course Recommendation System."""
 
     def __init__(
-        self, dataset, model, k, threshold, run, total_steps=1000, eval_freq=100
+        self, dataset, model, k, threshold, run, total_steps=1000, eval_freq=100,
+        clusterer=None,
     ):
         self.dataset = dataset
         self.model_name = model
@@ -38,7 +39,11 @@ class Reinforce:
         self.save_raw = bool(self.config.get("save_raw", True))
 
         self.train_env = CourseRecEnv(
-            dataset, threshold=self.threshold, k=self.k, is_training=True
+            dataset,
+            threshold=self.threshold,
+            k=self.k,
+            is_training=True,
+            clusterer=clusterer,
         )
         self.eval_env = CourseRecEnv(
             dataset, threshold=self.threshold, k=self.k, is_training=False

@@ -9,10 +9,7 @@ This document provides detailed information for developers working on the course
 1. **RL Environment** (`CLIRS/Scripts/CourseRecEnv.py`):
    - Implements Gymnasium environment for course recommendations
    - Handles state representation with mastery levels (0-3)
-   - Supports clustering-based reward adjustment:
-     - Same cluster & reward increase: x1.1
-     - Different cluster & reward increase: x1.3
-   
+   - Supports CLIRS clustering-based reward adjustment (persistent adjusted reference)
 
 2. **Data Management** (`CLIRS/Scripts/Dataset.py`):
    - Handles data loading and preprocessing
@@ -48,32 +45,33 @@ The system extracts 5 key features for each course:
 5. **Maximum Level Gap**: Maximum difference between required and provided skill levels
 
 ### Reward Adjustment Rules
-The clustering mechanism modifies rewards based on cluster transitions and tracks the best adjusted reward so far:
+CLIRS shapes rewards in **train_env only** using a persistent adjusted reference
+(`R'_adjusted,ref`, tracked as `best_reward_so_far` in `clustering.py`):
 
-1. **First Recommendation**: Applies diff_cluster_increase multiplier (x1.3) to encourage exploration
-2. **Same Cluster & Reward Increase**: Moderate encouragement (x1.1) when current reward > best reward so far
-3. **Different Cluster & Reward Increase**: Strong encouragement (x1.3) when current reward > best reward so far
-4. **Reward Decrease**: Neutral multiplier (x1.0) when current reward ≤ best reward so far
+1. **First recommendation (C₁)**: Always apply `first_recommendation` multiplier (default ×1.3); sets initial ref
+2. **Progress (C₂…Cₖ)**: If `R_base > R'_adjusted,ref`, apply `progress_increase` (default ×1.3) and update ref
+3. **No improvement**: If `R_base ≤ R'_adjusted,ref`, apply `no_improvement` (×1.0); ref unchanged
 
-**Best Reward So Far Mechanism**:
-- The system tracks the best adjusted reward achieved in the current recommendation sequence
-- Only applies positive multipliers when the current reward exceeds the best reward so far
-- This ensures that only genuinely improving actions receive encouragement
-- The best reward is updated whenever a better reward is achieved
+**Persistent reference mechanism**:
+- Compare each step's **base** reward (applicable jobs) against the last **bonused adjusted** value
+- Skipped steps do not reset the benchmark (avoids reward reset drift)
+- Eval / test always use raw reward (no shaping)
+
+Config keys (`Config/run.json` → `clustering.reward_multipliers`):
+`first_recommendation`, `progress_increase`, `no_improvement`
 
 ### Clustering Process
-1. **Feature Extraction**:
+1. **Feature Extraction** (once per experiment cell):
    - Calculate skill coverage for each course
-   - Compute entropy for required and provided skills
+   - Compute entropy for required and provided skills (active skills only for level gaps)
    - Analyze level gaps between required and provided skills
-2. **Clustering**:
+2. **Clustering** (fit once, frozen in ``course_clusters.json``):
    - Normalize features using StandardScaler
-   - Apply K-means clustering
-   - Optionally use elbow method to determine optimal k
+   - Select k via ``selection`` (`silhouette` or `elbow`, k ≥ 2) when ``auto_clusters`` is true
+   - Apply K-means; write ``reports/cluster_selection.json`` and ``reports/cluster_quality.json``
 3. **Reward Adjustment**:
-   - Track cluster transitions during training
-   - Apply reward multipliers based on transition rules
-   - Store cluster information for analysis
+   - Apply CLIRS persistent-reference multipliers during training (``train_env`` only)
+   - Cluster labels are frozen for all T trials in the cell
 
 ## Configuration Guide
 
@@ -96,9 +94,15 @@ use_clustering: true  # Enable clustering
 ### Clustering Configuration
 ```yaml
 use_clustering: true
-n_clusters: 4
 auto_clusters: true
 max_clusters: 10
+selection: silhouette
+min_cluster_size: 5
+# run.json → clustering.reward_multipliers
+clustering:
+  first_recommendation: 1.3
+  progress_increase: 1.3
+  no_improvement: 1.0
 ```
 
 ## Results Management
@@ -116,8 +120,9 @@ Results/
                 └── k_{k}/              # one Complete Algorithm cell per k (2..6)
                 ├── manifest.json
                 ├── split_indices.json
+                ├── course_clusters.json  # frozen course labels (when use_clustering)
                 ├── sweeps/             # {method}_data{seed}.csv — one row per trial
-                ├── reports/            # statistical compare output (future)
+                ├── reports/            # cluster_selection.json, cluster_quality.json, sweep summary
                 ├── plots/
                 │   └── clustering/
                 └── raw/                # when save_raw: true
