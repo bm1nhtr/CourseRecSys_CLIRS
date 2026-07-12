@@ -2,13 +2,18 @@
   "_meta": {
     "schema_version": 1,
     "description": "Primary experiment configuration for CLIRS. Edit this file; see run.yaml for a flat readable reference.",
-    "status": "active — pipeline.py loads this file by default",
+    "status": "active — pipelines/run_pipeline.py loads this file by default",
     "metrics_note": "Metric definitions (life, end, …) live in Utils/complete_algorithm.py and are copied into Results/.../manifest.json on first trial — not duplicated here."
   },
 
   "experiment": {
     "results_lineage": "CLIRS",
     "nb_runs": 2
+  },
+
+  "orchestration": {
+    "_note": "pipelines/run_pipeline.py runs these in order.",
+    "pipelines": ["clirs", "jcrec"]
   },
 
   "seeds": {

@@ -25,7 +25,7 @@ This document provides detailed information for developers working on the course
    - Handles hyperparameter tuning
    - Supports clustering-based reward adjustment
 
-4. **Pipeline** (`CLIRS/Scripts/pipeline.py`):
+4. **Pipeline** (`pipelines/run_clirs_pipeline.py`, `pipelines/run_jcrec_pipeline.py`, `pipelines/run_pipeline.py`):
    - Orchestrates the training process
    - Manages configuration and logging
    - Handles results storage and visualization

@@ -14,7 +14,9 @@ Reinforcement learning system that recommends courses to learners using **CLuste
 ```
 CLIRS-Recsys/
 ├── CLIRS/
-│   └── Scripts/              # pipeline, env, RL, dataset, clustering
+│   └── Scripts/              # env, RL, dataset, clustering (no pipeline — see pipelines/)
+├── jcrec/                    # author baselines (Greedy, Optimal, Reinforce)
+├── pipelines/                # run_pipeline.py, run_clirs_pipeline.py, run_jcrec_pipeline.py
 ├── Config/
 │   ├── run.json              # primary config (pipeline reads this)
 │   └── run.yaml              # flat reference / documentation
@@ -43,7 +45,14 @@ Use `poetry shell` or prefix commands with `poetry run`.
 ### 2. Run training
 
 ```bash
-poetry run python CLIRS/Scripts/pipeline.py --Config Config/run.json
+poetry run python pipelines/run_pipeline.py --Config Config/run.json
+```
+
+Or a single backend:
+
+```bash
+poetry run python pipelines/run_clirs_pipeline.py --Config Config/run.json
+poetry run python pipelines/run_jcrec_pipeline.py --Config Config/run.json
 ```
 
 ### 3. Plot learning curves (optional)

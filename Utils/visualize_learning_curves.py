@@ -281,7 +281,7 @@ def main():
     if not os.path.isdir(dirs["root"]):
         print(f"Error: experiment directory not found: {dirs['root']}")
         print("Run the training pipeline first:")
-        print("  poetry run python CLIRS/Scripts/pipeline.py --Config Config/run.json")
+        print("  poetry run python pipelines/run_pipeline.py --Config Config/run.json")
         sys.exit(1)
 
     while True:
