@@ -177,6 +177,17 @@ def summarize_sweep_csv(
     }
 
 
+BOOTSTRAP_EXPORT_COLUMNS = (
+    "method",
+    "metric",
+    "statistic",
+    "value",
+    "ci_low",
+    "ci_high",
+    "n_trials",
+)
+
+
 def bootstrap_aggregate_table(
     dataset_d: pd.DataFrame,
     metric: str,
@@ -187,31 +198,17 @@ def bootstrap_aggregate_table(
     seed: int = 42,
 ) -> pd.DataFrame:
     """
-    Multi-method bootstrap aggregate (``agg_bs.csv``-style).
+    Multi-method bootstrap summary for one metric and statistic (mean or median).
 
-    ``stat`` is ``mean`` or ``median``. Includes bootstrap rank CI when ≥2 methods.
+    Columns: method, metric, statistic, value, ci_low, ci_high, n_trials.
     """
     if dataset_d.empty or metric not in dataset_d.columns:
-        return pd.DataFrame(
-            columns=[
-                "aname",
-                "score",
-                "score_low",
-                "score_high",
-                "rank",
-                "rank_low",
-                "rank_high",
-                "stat",
-                "metric",
-                "n_trials",
-            ]
-        )
+        return pd.DataFrame(columns=list(BOOTSTRAP_EXPORT_COLUMNS))
 
     stat_fn = np.mean if stat == "mean" else np.median
     rng = np.random.default_rng(seed)
     methods = sorted(dataset_d["method"].dropna().unique())
-    method_values: dict[str, np.ndarray] = {}
-    point_scores: dict[str, float] = {}
+    rows: list[dict[str, Any]] = []
 
     for method in methods:
         series = pd.to_numeric(
@@ -219,77 +216,41 @@ def bootstrap_aggregate_table(
             errors="coerce",
         ).dropna()
         arr = series.to_numpy(dtype=float)
-        method_values[method] = arr
-        point_scores[method] = float(stat_fn(arr)) if arr.size else float("nan")
-
-    n_methods = len(methods)
-    boot_scores = {m: np.empty(n_boot, dtype=float) for m in methods}
-    boot_ranks = {m: np.empty(n_boot, dtype=float) for m in methods}
-
-    for b in range(n_boot):
-        replicate: dict[str, float] = {}
-        for method, arr in method_values.items():
-            if arr.size == 0:
-                replicate[method] = float("nan")
-                boot_scores[method][b] = float("nan")
-                continue
-            sample = rng.choice(arr, size=arr.size, replace=True)
-            val = float(stat_fn(sample))
-            replicate[method] = val
-            boot_scores[method][b] = val
-
-        valid = {m: v for m, v in replicate.items() if not np.isnan(v)}
-        if not valid:
-            for method in methods:
-                boot_ranks[method][b] = float("nan")
-            continue
-        ordered = sorted(valid.keys(), key=lambda m: valid[m], reverse=True)
-        for rank_idx, method in enumerate(ordered, start=1):
-            boot_ranks[method][b] = float(rank_idx)
-        for method in methods:
-            if method not in valid:
-                boot_ranks[method][b] = float(n_methods)
-
-    rows: list[dict[str, Any]] = []
-    for method in methods:
-        scores = boot_scores[method]
-        ranks = boot_ranks[method]
-        valid_scores = scores[~np.isnan(scores)]
-        valid_ranks = ranks[~np.isnan(ranks)]
-        if valid_scores.size == 0:
+        n_trials = int(arr.size)
+        if n_trials == 0:
             rows.append(
                 {
-                    "aname": method,
-                    "score": None,
-                    "score_low": None,
-                    "score_high": None,
-                    "rank": None,
-                    "rank_low": None,
-                    "rank_high": None,
-                    "stat": stat,
+                    "method": method,
                     "metric": metric,
-                    "n_trials": int(method_values[method].size),
+                    "statistic": stat,
+                    "value": None,
+                    "ci_low": None,
+                    "ci_high": None,
+                    "n_trials": 0,
                 }
             )
             continue
+
+        boots = np.empty(n_boot, dtype=float)
+        for i in range(n_boot):
+            sample = rng.choice(arr, size=n_trials, replace=True)
+            boots[i] = stat_fn(sample)
+
         rows.append(
             {
-                "aname": method,
-                "score": point_scores[method],
-                "score_low": float(np.percentile(valid_scores, 100 * alpha / 2)),
-                "score_high": float(np.percentile(valid_scores, 100 * (1 - alpha / 2))),
-                "rank": float(np.mean(valid_ranks)),
-                "rank_low": float(np.percentile(valid_ranks, 100 * alpha / 2)),
-                "rank_high": float(np.percentile(valid_ranks, 100 * (1 - alpha / 2))),
-                "stat": stat,
+                "method": method,
                 "metric": metric,
-                "n_trials": int(method_values[method].size),
+                "statistic": stat,
+                "value": float(stat_fn(arr)),
+                "ci_low": float(np.percentile(boots, 100 * alpha / 2)),
+                "ci_high": float(np.percentile(boots, 100 * (1 - alpha / 2))),
+                "n_trials": n_trials,
             }
         )
 
     out = pd.DataFrame(rows)
-    if not out.empty and out["score"].notna().any():
-        out = out.sort_values("score", ascending=False, na_position="last").reset_index(
+    if not out.empty and out["value"].notna().any():
+        out = out.sort_values("value", ascending=False, na_position="last").reset_index(
             drop=True
         )
     return out
@@ -310,7 +271,7 @@ def write_bootstrap_aggregates(
     experiment_root: str,
     metrics: tuple[str, ...] = DEFAULT_METRICS,
 ) -> dict[str, str]:
-    """Write ``agg_bs_{metric}_{stat}.csv`` under ``reports/``."""
+    """Write ``bootstrap_{metric}_{stat}.csv`` under ``reports/``."""
     reports_dir = os.path.join(experiment_root, "reports")
     os.makedirs(reports_dir, exist_ok=True)
     written: dict[str, str] = {}
@@ -321,11 +282,8 @@ def write_bootstrap_aggregates(
             table = bootstrap_aggregate_table(dataset_d, metric, stat=stat)
             if table.empty:
                 continue
-            out_path = os.path.join(reports_dir, f"agg_bs_{metric}_{stat}.csv")
-            export = table[
-                ["aname", "score", "score_low", "score_high", "rank", "rank_low", "rank_high"]
-            ]
-            export.to_csv(out_path, index=False)
+            out_path = os.path.join(reports_dir, f"bootstrap_{metric}_{stat}.csv")
+            table[list(BOOTSTRAP_EXPORT_COLUMNS)].to_csv(out_path, index=False)
             written[f"{metric}_{stat}"] = out_path
     return written
 
@@ -373,7 +331,7 @@ def print_dataset_d_summary(d_summary: Mapping[str, Any], agg_paths: Mapping[str
     print("\n--- Performance dataset D ---")
     print(f"Methods: {d_summary.get('n_methods', 0)} — {d_summary.get('methods', [])}")
     for path in agg_paths.values():
-        print(f"Bootstrap aggregate: {path}")
+        print(f"Bootstrap summary: {path}")
 
 
 def run_sweep_eval(
@@ -387,7 +345,7 @@ def run_sweep_eval(
     Writes:
     - ``reports/{method}_sweep_summary.json``
     - ``reports/performance_dataset_d.csv`` (all methods in cell)
-    - ``reports/agg_bs_{end|life}_{mean|median}.csv``
+    - ``reports/bootstrap_{end|life}_{mean|median}.csv``
     - ``reports/performance_analysis.json`` (combined index)
     """
     csv_path = sweep_csv_path(config)
