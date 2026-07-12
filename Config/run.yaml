@@ -22,7 +22,7 @@ results_lineage: CLIRS                                               # FIX - do 
 nb_runs: 30                                                          # FIX - do not change
 
 # --- orchestration (run.json → orchestration) — pipelines/run_pipeline.py only ---
-pipelines: [clirs, jcrec]                                            # FIX - do not change
+pipelines: ["clirs", "jcrec_fair", "jcrec"]                          # FIX - do not change
 
 # --- seeds (run.json → seeds) ---
 seed_data: 42                                                        # FIX - do not change
@@ -38,7 +38,7 @@ level_3: true                                                        # FIX - do 
 max_cv_skills: 15                                                    # FIX - do not change
 nb_cvs: -1      # -1 = use all learners after filtering              # FIX - do not change
 nb_jobs: 100                                                         # FIX - do not change
-nb_courses: 100                                                      # 100 and 500
+nb_courses: 100                                                      # FIX - do not change
 
 # --- split (run.json → split) ---
 train_ratio: 0.7                                                     # FIX - do not change

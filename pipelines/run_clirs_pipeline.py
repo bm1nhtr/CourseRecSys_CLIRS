@@ -38,6 +38,7 @@ from Utils.trial_sweep import (
     trials_to_run,
     validate_trial_config,
 )
+from JCRecFair.split_sync import publish_clirs_split_artifact, require_clirs_split_file
 
 
 def _manifest_exists(experiment_root: str) -> bool:
@@ -224,9 +225,17 @@ def main() -> None:
 
         if not trial_ids:
             print("No trials scheduled — sweep already complete for this range.")
+            try:
+                require_clirs_split_file(config)
+            except SystemExit as exc:
+                run_log.warn(str(exc))
+                print(f"[ERROR] {exc}")
+                sys.exit(1)
         else:
             try:
                 dataset = Dataset(config)
+                split_path = publish_clirs_split_artifact(config, dataset)
+                print(f"CLIRS split published: {split_path}")
                 print(dataset)
             except Exception as exc:
                 run_log.record_exception(exc, phase="dataset_load")

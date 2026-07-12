@@ -30,7 +30,12 @@ from load_config import load_config
 from pipelines.sweep_eval import run_sweep_eval
 from Utils.complete_algorithm import CompleteAlgorithmStage, ManifestValidationError
 from Utils.experiment_log import ExperimentRunLog
-from JCRecFair import ClirsSplitNotFoundError, JcrecFairReinforce, ensure_clirs_split
+from JCRecFair import (
+    ClirsSplitNotFoundError,
+    JcrecFairReinforce,
+    ensure_clirs_split,
+    require_clirs_split_file,
+)
 from Utils.results_paths import ensure_experiment_dirs, trial_artifact_paths
 from Utils.trial_sweep import apply_rl_seed, rl_seed_for_trial, trial_plan_summary, trials_to_run, validate_trial_config
 
@@ -148,6 +153,13 @@ def main() -> None:
     try:
         validate_trial_config(config)
     except ValueError as exc:
+        print(f"[ERROR] {exc}")
+        sys.exit(1)
+
+    try:
+        split_path = require_clirs_split_file(config)
+        print(f"CLIRS split found: {split_path}")
+    except ClirsSplitNotFoundError as exc:
         print(f"[ERROR] {exc}")
         sys.exit(1)
 

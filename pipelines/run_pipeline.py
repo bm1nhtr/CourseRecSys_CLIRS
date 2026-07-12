@@ -26,6 +26,7 @@ _CLIRS_SCRIPTS = _REPO_ROOT / "CLIRS" / "Scripts"
 if str(_REPO_ROOT) not in sys.path:
     sys.path.insert(0, str(_REPO_ROOT))
 
+from JCRecFair.split_sync import ClirsSplitNotFoundError, require_clirs_split_file
 from Utils.experiment_log import append_orchestration_note
 from Utils.results_paths import experiment_log_path
 from pipelines.cross_lineage_eval import run_cross_lineage_compares
@@ -62,6 +63,19 @@ def _pipeline_run_log_path(config_path: str, pipeline_name: str) -> str:
     return experiment_log_path(config)
 
 
+def validate_orchestration_order(names: list[str]) -> None:
+    """jcrec_fair must run after clirs when both are in the same orchestration."""
+    if "jcrec_fair" not in names or "clirs" not in names:
+        return
+    if names.index("clirs") >= names.index("jcrec_fair"):
+        raise SystemExit(
+            "Invalid orchestration order: jcrec_fair must run after clirs "
+            "(CLIRS publishes split_indices.json for JCRecFair).\n"
+            f"  Got: {names}\n"
+            '  Expected clirs before jcrec_fair, e.g. ["clirs", "jcrec_fair", "jcrec"]'
+        )
+
+
 def load_orchestration_pipelines(config_path: str) -> list[str]:
     """Read ``orchestration.pipelines`` from run.json — only used by this script."""
     path = Path(config_path).resolve()
@@ -95,6 +109,17 @@ def run_pipelines(config_path: str, names: list[str]) -> list[str]:
             )
             raise
         cell_logs.append(_pipeline_run_log_path(config_path, name))
+
+        if name == "clirs" and "jcrec_fair" in names[names.index("clirs") + 1 :]:
+            config = _load_flat_config(config_path)
+            try:
+                split_path = require_clirs_split_file(config)
+                print(f"CLIRS split verified for jcrec_fair: {split_path}")
+            except ClirsSplitNotFoundError as exc:
+                raise SystemExit(
+                    f"CLIRS finished but split_indices.json is missing — "
+                    f"jcrec_fair cannot run.\n{exc}"
+                ) from exc
     return cell_logs
 
 
@@ -109,6 +134,12 @@ def main() -> None:
         names = load_orchestration_pipelines(args.Config)
     except Exception as exc:
         print(f"[ERROR] Failed to read orchestration from {args.Config}: {exc}")
+        sys.exit(1)
+
+    try:
+        validate_orchestration_order(names)
+    except SystemExit as exc:
+        print(f"[ERROR] {exc}")
         sys.exit(1)
 
     print(f"Orchestration: {names}")
