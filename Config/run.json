@@ -8,7 +8,7 @@
 
   "experiment": {
     "results_lineage": "CLIRS",
-    "nb_runs": 8
+    "nb_runs": 6
   },
 
   "orchestration": {
