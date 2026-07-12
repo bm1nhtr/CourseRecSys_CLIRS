@@ -19,11 +19,12 @@ SWEEP_CSV_COLUMNS = (
     "k",
     "threshold",
     "clustering_reward_shaping",
+    "evaluation_split",  # test (CLIRS hold-out) | all_learners (JCRec, no hold-out)
     "life",  # train-split proxy — see METRIC_DEFINITIONS["life"]
-    "end",  # test-split primary metric — see METRIC_DEFINITIONS["end"]
+    "end",  # primary report metric — see METRIC_DEFINITIONS["end"]
     "original_applicable_jobs",
-    "train_size",
-    "test_size",
+    "train_size",  # CLIRS: train split n; JCRec RL: n (full pool, same as test_size)
+    "test_size",  # CLIRS: held-out test n; JCRec: n (full pool final eval)
 )
 
 
@@ -42,12 +43,27 @@ def method_slug(config: Mapping[str, Any]) -> str:
 
 
 def rl_seed_for_trial(config: Mapping[str, Any], trial_id: int) -> int:
-    """Resolve RL seed for trial_id from config seeds.rl or base + trial_id."""
-    rl_seeds = config.get("rl_seeds")
-    if isinstance(rl_seeds, list) and trial_id < len(rl_seeds):
-        return int(rl_seeds[trial_id])
-    base = config.get("rl_seed_base", config.get("seed", 42))
-    return int(base) + int(trial_id)
+    """``rl_seed = rl_seed_base + trial_id`` (see manifest ``rl_seed_policy``)."""
+    base = int(config.get("rl_seed_base", config.get("seed", 42)))
+    return base + int(trial_id)
+
+
+def completed_trial_ids(config: Mapping[str, Any]) -> set[int]:
+    """Trial ids already present in the sweep CSV."""
+    path = sweep_csv_path(config)
+    if not os.path.isfile(path) or os.path.getsize(path) == 0:
+        return set()
+    completed: set[int] = set()
+    with open(path, newline="", encoding="utf-8") as f:
+        reader = csv.DictReader(f)
+        if not reader.fieldnames or "trial_id" not in reader.fieldnames:
+            return set()
+        for row in reader:
+            try:
+                completed.add(int(row["trial_id"]))
+            except (KeyError, TypeError, ValueError):
+                continue
+    return completed
 
 
 def courses_dir_slug(config: Mapping[str, Any]) -> str:
@@ -169,17 +185,33 @@ def trial_artifact_paths(config: Mapping[str, Any], trial_id: int) -> dict[str, 
     }
 
 
-def append_trial_csv_row(config: Mapping[str, Any], row: Mapping[str, Any]) -> str:
-    """Append one trial row to the sweep CSV; write header if new file."""
+def upsert_trial_csv_row(config: Mapping[str, Any], row: Mapping[str, Any]) -> str:
+    """Write one trial row, replacing any existing row with the same ``trial_id``."""
     path = sweep_csv_path(config)
     os.makedirs(os.path.dirname(path), exist_ok=True)
-    write_header = not os.path.exists(path) or os.path.getsize(path) == 0
-    with open(path, "a", newline="", encoding="utf-8") as f:
+    trial_id = int(row["trial_id"])
+    rows: dict[int, dict[str, Any]] = {}
+    if os.path.isfile(path) and os.path.getsize(path) > 0:
+        with open(path, newline="", encoding="utf-8") as f:
+            reader = csv.DictReader(f)
+            if reader.fieldnames:
+                for existing in reader:
+                    try:
+                        rows[int(existing["trial_id"])] = existing
+                    except (KeyError, TypeError, ValueError):
+                        continue
+    rows[trial_id] = {col: row.get(col) for col in SWEEP_CSV_COLUMNS}
+    with open(path, "w", newline="", encoding="utf-8") as f:
         writer = csv.DictWriter(f, fieldnames=SWEEP_CSV_COLUMNS, extrasaction="ignore")
-        if write_header:
-            writer.writeheader()
-        writer.writerow({col: row.get(col) for col in SWEEP_CSV_COLUMNS})
+        writer.writeheader()
+        for tid in sorted(rows):
+            writer.writerow(rows[tid])
     return path
+
+
+def append_trial_csv_row(config: Mapping[str, Any], row: Mapping[str, Any]) -> str:
+    """Upsert one trial row into the sweep CSV."""
+    return upsert_trial_csv_row(config, row)
 
 
 def read_training_life_proxy(training_path: str) -> float | None:

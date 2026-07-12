@@ -91,6 +91,8 @@ _FROZEN_FIELDS: tuple[tuple[str, str], ...] = (
     ("eval_freq", "eval_freq"),
     ("train_ratio", "train_ratio"),
     ("test_ratio", "test_ratio"),
+    ("nb_runs", "nb_runs"),
+    ("rl_seed_base", "rl_seed_base"),
 )
 
 # SB3 attributes to archive — only those present on the concrete algorithm class are kept.
@@ -186,6 +188,11 @@ class CompleteAlgorithmManifest:
             ),
             "train_ratio": config.get("train_ratio"),
             "test_ratio": config.get("test_ratio"),
+            "nb_runs": int(config.get("nb_runs", 1)),
+            "rl_seed_base": int(
+                config.get("rl_seed_base", config.get("seed", 42))
+            ),
+            "rl_seed_policy": "rl_seed_base + trial_id",
             # Metric contract: canonical names (life/end) + where they appear per artifact.
             # Source of truth: METRIC_DEFINITIONS in this module (not run.json).
             "metrics": {
@@ -239,6 +246,8 @@ class CompleteAlgorithmValidator:
                 actual = bool(actual)
             if config_key == "pipeline" and expected is None:
                 expected = "clirs"
+            if expected is None and manifest_key in ("nb_runs", "rl_seed_base"):
+                continue
             if not _values_equal(expected, actual):
                 errors.append(
                     f"{manifest_key}: manifest={expected!r} config={actual!r}"

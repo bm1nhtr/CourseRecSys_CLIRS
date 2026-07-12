@@ -21,8 +21,6 @@ from pathlib import Path
 from time import process_time
 from typing import Any, Mapping
 
-from stable_baselines3.common.utils import set_random_seed
-
 _REPO_ROOT = Path(__file__).resolve().parents[1]
 _JCREC_DIR = _REPO_ROOT / "jcrec"
 _CLIRS_SCRIPTS = _REPO_ROOT / "CLIRS" / "Scripts"
@@ -48,18 +46,29 @@ from Optimal import Optimal
 from Reinforce import Reinforce
 from Dataset import Dataset as JcrecDataset
 
+from pipelines.sweep_eval import run_sweep_eval
 from Utils.complete_algorithm import CompleteAlgorithmStage, ManifestValidationError
 from Utils.experiment_log import ExperimentRunLog
 from Utils.results_paths import (
-    append_trial_csv_row,
     ensure_experiment_dirs,
     method_slug,
     read_training_life_proxy,
     rl_seed_for_trial,
     trial_artifact_paths,
+    upsert_trial_csv_row,
+)
+from Utils.trial_sweep import (
+    apply_rl_seed,
+    trial_plan_summary,
+    trials_to_run,
+    validate_trial_config,
 )
 
 _HEURISTIC = {"greedy": Greedy, "optimal": Optimal}
+
+
+def _manifest_exists(experiment_root: str) -> bool:
+    return os.path.isfile(os.path.join(experiment_root, "manifest.json"))
 
 
 def _prepare_config(config: Mapping[str, Any]) -> dict[str, Any]:
@@ -86,7 +95,13 @@ def _trial_header(config: Mapping[str, Any], trial_id: int, n_learners: int) -> 
         "threshold": config.get("threshold"),
         "clustering_reward_shaping": False,
         "evaluation_split": "all_learners",
-        "learner_split": {"train_size": 0, "test_size": n_learners},
+        "training_episodes_from": "all_learners",
+        "learner_split": {
+            "holdout": False,
+            "n_learners": n_learners,
+            "train_size": n_learners,
+            "test_size": n_learners,
+        },
     }
 
 
@@ -114,7 +129,7 @@ def _write_trial_artifacts(
             raise
 
     try:
-        csv_path = append_trial_csv_row(
+        csv_path = upsert_trial_csv_row(
             config,
             {
                 "trial_id": trial_id,
@@ -127,10 +142,11 @@ def _write_trial_artifacts(
                 "k": config.get("k"),
                 "threshold": config.get("threshold"),
                 "clustering_reward_shaping": False,
+                "evaluation_split": "all_learners",
                 "life": life,
                 "end": end,
                 "original_applicable_jobs": original_applicable_jobs,
-                "train_size": 0,
+                "train_size": n_learners,
                 "test_size": n_learners,
             },
         )
@@ -160,7 +176,19 @@ def _write_trial_artifacts(
         )
 
 
-def _run_heuristic_trial(solver, dataset, config, trial_id: int, run_log=None) -> None:
+def _restore_learners(dataset, learners_snapshot) -> None:
+    dataset.learners = learners_snapshot.copy()
+
+
+def _run_heuristic_trial(
+    solver,
+    dataset,
+    config,
+    trial_id: int,
+    learners_snapshot,
+    run_log=None,
+) -> None:
+    _restore_learners(dataset, learners_snapshot)
     k = int(config["k"])
     threshold = float(config["threshold"])
     algorithm = config["model"]
@@ -249,8 +277,10 @@ def _run_rl_trial(
     trial_id: int,
     saved_results_path: str,
     training_path: str,
+    learners_snapshot,
     run_log=None,
 ):
+    _restore_learners(dataset, learners_snapshot)
     threshold = float(config["threshold"])
     n = len(dataset.learners)
 
@@ -297,6 +327,7 @@ def _run_rl_trial(
     except Exception:
         dataset.config["results_path"] = saved_results_path
         raise
+
     results["avg_recommendation_time"] = elapsed / n if n else 0.0
     results["new_attractiveness"] = dataset.get_avg_learner_attractiveness()
     end = dataset.get_avg_applicable_jobs(threshold)
@@ -317,9 +348,7 @@ def _run_rl_trial(
     )
 
 
-def _freeze(config, dirs, run, model, dataset, run_log=None):
-    if run != 0:
-        return
+def _freeze(config, dirs, trial_id, model, dataset, run_log=None):
     try:
         CompleteAlgorithmStage(config, dirs["root"]).ensure(model, dataset)
         print("Complete Algorithm manifest OK (frozen or validated).")
@@ -331,53 +360,69 @@ def _freeze(config, dirs, run, model, dataset, run_log=None):
         sys.exit(1)
     except Exception as exc:
         if run_log is not None:
-            run_log.record_exception(exc, trial_id=run, phase="manifest_freeze")
+            run_log.record_exception(exc, trial_id=trial_id, phase="manifest_freeze")
         raise
 
 
 def _run_jcrec_trial(
     config,
     dirs,
-    run: int,
+    trial_id: int,
+    dataset,
+    learners_snapshot,
     run_log: ExperimentRunLog,
+    *,
+    freeze_manifest: bool,
 ) -> None:
-    rl_seed = rl_seed_for_trial(config, run)
-    set_random_seed(rl_seed)
+    rl_seed = rl_seed_for_trial(config, trial_id)
+    apply_rl_seed(rl_seed)
     config["current_rl_seed"] = rl_seed
-    config["current_trial_id"] = run
-    print(f"\n--- Trial {run + 1}/{config['nb_runs']} (rl_seed={rl_seed}) ---")
-
-    try:
-        dataset = JcrecDataset(config)
-        print(dataset)
-    except Exception as exc:
-        run_log.record_exception(exc, trial_id=run, phase="dataset_load")
-        raise
+    config["current_trial_id"] = trial_id
+    print(
+        f"\n--- Trial {trial_id + 1}/{config['nb_runs']} "
+        f"(trial_id={trial_id}, rl_seed={rl_seed}) ---"
+    )
 
     algorithm = config["model"]
 
     if algorithm in _HEURISTIC:
-        if run == 0:
-            _freeze(config, dirs, run, None, dataset, run_log)
+        if freeze_manifest:
+            _freeze(config, dirs, trial_id, None, dataset, run_log)
         try:
             solver = _HEURISTIC[algorithm](dataset, config["threshold"])
         except Exception as exc:
-            run_log.record_exception(exc, trial_id=run, phase="heuristic_init")
+            run_log.record_exception(exc, trial_id=trial_id, phase="heuristic_init")
             raise
-        _run_heuristic_trial(solver, dataset, config, run, run_log)
+        _run_heuristic_trial(
+            solver, dataset, config, trial_id, learners_snapshot, run_log
+        )
         return
 
     recommender, saved_path, training_path = _init_rl_recommender(
-        dataset, config, run, run_log
+        dataset, config, trial_id, run_log
     )
-    if run == 0:
-        _freeze(config, dirs, run, recommender.model, dataset, run_log)
+    if freeze_manifest:
+        _freeze(config, dirs, trial_id, recommender.model, dataset, run_log)
     _run_rl_trial(
-        recommender, dataset, config, run, saved_path, training_path, run_log
+        recommender,
+        dataset,
+        config,
+        trial_id,
+        saved_path,
+        training_path,
+        learners_snapshot,
+        run_log,
     )
+
+
 def main() -> None:
     parser = argparse.ArgumentParser(description="Run JCRec with CLIRS Results layout.")
     parser.add_argument("--Config", default=r"Config/run.json")
+    parser.add_argument("--from-trial", type=int, default=0)
+    parser.add_argument("--to-trial", type=int, default=None)
+    parser.add_argument("--no-resume", action="store_true")
+    parser.add_argument("--force", action="store_true")
+    parser.add_argument("--skip-eval", action="store_true")
     args = parser.parse_args()
 
     try:
@@ -388,12 +433,27 @@ def main() -> None:
         traceback.print_exc()
         sys.exit(1)
 
+    resume = not (args.no_resume or args.force)
+
+    try:
+        validate_trial_config(config)
+    except ValueError as exc:
+        print(f"[ERROR] {exc}")
+        sys.exit(1)
+
     try:
         dirs = ensure_experiment_dirs(config)
     except Exception as exc:
         print(f"[ERROR] Failed to create experiment directories: {exc}")
         traceback.print_exc()
         sys.exit(1)
+
+    trial_ids = trials_to_run(
+        config,
+        from_trial=args.from_trial,
+        to_trial=args.to_trial,
+        resume=resume,
+    )
 
     with ExperimentRunLog(
         config,
@@ -402,11 +462,42 @@ def main() -> None:
         pipeline="jcrec",
         repo_root=str(_REPO_ROOT),
     ) as run_log:
-        print(f"Experiment cell: {dirs['root']}")
-        print(f"Trials: {config['nb_runs']} (JCRec model={config.get('model')})")
+        for warning in validate_trial_config(config):
+            run_log.warn(warning)
 
-        for run in range(config["nb_runs"]):
-            _run_jcrec_trial(config, dirs, run, run_log)
+        print(f"Experiment cell: {dirs['root']}")
+        print(f"JCRec model={config.get('model')}, nb_runs={config['nb_runs']}")
+        print(trial_plan_summary(config, trial_ids, resume=resume))
+
+        if not trial_ids:
+            print("No trials scheduled — sweep already complete for this range.")
+        else:
+            try:
+                dataset = JcrecDataset(config)
+                print(dataset)
+            except Exception as exc:
+                run_log.record_exception(exc, phase="dataset_load")
+                raise
+
+            learners_snapshot = dataset.learners.copy()
+            need_manifest = not _manifest_exists(dirs["root"])
+
+            for trial_id in trial_ids:
+                freeze = need_manifest
+                _run_jcrec_trial(
+                    config,
+                    dirs,
+                    trial_id,
+                    dataset,
+                    learners_snapshot,
+                    run_log,
+                    freeze_manifest=freeze,
+                )
+                if freeze:
+                    need_manifest = False
+
+        if not args.skip_eval:
+            run_sweep_eval(config, dirs["root"], run_log)
 
         print(f"\nDone. Results under: {dirs['root']}")
 

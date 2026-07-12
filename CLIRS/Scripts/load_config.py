@@ -56,8 +56,7 @@ def flatten_run_json(raw):
     config = {}
     config.update(experiment)
     config["seed"] = seeds.get("data", 42)
-    config["rl_seeds"] = seeds.get("rl", [])
-    config["rl_seed_base"] = seeds.get("rl_base", config["seed"])
+    config["rl_seed_base"] = seeds.get("rl_base", seeds.get("data", 42))
     config["results_lineage"] = experiment.get("results_lineage", "CLIRS")
     config.update(data)
     config.update(split)

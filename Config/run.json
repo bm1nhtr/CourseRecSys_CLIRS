@@ -8,7 +8,7 @@
 
   "experiment": {
     "results_lineage": "CLIRS",
-    "nb_runs": 2
+    "nb_runs": 8
   },
 
   "orchestration": {
@@ -18,8 +18,8 @@
 
   "seeds": {
     "data": 42,
-    "rl": [42],
-    "_note": "data seed: subsample + learner split + clustering. rl: one entry per trial (future multi-seed reporting)."
+    "rl_base": 42,
+    "_note": "data seed: subsample + split + clustering. rl_seed for trial t = rl_base + t."
   },
 
   "data": {
@@ -41,7 +41,7 @@
   },
 
   "model": {
-    "algorithm": "dqn",
+    "algorithm": "ppo",
     "total_steps": 5000,
     "eval_freq": 1000,
     "_note": "algorithm: shared by CLIRS + JCRec (dqn | ppo)"

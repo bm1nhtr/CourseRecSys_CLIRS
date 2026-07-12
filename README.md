@@ -82,6 +82,8 @@ Results/
 
 **Run log:** `run.log` is created only when a run has warnings or errors (compact report, not full console). No file means the run looked fine — send `run.log` to the maintainer only if it exists. `Results/orchestration.log` is written only when orchestration fails or a cell produced a `run.log`.
 
+**T trials:** `experiment.nb_runs` independent RL trials share one dataset/split (`data_seed`); trial `t` uses `rl_seed = seeds.rl_base + t`. Sweep CSV upserts by `trial_id`; resume skips completed trials. Column `evaluation_split`: CLIRS `test` (70/30 hold-out); JCRec `all_learners` (train + eval on full pool, `train_size` = `test_size` = n). End-of-run bootstrap summary → `reports/{method}_sweep_summary.json`.
+
 **Manage outputs:**
 
 ```bash

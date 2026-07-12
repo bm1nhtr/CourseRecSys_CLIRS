@@ -9,7 +9,7 @@ import sys
 from datetime import datetime, timezone
 from typing import Any, Mapping
 
-_RL_ALGORITHMS = frozenset({"dqn", "a2c", "ppo"})
+_RL_ALGORITHMS = frozenset({"dqn", "ppo"})
 
 
 def experiment_log_path(experiment_root: str) -> str:

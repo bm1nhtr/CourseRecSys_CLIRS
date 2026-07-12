@@ -55,6 +55,11 @@ class Reinforce:
             training_log_path=self.training_log_path,
             save_raw=self.save_raw,
         )
+        print(
+            f"\nStarting model.learn() on train_env. "
+            f"Every {self.eval_freq} steps: monitor train-split jobs via eval_env "
+            "(raw reward, no weight updates). Test split runs once after training.\n"
+        )
 
     def get_model(self):
         if self.model_name == "dqn":
@@ -185,6 +190,7 @@ class Reinforce:
                 "k": self.k,
                 "threshold": self.threshold,
                 "clustering_reward_shaping": self.train_env.use_clustering,
+                "evaluation_split": "test",
                 "life": life,
                 "end": avg_app_j_fin,
                 "original_applicable_jobs": avg_app_j_debut,

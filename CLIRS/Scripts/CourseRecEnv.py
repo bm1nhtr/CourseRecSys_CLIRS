@@ -63,8 +63,9 @@ class CourseRecEnv(gym.Env):
             if hasattr(dataset, "config")
             else False
         )
-        print(f"\nInitializing CourseRecEnv (is_training={is_training}):")
-        print(f"  use_clustering (config): {use_clustering_cfg}")
+        role = "TRAIN (SB3 learns here)" if is_training else "MONITOR (callback / held-out eval)"
+        print(f"\nInitializing CourseRecEnv — {role}:")
+        print(f"  use_clustering in config: {use_clustering_cfg}")
     
         
         self.dataset = dataset
@@ -94,6 +95,7 @@ class CourseRecEnv(gym.Env):
         # Clustering reward shaping applies only while SB3 runs on train_env (is_training=True).
         if self.is_training and use_clustering_cfg:
             self.use_clustering = True
+            print("  Clustering: fitting course clusters (once per trial)...")
             self.clusterer = CourseClusterer(
                 n_clusters=dataset.config.get("n_clusters", 5),
                 random_state=dataset.config.get("seed", 42),
@@ -106,10 +108,20 @@ class CourseRecEnv(gym.Env):
             if self.clusterer.course_clusters is None:
                 self.clusterer.fit_course_clusters(dataset.courses)
 
-        print(
-            f"  clustering_reward_shaping (active): {self.use_clustering}"
-            " — reward multiplier applied only in train_env episodes"
-        )
+        if self.is_training:
+            if self.use_clustering:
+                print(
+                    "  Reward shaping: ON — cluster multipliers apply during "
+                    "train_env episodes in model.learn()"
+                )
+            else:
+                print("  Reward shaping: OFF — raw applicable jobs as reward")
+        else:
+            print(
+                "  Reward shaping: OFF on this env — measures raw applicable jobs "
+                "(EvaluateCallback on train split; final metric on test split). "
+                "Training still uses train_env with shaping when config enables it."
+            )
         self.reset()
 
     def _get_obs(self):
@@ -336,9 +348,8 @@ class EvaluateCallback(BaseCallback):
             mean_jobs = avg_jobs / n_monitor if n_monitor else 0.0
 
             print(
-                f"Iteration {self.n_calls}. "
-                f"Training split avg jobs: {mean_jobs} "
-                f"(n={n_monitor}) "
+                f"Iteration {self.n_calls} — monitoring only (no weight updates). "
+                f"Train-split avg jobs: {mean_jobs} (n={n_monitor}) "
                 f"Time: {time_end - time_start}"
             )
 
