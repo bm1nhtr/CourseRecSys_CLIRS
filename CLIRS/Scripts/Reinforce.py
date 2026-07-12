@@ -142,8 +142,11 @@ class Reinforce:
         )
         results["original_applicable_jobs"] = avg_app_j_debut
 
+        # Train on train_env (optional clustering shaping). Callback logs train-split
+        # progress to *_training.txt — used later for metric ``life``.
         self.model.learn(total_timesteps=self.total_steps, callback=self.eval_callback)
 
+        # Final eval on held-out test learners only → metric ``end`` (primary).
         test_profiles, eval_elapsed = self.evaluate_learner_indices(test_indices)
 
         n_test = len(test_indices)
@@ -161,13 +164,14 @@ class Reinforce:
             test_profiles, self.threshold
         )
         print(f"Test split: new average applicable jobs = {avg_app_j_fin:.2f}")
-        results["new_applicable_jobs"] = avg_app_j_fin
+        life = read_training_life_proxy(self.training_log_path)
+        results["life"] = life
+        results["end"] = avg_app_j_fin
 
         if self.save_raw:
             with open(self.eval_json_path, "w", encoding="utf-8") as f:
                 json.dump(results, f, indent=4)
 
-        life = read_training_life_proxy(self.training_log_path)
         csv_path = append_trial_csv_row(
             self.config,
             {

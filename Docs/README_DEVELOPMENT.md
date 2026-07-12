@@ -114,6 +114,7 @@ Results/
         └── data_{data_seed}/
             └── courses_{nb_courses}/   # courses_all when nb_courses=-1
                 ├── manifest.json
+                ├── split_indices.json
                 ├── sweeps/             # {method}_data{seed}.csv — one row per trial
                 ├── reports/            # statistical compare output (future)
                 ├── plots/
@@ -145,6 +146,52 @@ python Utils/visualize_learning_curves.py --config Config/run.json
 ```
 
 Plots are written to `Results/.../plots/`. No manual `BRANCH_NAME` setting is required.
+
+## Complete Algorithm (frozen experiment cell)
+
+Each folder under `Results/.../courses_*/` is one **Complete Algorithm**: fixed method, budget, env, and data subsample. Implementation: `Utils/complete_algorithm.py`.
+
+| Artifact | Purpose |
+|----------|---------|
+| `manifest.json` | Written on **first** trial only. Records config, SB3 defaults, metric definitions. Never overwritten (A.2). |
+| `split_indices.json` | Train/test learner row indices for this `data_seed`. Validated on later runs. |
+
+If you change `total_steps`, `k`, `use_clustering`, algorithm, etc. and re-run the same cell path, the pipeline **exits with an error** instead of mixing trials. Use a new cell path or delete the old cell.
+
+## Evaluation metrics: `life` vs `end`
+
+Canonical definitions live in `Utils/complete_algorithm.METRIC_DEFINITIONS` (source of truth in code). On the first trial of an experiment cell, they are **copied** into `manifest.json` under `"metrics"` so `Results/` is readable without the repo.
+
+**Do not duplicate full metric text in `Config/run.json`** — run.json holds hyperparameters; manifest holds the frozen contract for that cell.
+
+### `end` — primary metric (report this)
+
+| | |
+|--|--|
+| **CSV column** | `end` |
+| **eval.json** | `end` (legacy name: `new_applicable_jobs`) |
+| **Population** | Held-out **test** learners (`test_indices`) |
+| **When** | Once per trial, **after** `model.learn()` |
+| **Meaning** | Mean applicable jobs after the policy recommends `k` courses. Raw jobs only (no clustering reward shaping). |
+
+Use `end` for CLIRS vs `baseline_*` comparisons and thesis tables.
+
+### `life` — training proxy (secondary)
+
+| | |
+|--|--|
+| **CSV column** | `life` |
+| **eval.json** | `life` |
+| **Source** | Last line of `raw/*_training.txt` (column 2) |
+| **Population** | **Train** learners (`train_indices`) |
+| **When** | Last `EvaluateCallback` checkpoint during training |
+| **Meaning** | In-training progress on the train split — optimistic vs `end`. |
+
+Do **not** treat `life` as the main conclusion metric. Use it for learning-curve-style analysis alongside `Utils/visualize_learning_curves.py`.
+
+### `original_applicable_jobs`
+
+Test-split mean applicable jobs **before** any recommendation (baseline per trial).
 
 
 ## Important Notes

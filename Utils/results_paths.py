@@ -19,8 +19,8 @@ SWEEP_CSV_COLUMNS = (
     "k",
     "threshold",
     "clustering_reward_shaping",
-    "life",
-    "end",
+    "life",  # train-split proxy — see METRIC_DEFINITIONS["life"]
+    "end",  # test-split primary metric — see METRIC_DEFINITIONS["end"]
     "original_applicable_jobs",
     "train_size",
     "test_size",
@@ -98,13 +98,25 @@ def ensure_experiment_dirs(
     config: Mapping[str, Any],
     *,
     save_raw: bool | None = None,
-    write_manifest: bool = True,
+    write_manifest: bool = False,
 ) -> dict[str, str]:
-    """Create experiment directory tree; optionally write manifest.json."""
+    """Create experiment directory tree.
+
+    Manifest writing is handled by ``CompleteAlgorithmStage`` after the SB3
+    model exists (see ``Utils.complete_algorithm``).
+    """
     dirs = experiment_dirs(config, save_raw=save_raw)
     for key, path in dirs.items():
         os.makedirs(path, exist_ok=True)
     if write_manifest:
+        import warnings
+
+        warnings.warn(
+            "ensure_experiment_dirs(write_manifest=True) is deprecated; "
+            "use CompleteAlgorithmStage.ensure() after model init.",
+            DeprecationWarning,
+            stacklevel=2,
+        )
         manifest_path = os.path.join(dirs["root"], "manifest.json")
         if not os.path.exists(manifest_path):
             manifest = {
@@ -158,7 +170,10 @@ def append_trial_csv_row(config: Mapping[str, Any], row: Mapping[str, Any]) -> s
 
 
 def read_training_life_proxy(training_path: str) -> float | None:
-    """Last mean-jobs value from a training log, if present."""
+    """Last train-split mean jobs from a training log (metric ``life``).
+
+    See ``Utils.complete_algorithm.METRIC_DEFINITIONS["life"]``.
+    """
     if not training_path or not os.path.isfile(training_path):
         return None
     last_line = None
