@@ -69,6 +69,7 @@ All training outputs go under `Results/` (gitignored). Path resolution is centra
 Results/
 ├── CLIRS/steps_{steps}/data_{seed}/courses_{nb}/k_{k}/   # run_clirs_pipeline
 └── JCRec/steps_{steps}/data_{seed}/courses_{nb}/k_{k}/   # run_jcrec_pipeline
+    ├── run.log                 # only if warnings/errors (omit = run OK)
     ├── manifest.json
     ├── split_indices.json
     ├── sweeps/{method}_data{seed}.csv
@@ -78,6 +79,8 @@ Results/
 **Naming:** CLIRS → `clirs_{algo}` / `baseline_{algo}`; JCRec → `jcrec_{algo}`. Both pipelines read `model.algorithm` in `Config/run.json` (e.g. `dqn`, `ppo`, `greedy`).
 
 **Complete Algorithm:** `Utils/complete_algorithm.py` writes `manifest.json` on the first trial of a cell (SB3 hyperparameters + metric definitions). Later runs validate config against that manifest and refuse to mix experiments in the same folder. See [`Docs/README_DEVELOPMENT.md`](Docs/README_DEVELOPMENT.md#evaluation-metrics-life-vs-end).
+
+**Run log:** `run.log` is created only when a run has warnings or errors (compact report, not full console). No file means the run looked fine — send `run.log` to the maintainer only if it exists. `Results/orchestration.log` is written only when orchestration fails or a cell produced a `run.log`.
 
 **Manage outputs:**
 

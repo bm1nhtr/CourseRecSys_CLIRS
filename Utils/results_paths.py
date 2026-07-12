@@ -85,6 +85,11 @@ def experiment_root(config: Mapping[str, Any]) -> str:
     )
 
 
+def experiment_log_path(config: Mapping[str, Any]) -> str:
+    """Per-experiment console log: ``{experiment_root}/run.log``."""
+    return os.path.join(experiment_root(config), "run.log")
+
+
 def experiment_dirs(config: Mapping[str, Any], save_raw: bool | None = None) -> dict[str, str]:
     """Return standard subdirectories under the experiment root."""
     root = experiment_root(config)

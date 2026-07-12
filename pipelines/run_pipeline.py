@@ -13,6 +13,7 @@ Config (``run.json``)::
 from __future__ import annotations
 
 import argparse
+import importlib.util
 import json
 import subprocess
 import sys
@@ -25,10 +26,34 @@ _CLIRS_SCRIPTS = _REPO_ROOT / "CLIRS" / "Scripts"
 if str(_REPO_ROOT) not in sys.path:
     sys.path.insert(0, str(_REPO_ROOT))
 
+from Utils.experiment_log import append_orchestration_note
+from Utils.results_paths import experiment_log_path
+
 _PIPELINE_SCRIPTS = {
     "clirs": _REPO_ROOT / "pipelines" / "run_clirs_pipeline.py",
     "jcrec": _REPO_ROOT / "pipelines" / "run_jcrec_pipeline.py",
 }
+
+
+def _load_flat_config(config_path: str) -> dict:
+    path = _CLIRS_SCRIPTS / "load_config.py"
+    spec = importlib.util.spec_from_file_location("clirs_load_config", path)
+    if spec is None or spec.loader is None:
+        raise ImportError(f"Cannot load load_config from {path}")
+    module = importlib.util.module_from_spec(spec)
+    spec.loader.exec_module(module)
+    return module.load_config(config_path)
+
+
+def _pipeline_run_log_path(config_path: str, pipeline_name: str) -> str:
+    config = _load_flat_config(config_path)
+    if pipeline_name == "clirs":
+        config["pipeline"] = "clirs"
+    elif pipeline_name == "jcrec":
+        config["pipeline"] = "jcrec"
+        config["results_lineage"] = config.get("jcrec_results_lineage", "JCRec")
+        config["use_clustering"] = False
+    return experiment_log_path(config)
 
 
 def load_orchestration_pipelines(config_path: str) -> list[str]:
@@ -43,18 +68,28 @@ def load_orchestration_pipelines(config_path: str) -> list[str]:
     return pipelines if pipelines else ["clirs"]
 
 
-def run_pipelines(config_path: str, names: list[str]) -> None:
+def run_pipelines(config_path: str, names: list[str]) -> list[str]:
+    cell_logs: list[str] = []
     for index, name in enumerate(names, start=1):
         script = _PIPELINE_SCRIPTS.get(name)
         if script is None:
             known = ", ".join(sorted(_PIPELINE_SCRIPTS))
             raise SystemExit(f"Unknown pipeline {name!r}. Known: {known}")
         print(f"\n========== Pipeline {index}/{len(names)}: {name} ==========")
-        subprocess.run(
-            [sys.executable, str(script), "--Config", config_path],
-            check=True,
-            cwd=str(_REPO_ROOT),
-        )
+        try:
+            subprocess.run(
+                [sys.executable, str(script), "--Config", config_path],
+                check=True,
+                cwd=str(_REPO_ROOT),
+            )
+        except subprocess.CalledProcessError as exc:
+            cell_logs.append(_pipeline_run_log_path(config_path, name))
+            print(
+                f"[ERROR] Pipeline {name!r} failed with exit code {exc.returncode}"
+            )
+            raise
+        cell_logs.append(_pipeline_run_log_path(config_path, name))
+    return cell_logs
 
 
 def main() -> None:
@@ -64,10 +99,34 @@ def main() -> None:
     parser.add_argument("--Config", default=r"Config/run.json")
     args = parser.parse_args()
 
-    names = load_orchestration_pipelines(args.Config)
+    try:
+        names = load_orchestration_pipelines(args.Config)
+    except Exception as exc:
+        print(f"[ERROR] Failed to read orchestration from {args.Config}: {exc}")
+        sys.exit(1)
+
     print(f"Orchestration: {names}")
-    run_pipelines(args.Config, names)
+    cell_logs: list[str] = []
+    try:
+        cell_logs = run_pipelines(args.Config, names)
+    except subprocess.CalledProcessError:
+        append_orchestration_note(
+            str(_REPO_ROOT / "Results"),
+            config_path=args.Config,
+            pipelines=names,
+            cell_logs=cell_logs,
+            status="FAILED",
+        )
+        raise
+    orch_log = append_orchestration_note(
+        str(_REPO_ROOT / "Results"),
+        config_path=args.Config,
+        pipelines=names,
+        cell_logs=cell_logs,
+    )
     print("\nOrchestration complete.")
+    if orch_log is not None:
+        print(f"Issues logged — see: {orch_log}")
 
 
 if __name__ == "__main__":
