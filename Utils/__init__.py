@@ -1,5 +1,10 @@
 """Shared utilities (results layout, visualization)."""
 
+from Utils.complete_algorithm import (
+    CompleteAlgorithmStage,
+    METRIC_DEFINITIONS,
+    ManifestValidationError,
+)
 from Utils.results_paths import (
     append_trial_csv_row,
     courses_dir_slug,
@@ -13,6 +18,9 @@ from Utils.results_paths import (
 )
 
 __all__ = [
+    "CompleteAlgorithmStage",
+    "METRIC_DEFINITIONS",
+    "ManifestValidationError",
     "append_trial_csv_row",
     "courses_dir_slug",
     "ensure_experiment_dirs",

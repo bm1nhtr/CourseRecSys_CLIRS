@@ -34,11 +34,14 @@ def repo_root() -> Path:
 
 
 def method_slug(config: Mapping[str, Any]) -> str:
-    """e.g. clirs_dqn, baseline_ppo, jcrec_greedy."""
-    if config.get("pipeline") == "jcrec":
-        return f"jcrec_{config.get('model', 'dqn')}"
-    prefix = "clirs" if config.get("use_clustering") else "baseline"
+    """e.g. clirs_dqn, jcrec_fair_dqn, jcrec_dqn."""
+    pipeline = config.get("pipeline")
     algorithm = config.get("model", "dqn")
+    if pipeline == "jcrec":
+        return f"jcrec_{algorithm}"
+    if pipeline == "jcrec_fair":
+        return f"jcrec_fair_{algorithm}"
+    prefix = "clirs" if config.get("use_clustering") else "baseline"
     return f"{prefix}_{algorithm}"
 
 
@@ -99,6 +102,30 @@ def experiment_root(config: Mapping[str, Any]) -> str:
             k_dir_slug(config),
         )
     )
+
+
+def compare_root(config: Mapping[str, Any]) -> str:
+    """Cross-lineage compare cell: ``Results/compare/steps_*/.../k_*/{algo}/``."""
+    total_steps = config.get("total_steps", 0)
+    data_seed = config.get("seed", 42)
+    algorithm = str(config.get("model", "dqn")).lower()
+    base = config.get("results_path", os.path.join(str(repo_root()), "Results"))
+    return os.path.normpath(
+        os.path.join(
+            base,
+            "compare",
+            f"steps_{total_steps}",
+            f"data_{data_seed}",
+            courses_dir_slug(config),
+            k_dir_slug(config),
+            algorithm,
+        )
+    )
+
+
+def compare_pair_dir(config: Mapping[str, Any], pair_slug: str) -> str:
+    """One cross-lineage pair under the compare cell, e.g. ``.../clirs_vs_jcrec_fair/``."""
+    return os.path.join(compare_root(config), pair_slug)
 
 
 def experiment_log_path(config: Mapping[str, Any]) -> str:

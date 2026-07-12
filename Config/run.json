@@ -8,12 +8,14 @@
 
   "experiment": {
     "results_lineage": "CLIRS",
+    "jcrec_fair_results_lineage": "JCRecFair",
+    "jcrec_results_lineage": "JCRec",
     "nb_runs": 6
   },
 
   "orchestration": {
-    "_note": "pipelines/run_pipeline.py runs these in order.",
-    "pipelines": ["clirs", "jcrec"]
+    "_note": "pipelines/run_pipeline.py runs these in order. jcrec_fair = primary baseline (test split); jcrec = author reproduction.",
+    "pipelines": ["clirs", "jcrec_fair", "jcrec"]
   },
 
   "seeds": {
@@ -41,7 +43,7 @@
   },
 
   "model": {
-    "algorithm": "dqn",
+    "algorithm": "ppo",
     "total_steps": 5000,
     "eval_freq": 1000,
     "_note": "algorithm: shared by CLIRS + JCRec (dqn | ppo)"

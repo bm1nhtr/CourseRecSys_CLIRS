@@ -221,6 +221,7 @@ class CompleteAlgorithmManifest:
                     "train_size": int(len(dataset.train_indices)),
                     "test_size": int(len(dataset.test_indices)),
                 }
+                manifest["evaluation_population"] = "test_indices"
         if sb3_snapshot is not None:
             manifest["sb3"] = dict(sb3_snapshot)
         if config.get("use_clustering") and config.get("_clustering_manifest"):

@@ -72,9 +72,9 @@ def list_sweep_csvs(experiment_root: str) -> list[str]:
     return sorted(glob.glob(os.path.join(sweeps_dir, "*_data*.csv")))
 
 
-def load_performance_dataset_d(experiment_root: str) -> pd.DataFrame:
+def load_trial_metrics_long(experiment_root: str) -> pd.DataFrame:
     """
-    Performance dataset D — all method sweep CSVs in one long-form table.
+    All sweep CSVs in one experiment cell — long-form trial metrics.
 
     One row per trial per method (Jordan et al. eval layer input).
     """
@@ -256,12 +256,12 @@ def bootstrap_aggregate_table(
     return out
 
 
-def write_performance_dataset_d(dataset_d: pd.DataFrame, experiment_root: str) -> str | None:
+def write_trial_metrics_long(dataset_d: pd.DataFrame, experiment_root: str) -> str | None:
     if dataset_d.empty:
         return None
     reports_dir = os.path.join(experiment_root, "reports")
     os.makedirs(reports_dir, exist_ok=True)
-    out_path = os.path.join(reports_dir, "performance_dataset_d.csv")
+    out_path = os.path.join(reports_dir, "trial_metrics_long.csv")
     dataset_d.to_csv(out_path, index=False)
     return out_path
 
@@ -327,8 +327,8 @@ def print_sweep_summary(report: Mapping[str, Any]) -> None:
             )
 
 
-def print_dataset_d_summary(d_summary: Mapping[str, Any], agg_paths: Mapping[str, str]) -> None:
-    print("\n--- Performance dataset D ---")
+def print_trial_metrics_summary(d_summary: Mapping[str, Any], agg_paths: Mapping[str, str]) -> None:
+    print("\n--- Trial metrics (long) ---")
     print(f"Methods: {d_summary.get('n_methods', 0)} — {d_summary.get('methods', [])}")
     for path in agg_paths.values():
         print(f"Bootstrap summary: {path}")
@@ -340,20 +340,20 @@ def run_sweep_eval(
     run_log: ExperimentRunLog | None = None,
 ) -> dict[str, Any] | None:
     """
-    Summarize sweeps: single-method JSON, dataset D CSV, bootstrap aggregates.
+    Summarize sweeps: single-method JSON, trial metrics CSV, bootstrap aggregates.
 
     Writes:
     - ``reports/{method}_sweep_summary.json``
-    - ``reports/performance_dataset_d.csv`` (all methods in cell)
+    - ``reports/trial_metrics_long.csv`` (all methods in cell)
     - ``reports/bootstrap_{end|life}_{mean|median}.csv``
     - ``reports/performance_analysis.json`` (combined index)
     """
     csv_path = sweep_csv_path(config)
     expected_trials = int(config["nb_runs"])
 
-    dataset_d = load_performance_dataset_d(experiment_root)
+    dataset_d = load_trial_metrics_long(experiment_root)
     d_summary = dataset_d_summary(dataset_d, expected_trials=expected_trials)
-    d_path = write_performance_dataset_d(dataset_d, experiment_root)
+    d_path = write_trial_metrics_long(dataset_d, experiment_root)
     agg_paths = write_bootstrap_aggregates(dataset_d, experiment_root)
 
     if not os.path.isfile(csv_path):
@@ -377,8 +377,8 @@ def run_sweep_eval(
         print_sweep_summary(method_report)
 
     analysis = {
-        "dataset_d_csv": d_path,
-        "dataset_d_summary": d_summary,
+        "trial_metrics_long_csv": d_path,
+        "trial_metrics_summary": d_summary,
         "bootstrap_aggregates": agg_paths,
         "current_method": method_slug(config),
     }
@@ -395,9 +395,9 @@ def run_sweep_eval(
     with open(analysis_path, "w", encoding="utf-8") as f:
         json.dump(analysis, f, indent=2)
 
-    print_dataset_d_summary(d_summary, agg_paths)
+    print_trial_metrics_summary(d_summary, agg_paths)
     print(f"Performance analysis: {analysis_path}")
     if d_path:
-        print(f"Dataset D: {d_path}")
+        print(f"Trial metrics: {d_path}")
 
     return analysis

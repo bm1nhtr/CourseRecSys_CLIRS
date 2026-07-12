@@ -58,6 +58,10 @@ def flatten_run_json(raw):
     config["seed"] = seeds.get("data", 42)
     config["rl_seed_base"] = seeds.get("rl_base", seeds.get("data", 42))
     config["results_lineage"] = experiment.get("results_lineage", "CLIRS")
+    config["jcrec_fair_results_lineage"] = experiment.get(
+        "jcrec_fair_results_lineage", "JCRecFair"
+    )
+    config["jcrec_results_lineage"] = experiment.get("jcrec_results_lineage", "JCRec")
     config.update(data)
     config.update(split)
     config["model"] = model.get("algorithm", model.get("model", "dqn"))

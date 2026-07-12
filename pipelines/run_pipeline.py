@@ -1,5 +1,5 @@
 """
-Orchestrate CLIRS and JCRec pipelines.
+Orchestrate CLIRS, JCRec fair-split, and JCRec author pipelines.
 
 Run from repo root::
 
@@ -7,7 +7,7 @@ Run from repo root::
 
 Config (``run.json``)::
 
-    "orchestration": { "pipelines": ["clirs", "jcrec"] }
+    "orchestration": { "pipelines": ["clirs", "jcrec_fair", "jcrec"] }
 """
 
 from __future__ import annotations
@@ -28,9 +28,11 @@ if str(_REPO_ROOT) not in sys.path:
 
 from Utils.experiment_log import append_orchestration_note
 from Utils.results_paths import experiment_log_path
+from pipelines.cross_lineage_eval import run_cross_lineage_compares
 
 _PIPELINE_SCRIPTS = {
     "clirs": _REPO_ROOT / "pipelines" / "run_clirs_pipeline.py",
+    "jcrec_fair": _REPO_ROOT / "pipelines" / "run_jcrec_fair_pipeline.py",
     "jcrec": _REPO_ROOT / "pipelines" / "run_jcrec_pipeline.py",
 }
 
@@ -49,6 +51,10 @@ def _pipeline_run_log_path(config_path: str, pipeline_name: str) -> str:
     config = _load_flat_config(config_path)
     if pipeline_name == "clirs":
         config["pipeline"] = "clirs"
+    elif pipeline_name == "jcrec_fair":
+        config["pipeline"] = "jcrec_fair"
+        config["results_lineage"] = config.get("jcrec_fair_results_lineage", "JCRecFair")
+        config["use_clustering"] = False
     elif pipeline_name == "jcrec":
         config["pipeline"] = "jcrec"
         config["results_lineage"] = config.get("jcrec_results_lineage", "JCRec")
@@ -94,7 +100,7 @@ def run_pipelines(config_path: str, names: list[str]) -> list[str]:
 
 def main() -> None:
     parser = argparse.ArgumentParser(
-        description="Run CLIRS and/or JCRec pipelines from Config/run.json."
+        description="Run CLIRS / JCRec fair / JCRec author pipelines from Config/run.json."
     )
     parser.add_argument("--Config", default=r"Config/run.json")
     args = parser.parse_args()
@@ -124,6 +130,14 @@ def main() -> None:
         pipelines=names,
         cell_logs=cell_logs,
     )
+
+    if "clirs" in names:
+        try:
+            config = _load_flat_config(args.Config)
+            run_cross_lineage_compares(config)
+        except Exception as exc:
+            print(f"[WARN] Cross-lineage compare failed: {exc}")
+
     print("\nOrchestration complete.")
     if orch_log is not None:
         print(f"Issues logged — see: {orch_log}")
@@ -131,3 +145,4 @@ def main() -> None:
 
 if __name__ == "__main__":
     main()
+
