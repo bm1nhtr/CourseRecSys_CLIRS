@@ -1,7 +1,7 @@
 [tool.poetry]
 name = "wuir-class"
 version = "0.1.0"
-description = "RL course recommendation with CLASS clustering-based reward shaping"
+description = "RL course recommendation with CLIRS clustering-based reward shaping"
 authors = ["Binh Minh TRAN"]
 readme = "README.md"
 license = "MIT"

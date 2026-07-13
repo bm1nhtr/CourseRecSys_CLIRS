@@ -1,0 +1,70 @@
+# =============================================================================
+# CLIRS configuration reference
+# =============================================================================
+# The pipeline reads:  Config/run.json  (source of truth)
+#
+# Edit run.json when changing experiments. This file mirrors the effective
+# flat settings so you can read and compare without opening nested JSON.
+# You may still pass --Config Config/run.yaml for a flat YAML override.
+#
+# Pipelines (repo root):
+#   poetry run python pipelines/run_pipeline.py --Config Config/run.json
+#   poetry run python pipelines/run_clirs_pipeline.py --Config Config/run.json
+#   poetry run python pipelines/run_jcrec_pipeline.py --Config Config/run.json
+#
+# Results layout (same per backend): Results/{lineage}/steps_*/data_*/courses_*/k_*/
+#   CLIRS  → results_lineage: CLIRS   (train/test split, optional clustering)
+#   JCRec  → results_lineage: JCRec   (author code in jcrec/; eval all learners)
+# =============================================================================
+
+# --- experiment (run.json → experiment) ---
+results_lineage: CLIRS                                               # FIX - do not change
+nb_runs: 30                                                          # FIX - do not change
+
+# --- orchestration (run.json → orchestration) — pipelines/run_pipeline.py only ---
+pipelines: ["clirs", "jcrec_fair", "jcrec"]                          # FIX - do not change
+
+# --- seeds (run.json → seeds) ---
+seed_data: 42                                                        # FIX - do not change
+seed_agent: 42                                                       # FIX - do not change
+
+# --- data (run.json → data) ---
+taxonomy_path: "Data/taxonomy.csv"                                   # FIX - do not change
+mastery_levels_path: "Data/mastery_levels.json"                      # FIX - do not change
+cv_path: "Data/resumes.json"                                         # FIX - do not change
+job_path: "Data/jobs.json"                                           # FIX - do not change
+course_path: "Data/courses.json"                                     # FIX - do not change
+level_3: true                                                        # FIX - do not change
+max_cv_skills: 15                                                    # FIX - do not change
+nb_cvs: -1      # -1 = use all learners after filtering              # FIX - do not change
+nb_jobs: 100                                                         # FIX - do not change
+nb_courses: 100                                                      # FIX - do not change
+
+# --- split (run.json → split) ---
+train_ratio: 0.7                                                     # FIX - do not change
+test_ratio: 0.3                                                      # FIX - do not change
+
+# --- model (run.json → model) — shared by CLIRS and JCRec pipelines ---
+model: dqn                                                           # dqn | ppo  (JSON key: algorithm)
+total_steps: 5000                                                    # 5000000
+eval_freq: 100                                                       # FIX - do not change
+
+# --- environment (run.json → environment) ---
+threshold: 0.8                                                       # FIX - do not change
+k: 2                                                                 # 2,3,4,5,6
+
+# --- clustering (run.json → clustering) ---
+use_clustering: true                                                 # FIX - do not change
+auto_clusters: true                                                  # FIX - do not change
+max_clusters: 10                                                     # FIX - do not change
+selection: silhouette                                                # FIX - do not change
+min_cluster_size: 5                                                  # FIX - do not change
+# Reward multipliers (run.json → clustering.reward_multipliers)
+clustering:
+  first_recommendation: 1.3                                          # FIX - do not change
+  progress_increase: 1.3                                             # FIX - do not change
+  no_improvement: 1.0                                                # FIX - do not change
+
+# --- results (run.json → results) ---
+results_path: Results                                                # FIX - do not change
+save_raw: true                                                       # FIX - do not change
