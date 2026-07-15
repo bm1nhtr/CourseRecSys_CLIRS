@@ -10,7 +10,7 @@ import json
 import os
 import sys
 from pathlib import Path
-from time import process_time
+from time import perf_counter, process_time
 from typing import Any
 
 import numpy as np
@@ -186,6 +186,7 @@ class JcrecFairReinforce:
         return np.array(updated_profiles), process_time() - time_start
 
     def run_trial(self) -> dict[str, Any]:
+        wall_start = perf_counter()
         test_indices = self.dataset.test_indices
         train_indices = self.dataset.train_indices
         threshold = self.threshold
@@ -228,6 +229,9 @@ class JcrecFairReinforce:
         )
         results["life"] = life
         print(f"Test split: jcrec_fair end = {results['end']:.4f}")
+        trial_wall_minutes = round((perf_counter() - wall_start) / 60.0, 3)
+        results["trial_wall_minutes"] = trial_wall_minutes
+        print(f"Trial {self.trial_id} wall time: {trial_wall_minutes:.3f} min")
 
         if self.save_raw:
             with open(self.eval_json_path, "w", encoding="utf-8") as f:
@@ -252,6 +256,7 @@ class JcrecFairReinforce:
                 "original_applicable_jobs": results["original_applicable_jobs"],
                 "train_size": len(train_indices),
                 "test_size": len(test_indices),
+                "trial_wall_minutes": trial_wall_minutes,
             },
         )
         return results
