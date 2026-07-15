@@ -63,6 +63,7 @@ from Utils.trial_sweep import (
     trials_to_run,
     validate_trial_config,
 )
+from Utils.parallel_trials import try_fan_out_trials
 
 _HEURISTIC = {"greedy": Greedy, "optimal": Optimal}
 
@@ -423,6 +424,11 @@ def main() -> None:
     parser.add_argument("--no-resume", action="store_true")
     parser.add_argument("--force", action="store_true")
     parser.add_argument("--skip-eval", action="store_true")
+    parser.add_argument(
+        "--parallel-worker",
+        action="store_true",
+        help="Internal: child process running a trial slice (do not fan out again)",
+    )
     args = parser.parse_args()
 
     try:
@@ -432,6 +438,9 @@ def main() -> None:
         print(f"[ERROR] Failed to load config {args.Config}: {exc}")
         traceback.print_exc()
         sys.exit(1)
+
+    if args.parallel_worker:
+        config["_parallel_worker"] = True
 
     resume = not (args.no_resume or args.force)
 
@@ -454,6 +463,26 @@ def main() -> None:
         to_trial=args.to_trial,
         resume=resume,
     )
+
+    if try_fan_out_trials(
+        script_path=__file__,
+        config_path=args.Config,
+        config=config,
+        trial_ids=trial_ids,
+        force=args.force,
+        no_resume=args.no_resume,
+    ):
+        with ExperimentRunLog(
+            config,
+            dirs["root"],
+            config_path=args.Config,
+            pipeline="jcrec",
+            repo_root=str(_REPO_ROOT),
+        ) as run_log:
+            if not args.skip_eval:
+                run_sweep_eval(config, dirs["root"], run_log)
+            print(f"\nDone (parallel parent). Results under: {dirs['root']}")
+        return
 
     with ExperimentRunLog(
         config,

@@ -68,3 +68,10 @@ clustering:
 # --- results (run.json → results) ---
 results_path: Results                                                # FIX - do not change
 save_raw: true                                                       # FIX - do not change
+
+# --- runtime (run.json → runtime) ---
+# poetry run python Utils/probe_runtime.py --Config Config/run.json
+# poetry run python Utils/probe_runtime.py --Config Config/run.json --n-workers 3 --write
+n_workers: 1                                                         # parallel trial workers
+device: cpu                                                          # cpu | cuda | auto
+n_envs: 1                                                            # vectorized env count
