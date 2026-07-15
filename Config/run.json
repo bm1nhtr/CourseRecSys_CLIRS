@@ -48,7 +48,7 @@
   },
   "environment": {
     "threshold": 0.8,
-    "k": 3
+    "k": 2
   },
   "clustering": {
     "use_clustering": true,
