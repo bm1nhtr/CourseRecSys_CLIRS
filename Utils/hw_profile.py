@@ -4,15 +4,13 @@ Host hardware detection and ``runtime`` suggestion helpers.
 This module does not train models or run pipelines. It only:
 
 1. Inspects the current host (CPUs, GPUs, RAM).
-2. Suggests conservative ``n_workers`` / ``device`` / ``n_envs`` values.
+2. Suggests a conservative ``n_workers`` value for parallel trial fan-out.
 3. Formats a console report and builds the ``runtime`` dict for Config/run.json.
 
 Worker policy (see ``suggest_n_workers``)::
 
     default requested = 1  (omit --n-workers)
     hard_cap = n_cpu // 2
-    if device == cuda and n_gpu >= 1:
-        hard_cap = min(hard_cap, 2)
     n_workers = min(max(1, requested), hard_cap)
 
 Entry point for operators: ``Utils/probe_runtime.py``.
@@ -111,7 +109,6 @@ def _ram_fallback() -> tuple[float | None, float | None]:
 def suggest_n_workers(
     hw: Mapping[str, Any],
     *,
-    device: str = "cpu",
     requested: int | None = None,
 ) -> int:
     """
@@ -120,9 +117,7 @@ def suggest_n_workers(
     Parameters
     ----------
     hw :
-        Output of ``detect_hardware()`` (needs ``n_cpu``, optionally ``n_gpu``).
-    device :
-        Resolved device string (``cpu`` or ``cuda``). Used for the CUDA cap.
+        Output of ``detect_hardware()`` (needs ``n_cpu``).
     requested :
         Operator request from ``--n-workers``. ``None`` means default **1**
         (sequential / safest), not ``cap``.
@@ -133,13 +128,11 @@ def suggest_n_workers(
         Final ``n_workers`` after capping:
 
         - Never below 1.
-        - Never above ``n_cpu // 2`` (leaves headroom for OS / Torch threads).
-        - Never above 2 when ``device == \"cuda\"`` and at least one GPU exists
-          (avoids multi-process GPU memory contention).
+        - Never above ``n_cpu // 2`` (leaves headroom for OS / library threads).
 
     Examples
     --------
-    20 logical CPUs, CPU device, no ``--n-workers`` -> 1.
+    20 logical CPUs, no ``--n-workers`` -> 1.
     Same host, ``requested=4`` -> 4.
     Same host, ``requested=20`` -> 10 (``20 // 2``).
     """
@@ -147,51 +140,13 @@ def suggest_n_workers(
     # Leave roughly half the logical cores for the OS and libraries.
     cap = max(1, n_cpu // 2)
     n = 1 if requested is None else max(1, int(requested))
-    n = min(n, cap)
-    if str(device).lower() == "cuda" and int(hw.get("n_gpu") or 0) >= 1:
-        n = min(n, 2)
-    return n
-
-
-def suggest_device(hw: Mapping[str, Any], preferred: str | None = None) -> str:
-    """
-    Resolve the training device string.
-
-    Parameters
-    ----------
-    hw :
-        Hardware snapshot (uses ``n_gpu``).
-    preferred :
-        One of ``cpu``, ``cuda``, ``auto`` (default ``auto``).
-
-        - ``cpu``: always ``cpu``.
-        - ``cuda``: require ``n_gpu >= 1``, else raise ``ValueError``.
-        - ``auto``: ``cuda`` if any GPU is visible, else ``cpu``.
-
-    Returns
-    -------
-    str
-        ``cpu`` or ``cuda``.
-    """
-    pref = (preferred or "auto").lower()
-    has_gpu = int(hw.get("n_gpu") or 0) >= 1
-    if pref == "cpu":
-        return "cpu"
-    if pref == "cuda":
-        if not has_gpu:
-            raise ValueError("device=cuda requested but no CUDA GPU detected")
-        return "cuda"
-    if pref == "auto":
-        return "cuda" if has_gpu else "cpu"
-    raise ValueError(f"device must be cpu|cuda|auto, got {preferred!r}")
+    return min(n, cap)
 
 
 def build_runtime_section(
     hw: Mapping[str, Any],
     *,
     n_workers: int | None = None,
-    device: str | None = None,
-    n_envs: int = 1,
 ) -> dict[str, Any]:
     """
     Build the top-level ``runtime`` object for nested ``Config/run.json``.
@@ -202,10 +157,6 @@ def build_runtime_section(
         ``detect_hardware()`` result.
     n_workers :
         Optional requested parallel trial workers (passed to ``suggest_n_workers``).
-    device :
-        Preferred device flag (``cpu`` / ``cuda`` / ``auto``).
-    n_envs :
-        Suggested vectorized-environment count. Stored as ``max(1, n_envs)``.
 
     Returns
     -------
@@ -215,8 +166,6 @@ def build_runtime_section(
             {
               "_note": "...",
               "n_workers": int,
-              "device": "cpu" | "cuda",
-              "n_envs": int,
               "detected": { ... hardware snapshot ... }
             }
 
@@ -224,19 +173,15 @@ def build_runtime_section(
     -----
     ``detected`` is informational (audit of the host at probe time). Callers
     that persist this dict typically overwrite any previous ``runtime`` key.
+    Only ``n_workers`` is consumed by pipelines (parallel trial fan-out).
     """
-    resolved_device = suggest_device(hw, device or "auto")
-    resolved_workers = suggest_n_workers(
-        hw, device=resolved_device, requested=n_workers
-    )
+    resolved_workers = suggest_n_workers(hw, requested=n_workers)
     return {
         "_note": (
             "Host runtime settings (n_workers drives parallel trial fan-out). Update with: "
             "poetry run python Utils/probe_runtime.py --Config Config/run.json --write"
         ),
         "n_workers": resolved_workers,
-        "device": resolved_device,
-        "n_envs": max(1, int(n_envs)),
         "detected": {
             "n_cpu": hw.get("n_cpu"),
             "n_gpu": hw.get("n_gpu"),
@@ -260,7 +205,7 @@ def format_probe_report(
     Sections
     --------
     1. Hardware probe — OS, CPU, GPU, RAM.
-    2. Suggested runtime — resolved ``n_workers`` / ``device`` / ``n_envs`` and cap.
+    2. Suggested runtime — resolved ``n_workers`` and cap.
     3. How to raise n_workers — host-specific ladder and example ``--write`` commands.
 
     The ladder is ``1 -> 2 -> n_cpu//4 -> hard_cap`` (duplicates removed), so
@@ -282,9 +227,6 @@ def format_probe_report(
     """
     n_cpu = max(1, int(hw.get("n_cpu") or 1))
     cap = max(1, n_cpu // 2)
-    device = str(runtime.get("device") or "cpu")
-    if device == "cuda" and int(hw.get("n_gpu") or 0) >= 1:
-        cap = min(cap, 2)
 
     # Conservative ladder toward the hard cap (unique, ascending).
     ladder: list[int] = []
@@ -304,16 +246,11 @@ def format_probe_report(
         "=== Suggested runtime (Config/run.json -> runtime) ===",
         f"n_workers:     {runtime.get('n_workers')}"
         + (
-            f"  (requested={requested_workers}, capped by CPU/GPU policy)"
+            f"  (requested={requested_workers}, capped by n_cpu//2)"
             if requested_workers is not None
             else "  (default=1)"
         ),
-        f"device:        {device}",
-        f"n_envs:        {runtime.get('n_envs')}",
-        (
-            f"n_workers cap: {cap}  "
-            f"(rule: min(requested, n_cpu//2{', CUDA max 2' if device == 'cuda' else ''}))"
-        ),
+        f"n_workers cap: {cap}  (rule: min(requested, n_cpu//2))",
         "",
         "=== How to raise n_workers ===",
         "Start at 1, then step up only if the host stays stable (CPU/RAM OK).",
@@ -329,7 +266,7 @@ def format_probe_report(
         for w in examples:
             lines.append(
                 f"  poetry run python Utils/probe_runtime.py --Config Config/run.json "
-                f"--n-workers {w} --device {device} --write"
+                f"--n-workers {w} --write"
             )
     lines.append(
         "If processes thrash or RAM drops sharply, lower n_workers and re-run --write."

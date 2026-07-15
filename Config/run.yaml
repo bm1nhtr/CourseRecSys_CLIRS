@@ -47,11 +47,11 @@ test_ratio: 0.3                                                      # FIX - do 
 # --- model (run.json → model) — shared by CLIRS and JCRec pipelines ---
 model: dqn                                                           # dqn | ppo  (JSON key: algorithm)
 total_steps: 5000                                                    # 5000000
-eval_freq: 100                                                       # 50000 
+eval_freq: 100                                                       # 100000
 
 # --- environment (run.json → environment) ---
 threshold: 0.8                                                       # FIX - do not change
-k: 2                                                                 # 2,3,4,5,6
+k: 2                                                                 # 2,3,4,5
 
 # --- clustering (run.json → clustering) ---
 use_clustering: true                                                 # FIX - do not change
@@ -73,5 +73,3 @@ save_raw: true                                                       # FIX - do 
 # poetry run python Utils/probe_runtime.py --Config Config/run.json
 # poetry run python Utils/probe_runtime.py --Config Config/run.json --n-workers 3 --write
 n_workers: 1                                                         # parallel trial workers
-device: cpu                                                          # cpu | cuda | auto
-n_envs: 1                                                            # vectorized env count

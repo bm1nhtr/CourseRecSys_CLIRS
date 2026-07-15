@@ -3,9 +3,9 @@ CLI: probe host resources and optionally write ``runtime`` into Config/run.json.
 
 Purpose
 -------
-Record CPU / GPU / RAM and suggested parallelization settings under the nested
-config key ``runtime``. This script only updates configuration files; it does
-not start training pipelines.
+Record CPU / GPU / RAM and suggested ``n_workers`` under the nested config key
+``runtime``. This script only updates configuration files; it does not start
+training pipelines.
 
 Usage (from repository root)
 ----------------------------
@@ -16,7 +16,7 @@ Dry-run (print only)::
 Write resolved settings into the config file::
 
     poetry run python Utils/probe_runtime.py --Config Config/run.json \\
-        --n-workers 3 --device cpu --write
+        --n-workers 3 --write
 
 Arguments
 ---------
@@ -24,11 +24,7 @@ Arguments
     Path to nested ``run.json`` (YAML is not supported for ``--write``).
 ``--n-workers``
     Requested parallel trial workers. Omit for default ``1``. Value is capped
-    by ``Utils.hw_profile.suggest_n_workers``.
-``--device``
-    ``cpu``, ``cuda``, or ``auto`` (default ``auto``).
-``--n-envs``
-    Suggested vectorized-env count stored as ``runtime.n_envs``.
+    by ``Utils.hw_profile.suggest_n_workers`` (``n_cpu // 2``).
 ``--write``
     Merge the built ``runtime`` object into the JSON file (replace prior block).
 ``--print-json``
@@ -89,7 +85,7 @@ def main() -> None:
     parser = argparse.ArgumentParser(
         description=(
             "Probe host CPU/GPU/RAM and optionally write "
-            "Config/run.json runtime settings."
+            "Config/run.json runtime.n_workers."
         )
     )
     parser.add_argument(
@@ -103,20 +99,8 @@ def main() -> None:
         default=None,
         help=(
             "Requested parallel trial workers "
-            "(default 1 when omitted; capped by n_cpu//2, CUDA max 2)"
+            "(default 1 when omitted; capped by n_cpu//2)"
         ),
-    )
-    parser.add_argument(
-        "--device",
-        choices=("cpu", "cuda", "auto"),
-        default="auto",
-        help="Preferred device: cpu, cuda, or auto (default: auto)",
-    )
-    parser.add_argument(
-        "--n-envs",
-        type=int,
-        default=1,
-        help="Suggested vectorized-env count stored in runtime.n_envs",
     )
     parser.add_argument(
         "--write",
@@ -143,18 +127,8 @@ def main() -> None:
         )
         sys.exit(1)
 
-    try:
-        hw = detect_hardware()
-        runtime = build_runtime_section(
-            hw,
-            n_workers=args.n_workers,
-            device=args.device,
-            n_envs=args.n_envs,
-        )
-    except ValueError as exc:
-        # e.g. --device cuda on a host with no CUDA GPU
-        print(f"[ERROR] {exc}", file=sys.stderr)
-        sys.exit(1)
+    hw = detect_hardware()
+    runtime = build_runtime_section(hw, n_workers=args.n_workers)
 
     print(format_probe_report(hw, runtime, requested_workers=args.n_workers))
     if args.print_json:
@@ -166,7 +140,7 @@ def main() -> None:
         print(
             "\nDry-run only (config not modified). To save the values above:\n"
             f"  poetry run python Utils/probe_runtime.py --Config {config_path} "
-            f"--n-workers {runtime['n_workers']} --device {runtime['device']} --write"
+            f"--n-workers {runtime['n_workers']} --write"
         )
         return
 

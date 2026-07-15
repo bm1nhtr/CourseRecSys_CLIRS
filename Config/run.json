@@ -74,8 +74,6 @@
   "runtime": {
     "_note": "Host runtime settings (n_workers drives parallel trial fan-out). Update with: poetry run python Utils/probe_runtime.py --Config Config/run.json --write",
     "n_workers": 2,
-    "device": "cpu",
-    "n_envs": 1,
     "detected": {
       "n_cpu": 20,
       "n_gpu": 0,

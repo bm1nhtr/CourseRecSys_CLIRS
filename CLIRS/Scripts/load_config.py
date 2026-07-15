@@ -84,11 +84,6 @@ def flatten_run_json(raw):
         config["n_workers"] = max(1, int(runtime.get("n_workers", 1) or 1))
     except (TypeError, ValueError):
         config["n_workers"] = 1
-    config["runtime_device"] = str(runtime.get("device", "cpu") or "cpu")
-    try:
-        config["n_envs"] = max(1, int(runtime.get("n_envs", 1) or 1))
-    except (TypeError, ValueError):
-        config["n_envs"] = 1
     return config
 
 
@@ -109,14 +104,6 @@ def load_config(config_path):
                     config["n_workers"] = 1
             else:
                 config.setdefault("n_workers", 1)
-            config.setdefault("runtime_device", config.get("device", "cpu"))
-            if "n_envs" in config:
-                try:
-                    config["n_envs"] = max(1, int(config.get("n_envs") or 1))
-                except (TypeError, ValueError):
-                    config["n_envs"] = 1
-            else:
-                config.setdefault("n_envs", 1)
     if "results_path" not in config and config.get("results_dir"):
         config["results_path"] = config["results_dir"]
     return _resolve_paths(config, config_path)
