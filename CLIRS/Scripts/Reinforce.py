@@ -1,7 +1,7 @@
 import json
 import sys
 from pathlib import Path
-from time import process_time
+from time import perf_counter, process_time
 
 import numpy as np
 from stable_baselines3 import DQN, A2C, PPO
@@ -112,6 +112,7 @@ class Reinforce:
         return np.array(updated_profiles), elapsed
 
     def reinforce_recommendation(self):
+        wall_start = perf_counter()
         results = {}
         test_indices = self.dataset.test_indices
         trial_id = self.run
@@ -177,6 +178,9 @@ class Reinforce:
         life = read_training_life_proxy(self.training_log_path)
         results["life"] = life
         results["end"] = avg_app_j_fin
+        trial_wall_minutes = round((perf_counter() - wall_start) / 60.0, 3)
+        results["trial_wall_minutes"] = trial_wall_minutes
+        print(f"Trial {trial_id} wall time: {trial_wall_minutes:.3f} min")
 
         if self.save_raw:
             with open(self.eval_json_path, "w", encoding="utf-8") as f:
@@ -201,6 +205,7 @@ class Reinforce:
                 "original_applicable_jobs": avg_app_j_debut,
                 "train_size": len(self.dataset.train_indices),
                 "test_size": len(test_indices),
+                "trial_wall_minutes": trial_wall_minutes,
             },
         )
         print(f"Trial {trial_id} logged to sweep CSV: {csv_path}")

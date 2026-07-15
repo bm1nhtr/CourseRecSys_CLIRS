@@ -150,7 +150,7 @@ flowchart TB
 
 **Per-lineage cells:** `Results/{CLIRS|JCRecFair|JCRec}/steps_{S}/data_{D}/courses_{C}/k_{K}/`
 
-**Compare artifacts:** `pairwise_comparison.csv`, `bootstrap_*.csv`, `plots/ecdf_*.png`, `report.md`
+**Compare artifacts:** `compare_trial_metrics.csv` (includes `trial_wall_minutes`), `pairwise_comparison.csv`, `bootstrap_*.csv`, `plots/ecdf_*.png`, `report.md`
 
 ## Project structure
 
@@ -169,6 +169,9 @@ CLIRS-Recsys/
 │   └── README_DEVELOPMENT.md # architecture, clustering, results
 ├── Utils/
 │   ├── results_paths.py              # canonical Results/ layout (used by pipeline + plots)
+│   ├── parallel_trials.py            # multi-worker trial fan-out (runtime.n_workers)
+│   ├── probe_runtime.py              # probe host → Config/run.json runtime
+│   ├── hw_profile.py                 # hardware detection helpers
 │   ├── visualize_learning_curves.py  # learning-curve plots from raw logs
 │   └── general_utils.py              # shared helpers (placeholder)
 ├── Results/                  # training outputs (gitignored)
@@ -186,7 +189,31 @@ poetry install
 
 Use `poetry shell` or prefix commands with `poetry run`.
 
-### 2. Run training
+### 2. Probe host resources (optional)
+
+Detect logical CPUs, GPUs, and RAM; suggest `n_workers`; optionally write them to `Config/run.json` under `runtime`.
+
+```bash
+# Print detection and suggested settings
+poetry run python Utils/probe_runtime.py --Config Config/run.json
+
+# Write runtime into Config/run.json
+poetry run python Utils/probe_runtime.py --Config Config/run.json --n-workers 2 --write
+```
+
+| Argument | Description |
+|----------|-------------|
+| `--n-workers` | Requested parallel trial workers (default `1`; capped at `n_cpu // 2`) |
+| `--write` | Merge the `runtime` block into the config file |
+
+`runtime` fields: `n_workers` (parallel trial fan-out) and `detected` (hardware snapshot).
+
+When `runtime.n_workers` > 1, each lineage pipeline fans out remaining trials across
+worker processes after freezing the first trial (see `Utils/parallel_trials.py`).
+
+Next: [3. Run training](#3-run-training).
+
+### 3. Run training
 
 ```bash
 poetry run python pipelines/run_pipeline.py --Config Config/run.json
@@ -206,7 +233,9 @@ Regenerate compare only (after sweeps exist):
 poetry run python pipelines/cross_lineage_eval.py --Config Config/run.json
 ```
 
-### 3. Plot learning curves (optional)
+Next: [4. Plot learning curves](#4-plot-learning-curves-optional) (optional).
+
+### 4. Plot learning curves (optional)
 
 ```bash
 poetry run python Utils/visualize_learning_curves.py
@@ -243,7 +272,7 @@ Results/{CLIRS|JCRecFair|JCRec}/steps_*/data_*/courses_*/k_*/
 
 **Run log:** `run.log` is created only when a run has warnings or errors (compact report, not full console). No file means the run looked fine — send `run.log` to the maintainer only if it exists. `Results/orchestration.log` is written only when orchestration fails or a cell produced a `run.log`.
 
-**T trials:** `experiment.nb_runs` independent RL trials share one dataset/split (`data_seed`); trial `t` uses `rl_seed = seeds.rl_base + t`. Sweep CSV upserts by `trial_id`; resume skips completed trials. Column `evaluation_split`: CLIRS + JCRec fair `test` (70/30 hold-out); JCRec author `all_learners`. End-of-run bootstrap summary → `reports/{method}_sweep_summary.json`.
+**T trials:** `experiment.nb_runs` independent RL trials share one dataset/split (`data_seed`); trial `t` uses `rl_seed = seeds.rl_base + t`. Sweep CSV upserts by `trial_id` (with a sidecar `.lock` when `n_workers` > 1); resume skips completed trials. Column `evaluation_split`: CLIRS + JCRec fair `test` (70/30 hold-out); JCRec author `all_learners`. Column `trial_wall_minutes`: wall-clock train+eval per trial (also copied into compare `compare_trial_metrics.csv`). End-of-run bootstrap summary → `reports/{method}_sweep_summary.json`.
 
 **Manage outputs:**
 

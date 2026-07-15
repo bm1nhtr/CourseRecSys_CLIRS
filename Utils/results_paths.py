@@ -5,8 +5,10 @@ from __future__ import annotations
 import csv
 import json
 import os
+import time
+from contextlib import contextmanager
 from pathlib import Path
-from typing import Any, Mapping
+from typing import Any, Iterator, Mapping
 
 SWEEP_CSV_COLUMNS = (
     "trial_id",
@@ -25,6 +27,7 @@ SWEEP_CSV_COLUMNS = (
     "original_applicable_jobs",
     "train_size",  # CLIRS: train split n; JCRec RL: n (full pool, same as test_size)
     "test_size",  # CLIRS: held-out test n; JCRec: n (full pool final eval)
+    "trial_wall_minutes",  # wall-clock train+eval for this trial (minutes)
 )
 
 
@@ -213,27 +216,163 @@ def trial_artifact_paths(config: Mapping[str, Any], trial_id: int) -> dict[str, 
 
 
 def upsert_trial_csv_row(config: Mapping[str, Any], row: Mapping[str, Any]) -> str:
-    """Write one trial row, replacing any existing row with the same ``trial_id``."""
+    """Write one trial row, replacing any existing row with the same ``trial_id``.
+
+    Uses a sidecar ``.lock`` file so parallel workers do not clobber each other
+    on read-modify-write of the shared sweep CSV.
+    """
     path = sweep_csv_path(config)
     os.makedirs(os.path.dirname(path), exist_ok=True)
     trial_id = int(row["trial_id"])
-    rows: dict[int, dict[str, Any]] = {}
-    if os.path.isfile(path) and os.path.getsize(path) > 0:
-        with open(path, newline="", encoding="utf-8") as f:
-            reader = csv.DictReader(f)
-            if reader.fieldnames:
-                for existing in reader:
-                    try:
-                        rows[int(existing["trial_id"])] = existing
-                    except (KeyError, TypeError, ValueError):
-                        continue
-    rows[trial_id] = {col: row.get(col) for col in SWEEP_CSV_COLUMNS}
-    with open(path, "w", newline="", encoding="utf-8") as f:
-        writer = csv.DictWriter(f, fieldnames=SWEEP_CSV_COLUMNS, extrasaction="ignore")
-        writer.writeheader()
-        for tid in sorted(rows):
-            writer.writerow(rows[tid])
+    with _sweep_csv_lock(path):
+        rows: dict[int, dict[str, Any]] = {}
+        if os.path.isfile(path) and os.path.getsize(path) > 0:
+            with open(path, newline="", encoding="utf-8") as f:
+                reader = csv.DictReader(f)
+                if reader.fieldnames:
+                    for existing in reader:
+                        try:
+                            tid = int(existing["trial_id"])
+                        except (KeyError, TypeError, ValueError):
+                            continue
+                        # Keep prior cells; normalize to current column set.
+                        normalized = {
+                            col: existing.get(col) for col in SWEEP_CSV_COLUMNS
+                        }
+                        # Migrate legacy seconds → minutes if needed.
+                        if (
+                            not normalized.get("trial_wall_minutes")
+                            and existing.get("trial_wall_seconds") not in (None, "")
+                        ):
+                            try:
+                                normalized["trial_wall_minutes"] = round(
+                                    float(existing["trial_wall_seconds"]) / 60.0, 3
+                                )
+                            except (TypeError, ValueError):
+                                pass
+                        rows[tid] = normalized
+        rows[trial_id] = {col: row.get(col) for col in SWEEP_CSV_COLUMNS}
+        with open(path, "w", newline="", encoding="utf-8") as f:
+            writer = csv.DictWriter(
+                f, fieldnames=SWEEP_CSV_COLUMNS, extrasaction="ignore"
+            )
+            writer.writeheader()
+            for tid in sorted(rows):
+                writer.writerow(rows[tid])
     return path
+
+
+def _lock_age_seconds(lock_path: str) -> float | None:
+    try:
+        return max(0.0, time.time() - os.path.getmtime(lock_path))
+    except OSError:
+        return None
+
+
+def _read_lock_pid(lock_path: str) -> int | None:
+    try:
+        with open(lock_path, encoding="utf-8") as f:
+            first = f.readline().strip()
+        return int(first) if first else None
+    except (OSError, ValueError):
+        return None
+
+
+def _pid_alive(pid: int | None) -> bool | None:
+    """Return True/False if decidable; None if unknown."""
+    if pid is None or pid <= 0:
+        return None
+    if os.name == "nt":
+        try:
+            import ctypes
+
+            PROCESS_QUERY_LIMITED_INFORMATION = 0x1000
+            handle = ctypes.windll.kernel32.OpenProcess(
+                PROCESS_QUERY_LIMITED_INFORMATION, False, pid
+            )
+            if handle:
+                ctypes.windll.kernel32.CloseHandle(handle)
+                return True
+            return False
+        except Exception:
+            return None
+    try:
+        os.kill(pid, 0)
+        return True
+    except ProcessLookupError:
+        return False
+    except PermissionError:
+        return True
+    except OSError:
+        return None
+
+
+@contextmanager
+def _sweep_csv_lock(
+    csv_path: str,
+    *,
+    timeout_s: float = 120.0,
+    stale_s: float = 30.0,
+) -> Iterator[None]:
+    """Exclusive lock for sweep CSV upsert (Windows + POSIX).
+
+    Happy path is silent. Only abnormal wait / stale-lock recovery is logged.
+    Upsert itself is sub-second, so a lock older than ``stale_s`` is treated as
+    orphaned (crashed holder) and removed after a pid-alive check when possible.
+    """
+    lock_path = csv_path + ".lock"
+    deadline = time.time() + timeout_s
+    last_wait_log = 0.0
+    while True:
+        try:
+            fd = os.open(lock_path, os.O_CREAT | os.O_EXCL | os.O_RDWR)
+            try:
+                os.write(fd, f"{os.getpid()}\n{time.time():.3f}\n".encode("utf-8"))
+            except OSError:
+                pass
+            break
+        except FileExistsError:
+            age = _lock_age_seconds(lock_path)
+            holder_pid = _read_lock_pid(lock_path)
+            alive = _pid_alive(holder_pid)
+            is_stale = age is not None and age >= stale_s and alive is not True
+            if is_stale:
+                print(
+                    "[WARN] Stale sweep CSV lock — removing orphan and retrying. "
+                    f"path={lock_path} age_s={age:.1f} holder_pid={holder_pid} "
+                    f"pid_alive={alive}"
+                )
+                try:
+                    os.remove(lock_path)
+                except OSError as exc:
+                    print(f"[WARN] Could not remove stale lock ({exc}); will retry.")
+                time.sleep(0.05)
+                continue
+            if time.time() >= deadline:
+                raise TimeoutError(
+                    "Timed out waiting for sweep CSV lock. Another worker may still "
+                    f"be writing, or a crashed run left a lock file. "
+                    f"path={lock_path} age_s={age} holder_pid={holder_pid} "
+                    f"pid_alive={alive}. If no other worker is running, delete the "
+                    "`.lock` file and re-run the pending trial."
+                )
+            now = time.time()
+            if now - last_wait_log >= 5.0:
+                print(
+                    "[INFO] Waiting for sweep CSV lock "
+                    f"(held ~{age if age is not None else '?'}s, "
+                    f"pid={holder_pid}): {lock_path}"
+                )
+                last_wait_log = now
+            time.sleep(0.05)
+    try:
+        yield
+    finally:
+        os.close(fd)
+        try:
+            os.remove(lock_path)
+        except OSError as exc:
+            print(f"[WARN] Failed to release sweep CSV lock {lock_path}: {exc}")
 
 
 def append_trial_csv_row(config: Mapping[str, Any], row: Mapping[str, Any]) -> str:

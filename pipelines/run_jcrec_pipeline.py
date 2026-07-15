@@ -18,7 +18,7 @@ import os
 import sys
 import traceback
 from pathlib import Path
-from time import process_time
+from time import perf_counter, process_time
 from typing import Any, Mapping
 
 _REPO_ROOT = Path(__file__).resolve().parents[1]
@@ -63,6 +63,7 @@ from Utils.trial_sweep import (
     trials_to_run,
     validate_trial_config,
 )
+from Utils.parallel_trials import try_fan_out_trials
 
 _HEURISTIC = {"greedy": Greedy, "optimal": Optimal}
 
@@ -114,6 +115,7 @@ def _write_trial_artifacts(
     life: float | None,
     end: float,
     original_applicable_jobs: float,
+    trial_wall_minutes: float | None = None,
     run_log: ExperimentRunLog | None = None,
 ) -> None:
     paths = trial_artifact_paths(config, trial_id)
@@ -148,6 +150,7 @@ def _write_trial_artifacts(
                 "original_applicable_jobs": original_applicable_jobs,
                 "train_size": n_learners,
                 "test_size": n_learners,
+                "trial_wall_minutes": trial_wall_minutes,
             },
         )
     except (OSError, TypeError, ValueError) as exc:
@@ -202,6 +205,7 @@ def _run_heuristic_trial(
         f"{results['original_applicable_jobs']:.4f}"
     )
 
+    wall_start = perf_counter()
     try:
         time_start = process_time()
         for i in range(n):
@@ -220,7 +224,10 @@ def _run_heuristic_trial(
     results["new_attractiveness"] = dataset.get_avg_learner_attractiveness()
     end = dataset.get_avg_applicable_jobs(threshold)
     results["end"] = end
+    trial_wall_minutes = round((perf_counter() - wall_start) / 60.0, 3)
+    results["trial_wall_minutes"] = trial_wall_minutes
     print(f"All learners: {algorithm} end = {end:.4f}")
+    print(f"Trial {trial_id} wall time: {trial_wall_minutes:.3f} min")
 
     _write_trial_artifacts(
         config,
@@ -230,6 +237,7 @@ def _run_heuristic_trial(
         life=None,
         end=end,
         original_applicable_jobs=results["original_applicable_jobs"],
+        trial_wall_minutes=trial_wall_minutes,
         run_log=run_log,
     )
 
@@ -289,6 +297,7 @@ def _run_rl_trial(
     results["original_applicable_jobs"] = dataset.get_avg_applicable_jobs(threshold)
 
     life = None
+    wall_start = perf_counter()
     try:
         try:
             recommender.model.learn(
@@ -335,6 +344,9 @@ def _run_rl_trial(
         life = read_training_life_proxy(training_path)
     results["life"] = life
     results["end"] = end
+    trial_wall_minutes = round((perf_counter() - wall_start) / 60.0, 3)
+    results["trial_wall_minutes"] = trial_wall_minutes
+    print(f"Trial {trial_id} wall time: {trial_wall_minutes:.3f} min")
 
     _write_trial_artifacts(
         config,
@@ -344,6 +356,7 @@ def _run_rl_trial(
         life=life,
         end=end,
         original_applicable_jobs=results["original_applicable_jobs"],
+        trial_wall_minutes=trial_wall_minutes,
         run_log=run_log,
     )
 
@@ -423,6 +436,11 @@ def main() -> None:
     parser.add_argument("--no-resume", action="store_true")
     parser.add_argument("--force", action="store_true")
     parser.add_argument("--skip-eval", action="store_true")
+    parser.add_argument(
+        "--parallel-worker",
+        action="store_true",
+        help="Internal: child process running a trial slice (do not fan out again)",
+    )
     args = parser.parse_args()
 
     try:
@@ -432,6 +450,9 @@ def main() -> None:
         print(f"[ERROR] Failed to load config {args.Config}: {exc}")
         traceback.print_exc()
         sys.exit(1)
+
+    if args.parallel_worker:
+        config["_parallel_worker"] = True
 
     resume = not (args.no_resume or args.force)
 
@@ -454,6 +475,26 @@ def main() -> None:
         to_trial=args.to_trial,
         resume=resume,
     )
+
+    if try_fan_out_trials(
+        script_path=__file__,
+        config_path=args.Config,
+        config=config,
+        trial_ids=trial_ids,
+        force=args.force,
+        no_resume=args.no_resume,
+    ):
+        with ExperimentRunLog(
+            config,
+            dirs["root"],
+            config_path=args.Config,
+            pipeline="jcrec",
+            repo_root=str(_REPO_ROOT),
+        ) as run_log:
+            if not args.skip_eval:
+                run_sweep_eval(config, dirs["root"], run_log)
+            print(f"\nDone (parallel parent). Results under: {dirs['root']}")
+        return
 
     with ExperimentRunLog(
         config,

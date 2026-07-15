@@ -2,28 +2,28 @@
   "_meta": {
     "schema_version": 1,
     "description": "Primary experiment configuration for CLIRS. Edit this file; see run.yaml for a flat readable reference.",
-    "status": "active — pipelines/run_pipeline.py loads this file by default",
-    "metrics_note": "Metric definitions (life, end, …) live in Utils/complete_algorithm.py and are copied into Results/.../manifest.json on first trial — not duplicated here."
+    "status": "active \u2014 pipelines/run_pipeline.py loads this file by default",
+    "metrics_note": "Metric definitions (life, end, \u2026) live in Utils/complete_algorithm.py and are copied into Results/.../manifest.json on first trial \u2014 not duplicated here."
   },
-
   "experiment": {
     "results_lineage": "CLIRS",
     "jcrec_fair_results_lineage": "JCRecFair",
     "jcrec_results_lineage": "JCRec",
     "nb_runs": 6
   },
-
   "orchestration": {
     "_note": "pipelines/run_pipeline.py runs these in order. jcrec_fair = primary baseline (test split); jcrec = author reproduction.",
-    "pipelines": ["clirs", "jcrec_fair", "jcrec"]
+    "pipelines": [
+      "clirs",
+      "jcrec_fair",
+      "jcrec"
+    ]
   },
-
   "seeds": {
     "data": 42,
     "rl_base": 42,
     "_note": "data seed: subsample + split + clustering. rl_seed for trial t = rl_base + t."
   },
-
   "data": {
     "taxonomy_path": "Data/taxonomy.csv",
     "mastery_levels_path": "Data/mastery_levels.json",
@@ -36,24 +36,20 @@
     "nb_jobs": 100,
     "nb_courses": 100
   },
-
   "split": {
     "train_ratio": 0.7,
     "test_ratio": 0.3
   },
-
   "model": {
     "algorithm": "ppo",
     "total_steps": 5000,
-    "eval_freq": 1000,
+    "eval_freq": 500,
     "_note": "algorithm: shared by CLIRS + JCRec (dqn | ppo)"
   },
-
   "environment": {
     "threshold": 0.8,
     "k": 2
   },
-
   "clustering": {
     "use_clustering": true,
     "auto_clusters": true,
@@ -71,9 +67,20 @@
       }
     }
   },
-
   "results": {
     "results_path": "Results",
     "save_raw": true
+  },
+  "runtime": {
+    "_note": "Host runtime settings (n_workers drives parallel trial fan-out). Update with: poetry run python Utils/probe_runtime.py --Config Config/run.json --write",
+    "n_workers": 2,
+    "detected": {
+      "n_cpu": 20,
+      "n_gpu": 0,
+      "gpu_names": [],
+      "free_ram_gb": 10.37,
+      "total_ram_gb": 31.71,
+      "os": "Windows"
+    }
   }
 }

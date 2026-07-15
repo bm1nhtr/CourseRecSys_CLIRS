@@ -39,6 +39,7 @@ from Utils.trial_sweep import (
     validate_trial_config,
 )
 from JCRecFair.split_sync import publish_clirs_split_artifact, require_clirs_split_file
+from Utils.parallel_trials import try_fan_out_trials
 
 
 def _manifest_exists(experiment_root: str) -> bool:
@@ -172,6 +173,11 @@ def main() -> None:
         action="store_true",
         help="Skip sweep summary at end of run",
     )
+    parser.add_argument(
+        "--parallel-worker",
+        action="store_true",
+        help="Internal: child process running a trial slice (do not fan out again)",
+    )
     args = parser.parse_args()
 
     try:
@@ -182,6 +188,8 @@ def main() -> None:
         sys.exit(1)
 
     config["pipeline"] = "clirs"
+    if args.parallel_worker:
+        config["_parallel_worker"] = True
     resume = not (args.no_resume or args.force)
 
     try:
@@ -205,6 +213,26 @@ def main() -> None:
         to_trial=args.to_trial,
         resume=resume,
     )
+
+    if try_fan_out_trials(
+        script_path=__file__,
+        config_path=args.Config,
+        config=config,
+        trial_ids=trial_ids,
+        force=args.force,
+        no_resume=args.no_resume,
+    ):
+        with ExperimentRunLog(
+            config,
+            dirs["root"],
+            config_path=args.Config,
+            pipeline="clirs",
+            repo_root=str(_REPO_ROOT),
+        ) as run_log:
+            if not args.skip_eval:
+                run_sweep_eval(config, dirs["root"], run_log)
+            print(f"\nDone (parallel parent). Results under: {dirs['root']}")
+        return
 
     with ExperimentRunLog(
         config,

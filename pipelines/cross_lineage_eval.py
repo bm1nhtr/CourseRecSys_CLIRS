@@ -112,11 +112,28 @@ def load_lineage_sweep(config: Mapping[str, Any], pipeline: str) -> pd.DataFrame
     return df
 
 
+def _ensure_trial_wall_minutes(df: pd.DataFrame) -> pd.DataFrame:
+    """Ensure ``trial_wall_minutes`` exists (migrate legacy seconds if needed)."""
+    out = df.copy()
+    if "trial_wall_minutes" not in out.columns:
+        out["trial_wall_minutes"] = np.nan
+    if "trial_wall_seconds" in out.columns:
+        minutes = pd.to_numeric(out["trial_wall_minutes"], errors="coerce")
+        seconds = pd.to_numeric(out["trial_wall_seconds"], errors="coerce")
+        fill = minutes.isna() & seconds.notna()
+        out.loc[fill, "trial_wall_minutes"] = (seconds[fill] / 60.0).round(3)
+    return out
+
+
 def build_compare_trial_metrics(
     clirs_df: pd.DataFrame,
     jcrec_df: pd.DataFrame,
 ) -> pd.DataFrame:
-    return pd.concat([clirs_df, jcrec_df], ignore_index=True)
+    """Stacked per-trial rows for both lineages (includes ``trial_wall_minutes``)."""
+    return pd.concat(
+        [_ensure_trial_wall_minutes(clirs_df), _ensure_trial_wall_minutes(jcrec_df)],
+        ignore_index=True,
+    )
 
 
 def _paired_metric_values(
