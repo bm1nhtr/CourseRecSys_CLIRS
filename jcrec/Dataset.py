@@ -229,20 +229,19 @@ class Dataset:
         Returns:
             int: the number of applicable jobs
         """
-        nb_applicable_jobs = 0
         jobs_subset = set()
 
-        # get the index of the non zero elements in the learner array
+        # Same candidate set as before: jobs that share ≥1 skill with the learner.
         skills = np.nonzero(learner)[0]
-
         for skill in skills:
             if skill in self.jobs_inverted_index:
                 jobs_subset.update(self.jobs_inverted_index[skill])
-        for job_id in jobs_subset:
-            matching = matchings.learner_job_matching(learner, self.jobs[job_id])
-            if matching >= threshold:
-                nb_applicable_jobs += 1
-        return nb_applicable_jobs
+        if not jobs_subset:
+            return 0
+
+        idx = np.fromiter(jobs_subset, dtype=np.intp, count=len(jobs_subset))
+        scores = matchings.learner_jobs_matching(learner, self.jobs[idx])
+        return int(np.count_nonzero(scores >= threshold))
 
     def get_avg_applicable_jobs(self, threshold):
         """Get the average number of applicable jobs for all the learners

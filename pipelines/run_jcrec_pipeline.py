@@ -224,10 +224,10 @@ def _run_heuristic_trial(
     results["new_attractiveness"] = dataset.get_avg_learner_attractiveness()
     end = dataset.get_avg_applicable_jobs(threshold)
     results["end"] = end
-    trial_wall_minutes = round((perf_counter() - wall_start) / 60.0, 3)
+    trial_wall_minutes = round((perf_counter() - wall_start) / 60.0, 5)
     results["trial_wall_minutes"] = trial_wall_minutes
     print(f"All learners: {algorithm} end = {end:.4f}")
-    print(f"Trial {trial_id} wall time: {trial_wall_minutes:.3f} min")
+    print(f"Trial {trial_id} wall time: {trial_wall_minutes:.5f} min")
 
     _write_trial_artifacts(
         config,
@@ -344,9 +344,9 @@ def _run_rl_trial(
         life = read_training_life_proxy(training_path)
     results["life"] = life
     results["end"] = end
-    trial_wall_minutes = round((perf_counter() - wall_start) / 60.0, 3)
+    trial_wall_minutes = round((perf_counter() - wall_start) / 60.0, 5)
     results["trial_wall_minutes"] = trial_wall_minutes
-    print(f"Trial {trial_id} wall time: {trial_wall_minutes:.3f} min")
+    print(f"Trial {trial_id} wall time: {trial_wall_minutes:.5f} min")
 
     _write_trial_artifacts(
         config,
