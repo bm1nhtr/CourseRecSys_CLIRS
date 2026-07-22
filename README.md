@@ -166,7 +166,9 @@ CLIRS-Recsys/
 │   └── run.yaml              # flat reference / documentation
 ├── Data/                     # dataset (taxonomy, CVs, jobs, courses)
 ├── Docs/
-│   └── README_DEVELOPMENT.md # architecture, clustering, results
+│   └── README_DEVELOPMENT.md # architecture, clustering, matching, results
+├── tests/
+│   └── test_matchings_vectorized.py  # parity: batch vs scalar job matching
 ├── Utils/
 │   ├── results_paths.py              # canonical Results/ layout (used by pipeline + plots)
 │   ├── parallel_trials.py            # multi-worker trial fan-out (runtime.n_workers)
@@ -272,7 +274,9 @@ Results/{CLIRS|JCRecFair|JCRec}/steps_*/data_*/courses_*/k_*/
 
 **Run log:** `run.log` is created only when a run has warnings or errors (compact report, not full console). No file means the run looked fine — send `run.log` to the maintainer only if it exists. `Results/orchestration.log` is written only when orchestration fails or a cell produced a `run.log`.
 
-**T trials:** `experiment.nb_runs` independent RL trials share one dataset/split (`data_seed`); trial `t` uses `rl_seed = seeds.rl_base + t`. Sweep CSV upserts by `trial_id` (with a sidecar `.lock` when `n_workers` > 1); resume skips completed trials. Column `evaluation_split`: CLIRS + JCRec fair `test` (70/30 hold-out); JCRec author `all_learners`. Column `trial_wall_minutes`: wall-clock train+eval per trial (also copied into compare `compare_trial_metrics.csv`). End-of-run bootstrap summary → `reports/{method}_sweep_summary.json`.
+**T trials:** `experiment.nb_runs` independent RL trials share one dataset/split (`data_seed`); trial `t` uses `rl_seed = seeds.rl_base + t`. Sweep CSV upserts by `trial_id` (with a sidecar `.lock` when `n_workers` > 1); resume skips completed trials. Column `evaluation_split`: CLIRS + JCRec fair `test` (70/30 hold-out); JCRec author `all_learners`. Column `trial_wall_minutes`: wall-clock train+eval per trial in **minutes** (5 decimal places; also copied into compare `compare_trial_metrics.csv`). End-of-run bootstrap summary → `reports/{method}_sweep_summary.json`.
+
+**Job matching:** applicable-job counts use the same inverted-index candidate set as before, with vectorized `learner_jobs_matching` (see [`Docs/README_DEVELOPMENT.md`](Docs/README_DEVELOPMENT.md#job-applicability-scoring-performance)). Scalar matching APIs are unchanged for course checks inside `step`.
 
 **Manage outputs:**
 

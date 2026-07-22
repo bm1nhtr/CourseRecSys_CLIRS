@@ -7,6 +7,7 @@ in the course recommendation system, taking into account mastery levels (1-3) fo
 Key Functions:
     - matching: Base function for computing matching scores between skill vectors
     - learner_job_matching: Computes matching between learner skills and job requirements
+    - learner_jobs_matching: Vectorized learner vs jobs matrix (parity with row-wise calls)
     - learner_course_required_matching: Computes matching between learner skills and course prerequisites
     - learner_course_provided_matching: Computes matching between learner skills and course outcomes
     - learner_course_matching: Computes overall course relevance score
@@ -98,6 +99,53 @@ def learner_job_matching(learner: np.ndarray, job: np.ndarray) -> float:
         return 0.0
 
     return matching(learner, job)
+
+
+def learner_jobs_matching(learner: np.ndarray, jobs: np.ndarray) -> np.ndarray:
+    """Batch learner–job matching; same semantics as row-wise ``learner_job_matching``.
+
+    Args:
+        learner: Skill vector shape ``(S,)``.
+        jobs: Job requirement matrix shape ``(N, S)`` (or a single job ``(S,)``).
+
+    Returns:
+        Scores shape ``(N,)``. Empty learner or empty job rows yield ``0.0``.
+
+    Notes:
+        Uses the same per-job nonzero term order and ``np.sum`` accumulation as
+        ``matching`` (segment-wise ``np.sum``). Avoid ``bincount`` / ``reduceat`` /
+        global ``cumsum`` — they can flip ``>= threshold`` on float edges.
+    """
+    learner = np.asarray(learner)
+    jobs = np.asarray(jobs)
+    if jobs.ndim == 1:
+        jobs = jobs.reshape(1, -1)
+
+    n_jobs = jobs.shape[0]
+    scores = np.zeros(n_jobs, dtype=np.float64)
+    if n_jobs == 0 or not np.any(learner):
+        return scores
+
+    job_nnz = np.count_nonzero(jobs, axis=1)
+    if not np.any(job_nnz):
+        return scores
+
+    rows, cols = np.nonzero(jobs)
+    # Same terms as matching(): min(learner, job)[nz] / job[nz] (int/int → float)
+    vals = np.minimum(learner[cols], jobs[rows, cols]) / jobs[rows, cols]
+    # Contiguous groups per job (np.nonzero is row-major).
+    uniq, starts = np.unique(rows, return_index=True)
+    ends = np.empty(len(starts), dtype=np.intp)
+    ends[:-1] = starts[1:]
+    ends[-1] = len(vals)
+    # Per-segment np.sum matches ``matching``; global cumsum/reduceat can drift.
+    group_sums = np.fromiter(
+        (np.sum(vals[s:e]) for s, e in zip(starts, ends)),
+        dtype=np.float64,
+        count=len(starts),
+    )
+    scores[uniq] = group_sums / job_nnz[uniq]
+    return scores
 
 
 def learner_course_required_matching(learner: np.ndarray, course: np.ndarray) -> float:

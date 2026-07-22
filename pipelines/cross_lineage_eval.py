@@ -62,8 +62,10 @@ PAIRWISE_EXPORT_COLUMNS = (
     "n_wins",
     "n_ties",
     "n_losses",
-    "evaluation_split_a",
-    "evaluation_split_b",
+    # Learner population used for each method's ``end`` metric:
+    # ``test`` (hold-out) | ``all_learners`` (author protocol).
+    "method_a_end_population",
+    "method_b_end_population",
 )
 
 
@@ -121,7 +123,7 @@ def _ensure_trial_wall_minutes(df: pd.DataFrame) -> pd.DataFrame:
         minutes = pd.to_numeric(out["trial_wall_minutes"], errors="coerce")
         seconds = pd.to_numeric(out["trial_wall_seconds"], errors="coerce")
         fill = minutes.isna() & seconds.notna()
-        out.loc[fill, "trial_wall_minutes"] = (seconds[fill] / 60.0).round(3)
+        out.loc[fill, "trial_wall_minutes"] = (seconds[fill] / 60.0).round(5)
     return out
 
 
@@ -253,12 +255,12 @@ def pairwise_comparison_table(
     method_b: str,
 ) -> pd.DataFrame:
     rows: list[dict[str, Any]] = []
-    eval_split_a = (
+    end_population_a = (
         str(clirs_df["evaluation_split"].iloc[0])
         if "evaluation_split" in clirs_df.columns and not clirs_df.empty
         else None
     )
-    eval_split_b = (
+    end_population_b = (
         str(jcrec_df["evaluation_split"].iloc[0])
         if "evaluation_split" in jcrec_df.columns and not jcrec_df.empty
         else None
@@ -280,8 +282,8 @@ def pairwise_comparison_table(
                 "n_wins": win["n_wins"],
                 "n_ties": win["n_ties"],
                 "n_losses": win["n_losses"],
-                "evaluation_split_a": eval_split_a,
-                "evaluation_split_b": eval_split_b,
+                "method_a_end_population": end_population_a,
+                "method_b_end_population": end_population_b,
             }
         )
         pbpt = pbpt_stats(values_a, values_b)
@@ -298,8 +300,8 @@ def pairwise_comparison_table(
                 "n_wins": None,
                 "n_ties": None,
                 "n_losses": None,
-                "evaluation_split_a": eval_split_a,
-                "evaluation_split_b": eval_split_b,
+                "method_a_end_population": end_population_a,
+                "method_b_end_population": end_population_b,
             }
         )
     return pd.DataFrame(rows, columns=list(PAIRWISE_EXPORT_COLUMNS))
@@ -383,8 +385,8 @@ def write_final_report(
         "",
         "## Protocol",
         "",
-        "| Method | `evaluation_split` | `end` population |",
-        "|--------|--------------------|--------------------|",
+        "| Method | Sweep `evaluation_split` | `end` learner population |",
+        "|--------|--------------------------|---------------------------|",
     ]
     for name, split, population in protocol_rows:
         lines.append(f"| {name} | `{split}` | {population} |")
@@ -392,6 +394,11 @@ def write_final_report(
         lines.extend(["", protocol_note, ""])
     lines.extend(
         [
+            "",
+            "Pairwise CSV records the same populations as "
+            "`method_a_end_population` / `method_b_end_population` "
+            "(`test` = hold-out; `all_learners` = full pool).",
+            "",
             "## Artifacts",
             "",
             f"- Trial metrics: `{compare_csv}`",

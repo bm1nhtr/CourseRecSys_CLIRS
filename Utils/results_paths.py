@@ -27,7 +27,7 @@ SWEEP_CSV_COLUMNS = (
     "original_applicable_jobs",
     "train_size",  # CLIRS: train split n; JCRec RL: n (full pool, same as test_size)
     "test_size",  # CLIRS: held-out test n; JCRec: n (full pool final eval)
-    "trial_wall_minutes",  # wall-clock train+eval for this trial (minutes)
+    "trial_wall_minutes",  # wall-clock train+eval for this trial (minutes, 5 d.p.)
 )
 
 
@@ -246,7 +246,7 @@ def upsert_trial_csv_row(config: Mapping[str, Any], row: Mapping[str, Any]) -> s
                         ):
                             try:
                                 normalized["trial_wall_minutes"] = round(
-                                    float(existing["trial_wall_seconds"]) / 60.0, 3
+                                    float(existing["trial_wall_seconds"]) / 60.0, 5
                                 )
                             except (TypeError, ValueError):
                                 pass

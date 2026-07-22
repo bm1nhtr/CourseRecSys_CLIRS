@@ -229,9 +229,9 @@ class JcrecFairReinforce:
         )
         results["life"] = life
         print(f"Test split: jcrec_fair end = {results['end']:.4f}")
-        trial_wall_minutes = round((perf_counter() - wall_start) / 60.0, 3)
+        trial_wall_minutes = round((perf_counter() - wall_start) / 60.0, 5)
         results["trial_wall_minutes"] = trial_wall_minutes
-        print(f"Trial {self.trial_id} wall time: {trial_wall_minutes:.3f} min")
+        print(f"Trial {self.trial_id} wall time: {trial_wall_minutes:.5f} min")
 
         if self.save_raw:
             with open(self.eval_json_path, "w", encoding="utf-8") as f:

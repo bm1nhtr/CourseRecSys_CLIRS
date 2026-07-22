@@ -14,23 +14,29 @@ This document provides detailed information for developers working on the course
 2. **Data Management** (`CLIRS/Scripts/Dataset.py`):
    - Handles data loading and preprocessing
    - Manages learner, job, and course data with mastery levels
-   - Provides skill matching functionality considering mastery levels
+   - Counts applicable jobs via inverted-index candidates + batch matching (see below)
 
-3. **RL Implementation** (`CLIRS/Scripts/Reinforce.py`):
+3. **Skill matching** (`CLIRS/Scripts/matchings.py`; mirrored in `jcrec/matchings.py`):
+   - Scalar APIs: `matching`, `learner_job_matching`, course required/provided matching
+   - Batch API: `learner_jobs_matching(learner, jobs)` — same scores as row-wise calls
+   - Used by `Dataset.get_nb_applicable_jobs` (hot path every env step / eval)
+
+4. **RL Implementation** (`CLIRS/Scripts/Reinforce.py`):
    - Implements DQN, A2C, and PPO algorithms
    - Manages model training and evaluation
    - Handles hyperparameter tuning
    - Supports clustering-based reward adjustment
 
-4. **Pipeline** (`pipelines/run_clirs_pipeline.py`, `pipelines/run_jcrec_pipeline.py`, `pipelines/run_pipeline.py`):
+5. **Pipeline** (`pipelines/run_clirs_pipeline.py`, `pipelines/run_jcrec_pipeline.py`, `pipelines/run_pipeline.py`):
    - Orchestrates the training process
    - Manages configuration and logging
    - Handles results storage and visualization
    - Supports multiple k values (1,2,3,...)
 
-5. **Utilities** (`Utils/`):
+6. **Utilities** (`Utils/`):
    - `visualize_learning_curves.py` — plot learning curves from `Results/`
    - `general_utils.py` — shared helpers (placeholder)
+   - `results_paths.py` — Results layout, sweep CSV, `trial_wall_minutes`
 ## Clustering Implementation
 
 The system uses K-means clustering to group similar courses based on their skill profiles. This helps improve the RL performance by adjusting rewards based on course cluster membership.
@@ -198,6 +204,27 @@ Do **not** treat `life` as the main conclusion metric. Use it for learning-curve
 ### `original_applicable_jobs`
 
 Test-split mean applicable jobs **before** any recommendation (baseline per trial).
+
+### `trial_wall_minutes`
+
+Wall-clock time for one trial (train + final eval), stored in sweep CSV / eval JSON / compare tables.
+
+- **Unit:** minutes only (legacy `trial_wall_seconds` is migrated on read).
+- **Precision:** 5 decimal places.
+
+## Job applicability scoring (performance)
+
+Reward and metrics depend on counting jobs whose learner–job match score is `≥ threshold`.
+
+| Step | Behavior |
+|------|----------|
+| Candidates | Inverted index: jobs that share ≥1 skill with the learner (unchanged) |
+| Scores | `matchings.learner_jobs_matching` on the candidate job rows (batch) |
+| Count | `count(scores >= threshold)` |
+
+Semantics match the previous per-job Python loop (including float edge cases at the threshold). Prefer this path over reintroducing a row-wise loop in `get_nb_applicable_jobs`.
+
+Parity tests: `python -m unittest tests.test_matchings_vectorized -v`
 
 
 ## Important Notes
