@@ -1,0 +1,91 @@
+{
+  "_meta": {
+    "schema_version": 1,
+    "description": "Primary experiment configuration for CLIRS. Edit this file; see run.yaml for a flat readable reference.",
+    "status": "active — pipelines/run_pipeline.py loads this file by default",
+    "metrics_note": "Metric definitions (life, end, …) live in Utils/complete_algorithm.py and are copied into Results/.../manifest.json on first trial — not duplicated here."
+  },
+
+  "experiment": {
+    "results_lineage": "CLIRS",
+    "jcrec_fair_results_lineage": "JCRecFair",
+    "jcrec_results_lineage": "JCRec",
+    "nb_runs": 2
+  },
+
+  "orchestration": {
+    "_note": "pipelines/run_pipeline.py runs these in order. jcrec_fair = primary baseline (test split); jcrec = author reproduction.",
+    "pipelines": ["clirs"]
+  },
+
+  "seeds": {
+    "data": 42,
+    "rl_base": 42,
+    "_note": "data seed: subsample + split + clustering. rl_seed for trial t = rl_base + t."
+  },
+
+  "data": {
+    "taxonomy_path": "Data/taxonomy.csv",
+    "mastery_levels_path": "Data/mastery_levels.json",
+    "cv_path": "Data/resumes.json",
+    "job_path": "Data/jobs.json",
+    "course_path": "Data/courses.json",
+    "level_3": true,
+    "max_cv_skills": 15,
+    "nb_cvs": -1,
+    "nb_jobs": 100,
+    "nb_courses": 100
+  },
+
+  "split": {
+    "train_ratio": 0.7,
+    "test_ratio": 0.3
+  },
+
+  "model": {
+    "algorithm": "ppo",
+    "total_steps": 5000000,
+    "eval_freq": 50000,
+    "_note": "algorithm: shared by CLIRS + JCRec (dqn | ppo)"
+  },
+
+  "environment": {
+    "threshold": 0.8,
+    "k": 3
+  },
+
+  "clustering": {
+    "use_clustering": true,
+    "auto_clusters": true,
+    "max_clusters": 10,
+    "selection": "silhouette",
+    "min_cluster_size": 5,
+    "reward_multipliers": {
+      "first_recommendation": 1.3,
+      "progress_increase": 1.3,
+      "no_improvement": 1.0,
+      "_rules": {
+        "first_recommendation": "C_1 in each k-step sequence; always bonused; sets initial R'_adjusted,ref",
+        "progress_increase": "R_base > R'_adjusted,ref; bonus applied and ref updated",
+        "no_improvement": "R_base <= R'_adjusted,ref; neutral multiplier; ref unchanged"
+      }
+    }
+  },
+
+  "results": {
+    "results_path": "Results",
+    "save_raw": true
+  },
+  "runtime": {
+    "_note": "Host runtime settings (n_workers drives parallel trial fan-out). Update with: poetry run python Utils/probe_runtime.py --Config Config/run.json --write",
+    "n_workers": 1,
+    "detected": {
+      "n_cpu": 2,
+      "n_gpu": 0,
+      "gpu_names": [],
+      "free_ram_gb": 44,
+      "total_ram_gb": 44,
+      "os": "Linux"
+    }
+  }
+}
