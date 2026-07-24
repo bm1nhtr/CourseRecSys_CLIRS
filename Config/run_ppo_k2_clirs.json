@@ -10,7 +10,7 @@
     "results_lineage": "CLIRS",
     "jcrec_fair_results_lineage": "JCRecFair",
     "jcrec_results_lineage": "JCRec",
-    "nb_runs": 2
+    "nb_runs": 12
   },
 
   "orchestration": {
