@@ -3,8 +3,7 @@
   "trial_metrics_summary": {
     "n_methods": 2,
     "methods": [
-      "clirs_dqn",
-      "clirs_ppo"
+      "clirs_dqn"
     ],
     "expected_trials": 12,
     "methods_detail": {
@@ -26,26 +25,6 @@
         ],
         "missing_trial_ids": [],
         "source_csv": "clirs_dqn_data42.csv"
-      },
-      "clirs_ppo": {
-        "completed_trials": 8,
-        "trial_ids": [
-          0,
-          1,
-          2,
-          3,
-          4,
-          5,
-          6,
-          7
-        ],
-        "missing_trial_ids": [
-          8,
-          9,
-          10,
-          11
-        ],
-        "source_csv": "clirs_ppo_data42.csv"
       }
     }
   },
