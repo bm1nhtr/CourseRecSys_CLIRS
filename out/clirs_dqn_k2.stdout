@@ -1,0 +1,1221 @@
+Experiment cell: /home/alesage/arno_data/CourseRecSys_CLIRS/Results/CLIRS/steps_3000000/data_42/courses_100/k_2
+Method=dqn, clustering=True, nb_runs=12
+Trial plan: 12/12 to run (resume=on)
+RL seed policy: rl_base(42) + trial_id
+Next rl_seeds: 42, 43, 44, 45, 46, ...
+CLIRS split published: /home/alesage/arno_data/CourseRecSys_CLIRS/Results/CLIRS/steps_3000000/data_42/courses_100/k_2/split_indices.json
+Dataset with 52 learners (train=36, test=16), 100 jobs, 100 courses and 46 skills.
+Fitting course clusters once for this experiment cell...
+
+Starting course clustering...
+
+Selecting number of clusters...
+Selected k=8 via silhouette (min_cluster_size=5)
+
+Cluster Information:
+Cluster 0: 17 formations
+Cluster 1: 16 formations
+Cluster 2: 20 formations
+Cluster 3: 11 formations
+Cluster 4: 11 formations
+Cluster 5: 9 formations
+Cluster 6: 6 formations
+Cluster 7: 10 formations
+
+Feature Contribution to Principal Components:
+(Values show how much each feature contributes to the principal components)
+(Positive values mean the feature increases with the PC, negative values mean it decreases)
+(The magnitude shows how strongly the feature influences the PC)
+
+PC1 (Explained variance: 51.91%):
+Coverage: 0.560
+Required Entropy: 0.232
+Provided Entropy: 0.362
+Avg Level Gap: 0.485
+Max Level Gap: 0.516
+
+PC2 (Explained variance: 22.02%):
+Coverage: 0.214
+Required Entropy: -0.529
+Provided Entropy: 0.733
+Avg Level Gap: -0.244
+Max Level Gap: -0.279
+
+Starting visualize_feature_pairs...
+
+Saved correlation matrix to: /home/alesage/arno_data/CourseRecSys_CLIRS/Results/CLIRS/steps_3000000/data_42/courses_100/k_2/plots/clustering/feature_correlation.png
+Calling visualize_cluster_correlations...
+
+Starting visualize_cluster_correlations...
+Number of clusters: 8
+Shape of features_scaled: (100, 5)
+Creating subplot grid with 3 rows and 3 columns
+
+Processing cluster 0...
+Number of courses in cluster 0: 17
+
+Processing cluster 1...
+Number of courses in cluster 1: 16
+
+Processing cluster 2...
+Number of courses in cluster 2: 20
+
+Processing cluster 3...
+Number of courses in cluster 3: 11
+
+Processing cluster 4...
+Number of courses in cluster 4: 11
+
+Processing cluster 5...
+Number of courses in cluster 5: 9
+
+Processing cluster 6...
+Number of courses in cluster 6: 6
+
+Processing cluster 7...
+Number of courses in cluster 7: 10
+
+Saving cluster correlation matrices to: /home/alesage/arno_data/CourseRecSys_CLIRS/Results/CLIRS/steps_3000000/data_42/courses_100/k_2/plots/clustering/cluster_correlations.png
+
+Saved cluster correlation matrices to: /home/alesage/arno_data/CourseRecSys_CLIRS/Results/CLIRS/steps_3000000/data_42/courses_100/k_2/plots/clustering/cluster_correlations.png
+
+Cluster Feature Statistics:
+
+Cluster 0 (n=17):
+       Coverage  Required Entropy  ...  Avg Level Gap  Max Level Gap
+count    17.000            17.000  ...         17.000         17.000
+mean     -0.787            -0.768  ...         -1.232         -1.494
+std       0.267             0.339  ...          0.000          0.000
+min      -1.169            -0.851  ...         -1.232         -1.494
+25%      -0.966            -0.851  ...         -1.232         -1.494
+50%      -0.764            -0.851  ...         -1.232         -1.494
+75%      -0.561            -0.851  ...         -1.232         -1.494
+max      -0.358             0.546  ...         -1.232         -1.494
+
+[8 rows x 5 columns]
+
+Cluster 1 (n=16):
+       Coverage  Required Entropy  ...  Avg Level Gap  Max Level Gap
+count    16.000            16.000  ...         16.000          16.00
+mean      0.186            -0.167  ...         -0.399           0.35
+std       0.253             0.707  ...          0.522           0.00
+min      -0.156            -0.851  ...         -0.953           0.35
+25%       0.047            -0.851  ...         -0.846           0.35
+50%       0.249            -0.209  ...         -0.485           0.35
+75%       0.249             0.546  ...         -0.236           0.35
+max       0.654             0.546  ...          0.627           0.35
+
+[8 rows x 5 columns]
+
+Cluster 2 (n=20):
+       Coverage  Required Entropy  ...  Avg Level Gap  Max Level Gap
+count    20.000            20.000  ...         20.000         20.000
+mean     -0.105            -0.579  ...          1.041          0.535
+std       0.334             0.558  ...          0.540          0.568
+min      -0.764            -0.851  ...          0.441          0.350
+25%      -0.358            -0.851  ...          0.627          0.350
+50%      -0.156            -0.851  ...          0.859          0.350
+75%       0.097            -0.851  ...          1.556          0.350
+max       0.654             0.546  ...          2.254          2.195
+
+[8 rows x 5 columns]
+
+Cluster 3 (n=11):
+       Coverage  Required Entropy  ...  Avg Level Gap  Max Level Gap
+count    11.000            11.000  ...         11.000         11.000
+mean      1.741             0.007  ...          1.216          0.854
+std       0.993             0.682  ...          0.547          0.862
+min       0.857            -0.851  ...          0.627          0.350
+25%       1.262            -0.851  ...          1.032          0.350
+50%       1.464             0.432  ...          1.158          0.350
+75%       1.869             0.546  ...          1.227          1.273
+max       4.502             0.546  ...          2.752          2.195
+
+[8 rows x 5 columns]
+
+Cluster 4 (n=11):
+       Coverage  Required Entropy  ...  Avg Level Gap  Max Level Gap
+count    11.000            11.000  ...         11.000         11.000
+mean      1.170             1.775  ...          0.237          0.686
+std       0.827             0.500  ...          0.433          0.746
+min       0.249             1.244  ...         -0.535          0.350
+25%       0.553             1.343  ...         -0.077          0.350
+50%       0.857             1.829  ...          0.162          0.350
+75%       1.566             2.117  ...          0.569          0.350
+max       2.882             2.645  ...          0.859          2.195
+
+[8 rows x 5 columns]
+
+Cluster 5 (n=9):
+       Coverage  Required Entropy  ...  Avg Level Gap  Max Level Gap
+count     9.000             9.000  ...          9.000          9.000
+mean     -1.034             0.467  ...         -1.232         -1.494
+std       0.392             1.148  ...          0.000          0.000
+min      -1.574            -0.851  ...         -1.232         -1.494
+25%      -1.169            -0.851  ...         -1.232         -1.494
+50%      -0.966             0.546  ...         -1.232         -1.494
+75%      -0.764             1.363  ...         -1.232         -1.494
+max      -0.358             2.392  ...         -1.232         -1.494
+
+[8 rows x 5 columns]
+
+Cluster 6 (n=6):
+       Coverage  Required Entropy  ...  Avg Level Gap  Max Level Gap
+count     6.000             6.000  ...          6.000           6.00
+mean     -1.034            -0.851  ...          0.317           0.35
+std       0.209             0.000  ...          0.240           0.00
+min      -1.169            -0.851  ...          0.162           0.35
+25%      -1.169            -0.851  ...          0.162           0.35
+50%      -1.169            -0.851  ...          0.162           0.35
+75%      -0.865            -0.851  ...          0.511           0.35
+max      -0.764            -0.851  ...          0.627           0.35
+
+[8 rows x 5 columns]
+
+Cluster 7 (n=10):
+       Coverage  Required Entropy  ...  Avg Level Gap  Max Level Gap
+count    10.000            10.000  ...         10.000          10.00
+mean     -0.399             0.861  ...         -0.028           0.35
+std       0.186             0.408  ...          0.671           0.00
+min      -0.561             0.546  ...         -0.674           0.35
+25%      -0.561             0.546  ...         -0.477           0.35
+50%      -0.460             0.546  ...         -0.210           0.35
+75%      -0.207             1.333  ...          0.162           0.35
+max      -0.156             1.363  ...          1.556           0.35
+
+[8 rows x 5 columns]
+Wrote frozen course clusters to /home/alesage/arno_data/CourseRecSys_CLIRS/Results/CLIRS/steps_3000000/data_42/courses_100/k_2/course_clusters.json
+
+--- Trial 1/12 (trial_id=0, rl_seed=42) ---
+
+Initializing CourseRecEnv — TRAIN (SB3 learns here):
+  use_clustering in config: True
+  Clustering: using frozen labels (once per experiment cell)
+  Reward shaping: ON — cluster multipliers apply during train_env episodes in model.learn()
+
+Initializing CourseRecEnv — MONITOR (callback / held-out eval):
+  use_clustering in config: True
+  Reward shaping: OFF on this env — measures raw applicable jobs (EvaluateCallback on train split; final metric on test split). Training still uses train_env with shaping when config enables it.
+
+Starting model.learn() on train_env. Every 50000 steps: monitor train-split jobs via eval_env (raw reward, no weight updates). Test split runs once after training.
+
+Complete Algorithm manifest OK (frozen or validated).
+Test split (n=16): average attractiveness = 475.06
+Test split: average applicable jobs per learner = 0.06
+Iteration 50000 — monitoring only (no weight updates). Train-split avg jobs: 0.1388888888888889 (n=36) Time: 0.1331096159999987
+Iteration 100000 — monitoring only (no weight updates). Train-split avg jobs: 0.9722222222222222 (n=36) Time: 0.0768217079999971
+Iteration 150000 — monitoring only (no weight updates). Train-split avg jobs: 1.1388888888888888 (n=36) Time: 0.07774964699999032
+Iteration 200000 — monitoring only (no weight updates). Train-split avg jobs: 1.7222222222222223 (n=36) Time: 0.07757682300001534
+Iteration 250000 — monitoring only (no weight updates). Train-split avg jobs: 1.8055555555555556 (n=36) Time: 0.07680572600003188
+Iteration 300000 — monitoring only (no weight updates). Train-split avg jobs: 1.8611111111111112 (n=36) Time: 0.07733950699997649
+Iteration 350000 — monitoring only (no weight updates). Train-split avg jobs: 1.9166666666666667 (n=36) Time: 0.07733589000002894
+Iteration 400000 — monitoring only (no weight updates). Train-split avg jobs: 2.138888888888889 (n=36) Time: 0.07741154199993616
+Iteration 450000 — monitoring only (no weight updates). Train-split avg jobs: 2.3055555555555554 (n=36) Time: 0.07775597800002743
+Iteration 500000 — monitoring only (no weight updates). Train-split avg jobs: 2.3055555555555554 (n=36) Time: 0.07719226999995499
+Iteration 550000 — monitoring only (no weight updates). Train-split avg jobs: 2.3333333333333335 (n=36) Time: 0.07727172099998825
+Iteration 600000 — monitoring only (no weight updates). Train-split avg jobs: 2.3333333333333335 (n=36) Time: 0.07777677699994001
+Iteration 650000 — monitoring only (no weight updates). Train-split avg jobs: 2.3333333333333335 (n=36) Time: 0.07845322499997565
+Iteration 700000 — monitoring only (no weight updates). Train-split avg jobs: 2.3333333333333335 (n=36) Time: 0.07741116200008946
+Iteration 750000 — monitoring only (no weight updates). Train-split avg jobs: 2.3333333333333335 (n=36) Time: 0.07748916799994277
+Iteration 800000 — monitoring only (no weight updates). Train-split avg jobs: 2.388888888888889 (n=36) Time: 0.07721001400000205
+Iteration 850000 — monitoring only (no weight updates). Train-split avg jobs: 2.388888888888889 (n=36) Time: 0.0774012929998662
+Iteration 900000 — monitoring only (no weight updates). Train-split avg jobs: 2.388888888888889 (n=36) Time: 0.07756180399996992
+Iteration 950000 — monitoring only (no weight updates). Train-split avg jobs: 2.388888888888889 (n=36) Time: 0.0778285250000863
+Iteration 1000000 — monitoring only (no weight updates). Train-split avg jobs: 2.388888888888889 (n=36) Time: 0.07735711999998784
+Iteration 1050000 — monitoring only (no weight updates). Train-split avg jobs: 2.388888888888889 (n=36) Time: 0.07768511499989472
+Iteration 1100000 — monitoring only (no weight updates). Train-split avg jobs: 2.4444444444444446 (n=36) Time: 0.07776595599989378
+Iteration 1150000 — monitoring only (no weight updates). Train-split avg jobs: 2.4722222222222223 (n=36) Time: 0.07728229099984674
+Iteration 1200000 — monitoring only (no weight updates). Train-split avg jobs: 2.5277777777777777 (n=36) Time: 0.07787291800013918
+Iteration 1250000 — monitoring only (no weight updates). Train-split avg jobs: 2.5277777777777777 (n=36) Time: 0.0774666359998264
+Iteration 1300000 — monitoring only (no weight updates). Train-split avg jobs: 2.5277777777777777 (n=36) Time: 0.07768248099978337
+Iteration 1350000 — monitoring only (no weight updates). Train-split avg jobs: 2.5277777777777777 (n=36) Time: 0.0774737690001075
+Iteration 1400000 — monitoring only (no weight updates). Train-split avg jobs: 2.5277777777777777 (n=36) Time: 0.07808671800012235
+Iteration 1450000 — monitoring only (no weight updates). Train-split avg jobs: 2.5277777777777777 (n=36) Time: 0.07752629800006616
+Iteration 1500000 — monitoring only (no weight updates). Train-split avg jobs: 2.5277777777777777 (n=36) Time: 0.0773301099998207
+Iteration 1550000 — monitoring only (no weight updates). Train-split avg jobs: 2.5277777777777777 (n=36) Time: 0.07729371100003846
+Iteration 1600000 — monitoring only (no weight updates). Train-split avg jobs: 2.5277777777777777 (n=36) Time: 0.07769229899986385
+Iteration 1650000 — monitoring only (no weight updates). Train-split avg jobs: 2.5277777777777777 (n=36) Time: 0.07741106100002071
+Iteration 1700000 — monitoring only (no weight updates). Train-split avg jobs: 2.5277777777777777 (n=36) Time: 0.07772018200012099
+Iteration 1750000 — monitoring only (no weight updates). Train-split avg jobs: 2.5 (n=36) Time: 0.07782000899987906
+Iteration 1800000 — monitoring only (no weight updates). Train-split avg jobs: 2.5 (n=36) Time: 0.07744643900014125
+Iteration 1850000 — monitoring only (no weight updates). Train-split avg jobs: 2.5 (n=36) Time: 0.07738270700019712
+Iteration 1900000 — monitoring only (no weight updates). Train-split avg jobs: 2.5 (n=36) Time: 0.0773618099997293
+Iteration 1950000 — monitoring only (no weight updates). Train-split avg jobs: 2.611111111111111 (n=36) Time: 0.07764310799984742
+Iteration 2000000 — monitoring only (no weight updates). Train-split avg jobs: 2.638888888888889 (n=36) Time: 0.07777193799984161
+Iteration 2050000 — monitoring only (no weight updates). Train-split avg jobs: 2.6666666666666665 (n=36) Time: 0.07757989899982931
+Iteration 2100000 — monitoring only (no weight updates). Train-split avg jobs: 2.6666666666666665 (n=36) Time: 0.07795776600005411
+Iteration 2150000 — monitoring only (no weight updates). Train-split avg jobs: 2.638888888888889 (n=36) Time: 0.07782209200013313
+Iteration 2200000 — monitoring only (no weight updates). Train-split avg jobs: 2.638888888888889 (n=36) Time: 0.07745981299967752
+Iteration 2250000 — monitoring only (no weight updates). Train-split avg jobs: 2.638888888888889 (n=36) Time: 0.07724300600011702
+Iteration 2300000 — monitoring only (no weight updates). Train-split avg jobs: 2.638888888888889 (n=36) Time: 0.07782348499995351
+Iteration 2350000 — monitoring only (no weight updates). Train-split avg jobs: 2.638888888888889 (n=36) Time: 0.07776105799985089
+Iteration 2400000 — monitoring only (no weight updates). Train-split avg jobs: 2.6666666666666665 (n=36) Time: 0.07768514500003221
+Iteration 2450000 — monitoring only (no weight updates). Train-split avg jobs: 2.638888888888889 (n=36) Time: 0.07747897900026146
+Iteration 2500000 — monitoring only (no weight updates). Train-split avg jobs: 2.6666666666666665 (n=36) Time: 0.07782804299995405
+Iteration 2550000 — monitoring only (no weight updates). Train-split avg jobs: 2.6944444444444446 (n=36) Time: 0.0778095589998884
+Iteration 2600000 — monitoring only (no weight updates). Train-split avg jobs: 2.6944444444444446 (n=36) Time: 0.07763850799983629
+Iteration 2650000 — monitoring only (no weight updates). Train-split avg jobs: 2.6666666666666665 (n=36) Time: 0.0777885200000128
+Iteration 2700000 — monitoring only (no weight updates). Train-split avg jobs: 2.6944444444444446 (n=36) Time: 0.07765583099990181
+Iteration 2750000 — monitoring only (no weight updates). Train-split avg jobs: 2.7222222222222223 (n=36) Time: 0.07745742899987818
+Iteration 2800000 — monitoring only (no weight updates). Train-split avg jobs: 2.7222222222222223 (n=36) Time: 0.07757712400007222
+Iteration 2850000 — monitoring only (no weight updates). Train-split avg jobs: 2.6944444444444446 (n=36) Time: 0.0772101150000708
+Iteration 2900000 — monitoring only (no weight updates). Train-split avg jobs: 2.7222222222222223 (n=36) Time: 0.07729657599975326
+Iteration 2950000 — monitoring only (no weight updates). Train-split avg jobs: 2.7222222222222223 (n=36) Time: 0.07799080999984653
+Iteration 3000000 — monitoring only (no weight updates). Train-split avg jobs: 2.7222222222222223 (n=36) Time: 0.07770778800022526
+Average recommendation time (test): 0.0018 seconds
+Test split: new average attractiveness = 874.38
+Test split: new average applicable jobs = 1.06
+Trial 0 wall time: 69.14528 min
+Trial 0 logged to sweep CSV: /home/alesage/arno_data/CourseRecSys_CLIRS/Results/CLIRS/steps_3000000/data_42/courses_100/k_2/sweeps/clirs_dqn_data42.csv
+Raw eval JSON: /home/alesage/arno_data/CourseRecSys_CLIRS/Results/CLIRS/steps_3000000/data_42/courses_100/k_2/raw/clirs_dqn_data42_rl42_k2_eval.json
+Optimal number of clusters: 8
+Clustering inertia: 119.34047055963427
+
+--- Trial 2/12 (trial_id=1, rl_seed=43) ---
+
+Initializing CourseRecEnv — TRAIN (SB3 learns here):
+  use_clustering in config: True
+  Clustering: using frozen labels (once per experiment cell)
+  Reward shaping: ON — cluster multipliers apply during train_env episodes in model.learn()
+
+Initializing CourseRecEnv — MONITOR (callback / held-out eval):
+  use_clustering in config: True
+  Reward shaping: OFF on this env — measures raw applicable jobs (EvaluateCallback on train split; final metric on test split). Training still uses train_env with shaping when config enables it.
+
+Starting model.learn() on train_env. Every 50000 steps: monitor train-split jobs via eval_env (raw reward, no weight updates). Test split runs once after training.
+
+Test split (n=16): average attractiveness = 475.06
+Test split: average applicable jobs per learner = 0.06
+Iteration 50000 — monitoring only (no weight updates). Train-split avg jobs: 0.1111111111111111 (n=36) Time: 0.055817195000599895
+Iteration 100000 — monitoring only (no weight updates). Train-split avg jobs: 1.1944444444444444 (n=36) Time: 0.0770016830001623
+Iteration 150000 — monitoring only (no weight updates). Train-split avg jobs: 1.0 (n=36) Time: 0.07722769799966045
+Iteration 200000 — monitoring only (no weight updates). Train-split avg jobs: 1.6111111111111112 (n=36) Time: 0.07729867099988041
+Iteration 250000 — monitoring only (no weight updates). Train-split avg jobs: 1.75 (n=36) Time: 0.07749931699981971
+Iteration 300000 — monitoring only (no weight updates). Train-split avg jobs: 1.8333333333333333 (n=36) Time: 0.07717745399986597
+Iteration 350000 — monitoring only (no weight updates). Train-split avg jobs: 2.0277777777777777 (n=36) Time: 0.07832850200065877
+Iteration 400000 — monitoring only (no weight updates). Train-split avg jobs: 2.1944444444444446 (n=36) Time: 0.07736600699990959
+Iteration 450000 — monitoring only (no weight updates). Train-split avg jobs: 2.1944444444444446 (n=36) Time: 0.07722272899991367
+Iteration 500000 — monitoring only (no weight updates). Train-split avg jobs: 2.1944444444444446 (n=36) Time: 0.07756123299986939
+Iteration 550000 — monitoring only (no weight updates). Train-split avg jobs: 2.25 (n=36) Time: 0.0773195100000521
+Iteration 600000 — monitoring only (no weight updates). Train-split avg jobs: 2.25 (n=36) Time: 0.07784023600015644
+Iteration 650000 — monitoring only (no weight updates). Train-split avg jobs: 2.2777777777777777 (n=36) Time: 0.07744236100006674
+Iteration 700000 — monitoring only (no weight updates). Train-split avg jobs: 2.3333333333333335 (n=36) Time: 0.07711056700009067
+Iteration 750000 — monitoring only (no weight updates). Train-split avg jobs: 2.3333333333333335 (n=36) Time: 0.07738530299957347
+Iteration 800000 — monitoring only (no weight updates). Train-split avg jobs: 2.361111111111111 (n=36) Time: 0.07764785600011237
+Iteration 850000 — monitoring only (no weight updates). Train-split avg jobs: 2.388888888888889 (n=36) Time: 0.07739986100023089
+Iteration 900000 — monitoring only (no weight updates). Train-split avg jobs: 2.388888888888889 (n=36) Time: 0.07728316199973051
+Iteration 950000 — monitoring only (no weight updates). Train-split avg jobs: 2.388888888888889 (n=36) Time: 0.07763662500019564
+Iteration 1000000 — monitoring only (no weight updates). Train-split avg jobs: 2.4166666666666665 (n=36) Time: 0.0774907320001148
+Iteration 1050000 — monitoring only (no weight updates). Train-split avg jobs: 2.4166666666666665 (n=36) Time: 0.07769258999996964
+Iteration 1100000 — monitoring only (no weight updates). Train-split avg jobs: 2.4166666666666665 (n=36) Time: 0.07773944800010213
+Iteration 1150000 — monitoring only (no weight updates). Train-split avg jobs: 2.4166666666666665 (n=36) Time: 0.07768507499986299
+Iteration 1200000 — monitoring only (no weight updates). Train-split avg jobs: 2.4166666666666665 (n=36) Time: 0.07752917299967521
+Iteration 1250000 — monitoring only (no weight updates). Train-split avg jobs: 2.4444444444444446 (n=36) Time: 0.07794065499911085
+Iteration 1300000 — monitoring only (no weight updates). Train-split avg jobs: 2.4444444444444446 (n=36) Time: 0.07737366200035467
+Iteration 1350000 — monitoring only (no weight updates). Train-split avg jobs: 2.611111111111111 (n=36) Time: 0.07754940100039676
+Iteration 1400000 — monitoring only (no weight updates). Train-split avg jobs: 2.611111111111111 (n=36) Time: 0.07740850699974544
+Iteration 1450000 — monitoring only (no weight updates). Train-split avg jobs: 2.611111111111111 (n=36) Time: 0.07731976099967142
+Iteration 1500000 — monitoring only (no weight updates). Train-split avg jobs: 2.611111111111111 (n=36) Time: 0.07731392000005144
+Iteration 1550000 — monitoring only (no weight updates). Train-split avg jobs: 2.611111111111111 (n=36) Time: 0.07729318000019703
+Iteration 1600000 — monitoring only (no weight updates). Train-split avg jobs: 2.638888888888889 (n=36) Time: 0.07764143399981549
+Iteration 1650000 — monitoring only (no weight updates). Train-split avg jobs: 2.638888888888889 (n=36) Time: 0.07743482699970627
+Iteration 1700000 — monitoring only (no weight updates). Train-split avg jobs: 2.638888888888889 (n=36) Time: 0.07742538799993781
+Iteration 1750000 — monitoring only (no weight updates). Train-split avg jobs: 2.638888888888889 (n=36) Time: 0.07738629399955244
+Iteration 1800000 — monitoring only (no weight updates). Train-split avg jobs: 2.638888888888889 (n=36) Time: 0.07736161899993022
+Iteration 1850000 — monitoring only (no weight updates). Train-split avg jobs: 2.638888888888889 (n=36) Time: 0.07761354099966411
+Iteration 1900000 — monitoring only (no weight updates). Train-split avg jobs: 2.638888888888889 (n=36) Time: 0.07757650300027308
+Iteration 1950000 — monitoring only (no weight updates). Train-split avg jobs: 2.638888888888889 (n=36) Time: 0.07758106099936413
+Iteration 2000000 — monitoring only (no weight updates). Train-split avg jobs: 2.638888888888889 (n=36) Time: 0.0774420600000667
+Iteration 2050000 — monitoring only (no weight updates). Train-split avg jobs: 2.638888888888889 (n=36) Time: 0.0773267129998203
+Iteration 2100000 — monitoring only (no weight updates). Train-split avg jobs: 2.638888888888889 (n=36) Time: 0.07727671900011046
+Iteration 2150000 — monitoring only (no weight updates). Train-split avg jobs: 2.638888888888889 (n=36) Time: 0.07757967900033691
+Iteration 2200000 — monitoring only (no weight updates). Train-split avg jobs: 2.638888888888889 (n=36) Time: 0.07755582300069364
+Iteration 2250000 — monitoring only (no weight updates). Train-split avg jobs: 2.638888888888889 (n=36) Time: 0.07788116200026707
+Iteration 2300000 — monitoring only (no weight updates). Train-split avg jobs: 2.638888888888889 (n=36) Time: 0.07770872099990811
+Iteration 2350000 — monitoring only (no weight updates). Train-split avg jobs: 2.638888888888889 (n=36) Time: 0.07742140000027575
+Iteration 2400000 — monitoring only (no weight updates). Train-split avg jobs: 2.638888888888889 (n=36) Time: 0.07755419000022812
+Iteration 2450000 — monitoring only (no weight updates). Train-split avg jobs: 2.638888888888889 (n=36) Time: 0.0772513820002132
+Iteration 2500000 — monitoring only (no weight updates). Train-split avg jobs: 2.638888888888889 (n=36) Time: 0.07753692799997225
+Iteration 2550000 — monitoring only (no weight updates). Train-split avg jobs: 2.6666666666666665 (n=36) Time: 0.07762489300057496
+Iteration 2600000 — monitoring only (no weight updates). Train-split avg jobs: 2.6944444444444446 (n=36) Time: 0.0775879739994707
+Iteration 2650000 — monitoring only (no weight updates). Train-split avg jobs: 2.6944444444444446 (n=36) Time: 0.07753292999950645
+Iteration 2700000 — monitoring only (no weight updates). Train-split avg jobs: 2.6944444444444446 (n=36) Time: 0.0777075979995061
+Iteration 2750000 — monitoring only (no weight updates). Train-split avg jobs: 2.6944444444444446 (n=36) Time: 0.07738556399999652
+Iteration 2800000 — monitoring only (no weight updates). Train-split avg jobs: 2.6944444444444446 (n=36) Time: 0.07754585500060784
+Iteration 2850000 — monitoring only (no weight updates). Train-split avg jobs: 2.6944444444444446 (n=36) Time: 0.0773722390003968
+Iteration 2900000 — monitoring only (no weight updates). Train-split avg jobs: 2.6944444444444446 (n=36) Time: 0.07740624300004129
+Iteration 2950000 — monitoring only (no weight updates). Train-split avg jobs: 2.6944444444444446 (n=36) Time: 0.07753072599916777
+Iteration 3000000 — monitoring only (no weight updates). Train-split avg jobs: 2.6944444444444446 (n=36) Time: 0.07721396300075867
+Average recommendation time (test): 0.0017 seconds
+Test split: new average attractiveness = 805.88
+Test split: new average applicable jobs = 0.94
+Trial 1 wall time: 69.22076 min
+Trial 1 logged to sweep CSV: /home/alesage/arno_data/CourseRecSys_CLIRS/Results/CLIRS/steps_3000000/data_42/courses_100/k_2/sweeps/clirs_dqn_data42.csv
+Raw eval JSON: /home/alesage/arno_data/CourseRecSys_CLIRS/Results/CLIRS/steps_3000000/data_42/courses_100/k_2/raw/clirs_dqn_data42_rl43_k2_eval.json
+Optimal number of clusters: 8
+Clustering inertia: 119.34047055963427
+
+--- Trial 3/12 (trial_id=2, rl_seed=44) ---
+
+Initializing CourseRecEnv — TRAIN (SB3 learns here):
+  use_clustering in config: True
+  Clustering: using frozen labels (once per experiment cell)
+  Reward shaping: ON — cluster multipliers apply during train_env episodes in model.learn()
+
+Initializing CourseRecEnv — MONITOR (callback / held-out eval):
+  use_clustering in config: True
+  Reward shaping: OFF on this env — measures raw applicable jobs (EvaluateCallback on train split; final metric on test split). Training still uses train_env with shaping when config enables it.
+
+Starting model.learn() on train_env. Every 50000 steps: monitor train-split jobs via eval_env (raw reward, no weight updates). Test split runs once after training.
+
+Test split (n=16): average attractiveness = 475.06
+Test split: average applicable jobs per learner = 0.06
+Iteration 50000 — monitoring only (no weight updates). Train-split avg jobs: 0.1388888888888889 (n=36) Time: 0.06535290799911309
+Iteration 100000 — monitoring only (no weight updates). Train-split avg jobs: 1.1944444444444444 (n=36) Time: 0.07744020599966461
+Iteration 150000 — monitoring only (no weight updates). Train-split avg jobs: 1.1111111111111112 (n=36) Time: 0.07723917800103663
+Iteration 200000 — monitoring only (no weight updates). Train-split avg jobs: 1.75 (n=36) Time: 0.0775149759992928
+Iteration 250000 — monitoring only (no weight updates). Train-split avg jobs: 2.0277777777777777 (n=36) Time: 0.07740310699955444
+Iteration 300000 — monitoring only (no weight updates). Train-split avg jobs: 2.1666666666666665 (n=36) Time: 0.0775707920001878
+Iteration 350000 — monitoring only (no weight updates). Train-split avg jobs: 2.25 (n=36) Time: 0.07767264299945964
+Iteration 400000 — monitoring only (no weight updates). Train-split avg jobs: 2.3055555555555554 (n=36) Time: 0.07804191400100535
+Iteration 450000 — monitoring only (no weight updates). Train-split avg jobs: 2.2777777777777777 (n=36) Time: 0.07740197499879287
+Iteration 500000 — monitoring only (no weight updates). Train-split avg jobs: 2.3055555555555554 (n=36) Time: 0.07757583999955386
+Iteration 550000 — monitoring only (no weight updates). Train-split avg jobs: 2.388888888888889 (n=36) Time: 0.07742204199894331
+Iteration 600000 — monitoring only (no weight updates). Train-split avg jobs: 2.4166666666666665 (n=36) Time: 0.07778894000148284
+Iteration 650000 — monitoring only (no weight updates). Train-split avg jobs: 2.4166666666666665 (n=36) Time: 0.07729466300042986
+Iteration 700000 — monitoring only (no weight updates). Train-split avg jobs: 2.4166666666666665 (n=36) Time: 0.07759552799871017
+Iteration 750000 — monitoring only (no weight updates). Train-split avg jobs: 2.4166666666666665 (n=36) Time: 0.07709916699968744
+Iteration 800000 — monitoring only (no weight updates). Train-split avg jobs: 2.4166666666666665 (n=36) Time: 0.07761828000002424
+Iteration 850000 — monitoring only (no weight updates). Train-split avg jobs: 2.4444444444444446 (n=36) Time: 0.07741046000046481
+Iteration 900000 — monitoring only (no weight updates). Train-split avg jobs: 2.4444444444444446 (n=36) Time: 0.07780656300019473
+Iteration 950000 — monitoring only (no weight updates). Train-split avg jobs: 2.4444444444444446 (n=36) Time: 0.0777602170001046
+Iteration 1000000 — monitoring only (no weight updates). Train-split avg jobs: 2.4444444444444446 (n=36) Time: 0.07742790399970545
+Iteration 1050000 — monitoring only (no weight updates). Train-split avg jobs: 2.4444444444444446 (n=36) Time: 0.07763578300000518
+Iteration 1100000 — monitoring only (no weight updates). Train-split avg jobs: 2.4444444444444446 (n=36) Time: 0.07726668099894596
+Iteration 1150000 — monitoring only (no weight updates). Train-split avg jobs: 2.4444444444444446 (n=36) Time: 0.0776100849998329
+Iteration 1200000 — monitoring only (no weight updates). Train-split avg jobs: 2.5277777777777777 (n=36) Time: 0.07780624299994088
+Iteration 1250000 — monitoring only (no weight updates). Train-split avg jobs: 2.611111111111111 (n=36) Time: 0.0771897969989368
+Iteration 1300000 — monitoring only (no weight updates). Train-split avg jobs: 2.611111111111111 (n=36) Time: 0.07764732599935087
+Iteration 1350000 — monitoring only (no weight updates). Train-split avg jobs: 2.611111111111111 (n=36) Time: 0.07711270199979481
+Iteration 1400000 — monitoring only (no weight updates). Train-split avg jobs: 2.5833333333333335 (n=36) Time: 0.07757023900012427
+Iteration 1450000 — monitoring only (no weight updates). Train-split avg jobs: 2.5833333333333335 (n=36) Time: 0.07772256599855609
+Iteration 1500000 — monitoring only (no weight updates). Train-split avg jobs: 2.611111111111111 (n=36) Time: 0.07719911400090496
+Iteration 1550000 — monitoring only (no weight updates). Train-split avg jobs: 2.611111111111111 (n=36) Time: 0.0770859019994532
+Iteration 1600000 — monitoring only (no weight updates). Train-split avg jobs: 2.611111111111111 (n=36) Time: 0.07769137600007525
+Iteration 1650000 — monitoring only (no weight updates). Train-split avg jobs: 2.611111111111111 (n=36) Time: 0.07804479999867908
+Iteration 1700000 — monitoring only (no weight updates). Train-split avg jobs: 2.611111111111111 (n=36) Time: 0.0773961530012457
+Iteration 1750000 — monitoring only (no weight updates). Train-split avg jobs: 2.611111111111111 (n=36) Time: 0.07764987900009146
+Iteration 1800000 — monitoring only (no weight updates). Train-split avg jobs: 2.611111111111111 (n=36) Time: 0.07738323000012315
+Iteration 1850000 — monitoring only (no weight updates). Train-split avg jobs: 2.638888888888889 (n=36) Time: 0.07742774200050917
+Iteration 1900000 — monitoring only (no weight updates). Train-split avg jobs: 2.638888888888889 (n=36) Time: 0.07746870799928729
+Iteration 1950000 — monitoring only (no weight updates). Train-split avg jobs: 2.6666666666666665 (n=36) Time: 0.07744860200000403
+Iteration 2000000 — monitoring only (no weight updates). Train-split avg jobs: 2.6666666666666665 (n=36) Time: 0.07737816000008024
+Iteration 2050000 — monitoring only (no weight updates). Train-split avg jobs: 2.6666666666666665 (n=36) Time: 0.07744430400089186
+Iteration 2100000 — monitoring only (no weight updates). Train-split avg jobs: 2.6666666666666665 (n=36) Time: 0.07733609999922919
+Iteration 2150000 — monitoring only (no weight updates). Train-split avg jobs: 2.6666666666666665 (n=36) Time: 0.07714913000017987
+Iteration 2200000 — monitoring only (no weight updates). Train-split avg jobs: 2.6666666666666665 (n=36) Time: 0.07778398200025549
+Iteration 2250000 — monitoring only (no weight updates). Train-split avg jobs: 2.6666666666666665 (n=36) Time: 0.07704159899913066
+Iteration 2300000 — monitoring only (no weight updates). Train-split avg jobs: 2.6666666666666665 (n=36) Time: 0.07764709399998537
+Iteration 2350000 — monitoring only (no weight updates). Train-split avg jobs: 2.6666666666666665 (n=36) Time: 0.07741472899942892
+Iteration 2400000 — monitoring only (no weight updates). Train-split avg jobs: 2.6944444444444446 (n=36) Time: 0.07706800800042402
+Iteration 2450000 — monitoring only (no weight updates). Train-split avg jobs: 2.6944444444444446 (n=36) Time: 0.07732438899984118
+Iteration 2500000 — monitoring only (no weight updates). Train-split avg jobs: 2.6944444444444446 (n=36) Time: 0.07736807100081933
+Iteration 2550000 — monitoring only (no weight updates). Train-split avg jobs: 2.6944444444444446 (n=36) Time: 0.07746061499892676
+Iteration 2600000 — monitoring only (no weight updates). Train-split avg jobs: 2.6944444444444446 (n=36) Time: 0.07783368399941537
+Iteration 2650000 — monitoring only (no weight updates). Train-split avg jobs: 2.6944444444444446 (n=36) Time: 0.07754725699851406
+Iteration 2700000 — monitoring only (no weight updates). Train-split avg jobs: 2.6944444444444446 (n=36) Time: 0.07769030500094232
+Iteration 2750000 — monitoring only (no weight updates). Train-split avg jobs: 2.6944444444444446 (n=36) Time: 0.07718009800009895
+Iteration 2800000 — monitoring only (no weight updates). Train-split avg jobs: 2.6944444444444446 (n=36) Time: 0.07742800199957856
+Iteration 2850000 — monitoring only (no weight updates). Train-split avg jobs: 2.6944444444444446 (n=36) Time: 0.07750360499994713
+Iteration 2900000 — monitoring only (no weight updates). Train-split avg jobs: 2.6944444444444446 (n=36) Time: 0.0772788149988628
+Iteration 2950000 — monitoring only (no weight updates). Train-split avg jobs: 2.6944444444444446 (n=36) Time: 0.07722835899949132
+Iteration 3000000 — monitoring only (no weight updates). Train-split avg jobs: 2.6944444444444446 (n=36) Time: 0.07822476899855246
+Average recommendation time (test): 0.0017 seconds
+Test split: new average attractiveness = 818.25
+Test split: new average applicable jobs = 1.12
+Trial 2 wall time: 69.24384 min
+Trial 2 logged to sweep CSV: /home/alesage/arno_data/CourseRecSys_CLIRS/Results/CLIRS/steps_3000000/data_42/courses_100/k_2/sweeps/clirs_dqn_data42.csv
+Raw eval JSON: /home/alesage/arno_data/CourseRecSys_CLIRS/Results/CLIRS/steps_3000000/data_42/courses_100/k_2/raw/clirs_dqn_data42_rl44_k2_eval.json
+Optimal number of clusters: 8
+Clustering inertia: 119.34047055963427
+
+--- Trial 4/12 (trial_id=3, rl_seed=45) ---
+
+Initializing CourseRecEnv — TRAIN (SB3 learns here):
+  use_clustering in config: True
+  Clustering: using frozen labels (once per experiment cell)
+  Reward shaping: ON — cluster multipliers apply during train_env episodes in model.learn()
+
+Initializing CourseRecEnv — MONITOR (callback / held-out eval):
+  use_clustering in config: True
+  Reward shaping: OFF on this env — measures raw applicable jobs (EvaluateCallback on train split; final metric on test split). Training still uses train_env with shaping when config enables it.
+
+Starting model.learn() on train_env. Every 50000 steps: monitor train-split jobs via eval_env (raw reward, no weight updates). Test split runs once after training.
+
+Test split (n=16): average attractiveness = 475.06
+Test split: average applicable jobs per learner = 0.06
+Iteration 50000 — monitoring only (no weight updates). Train-split avg jobs: 0.1388888888888889 (n=36) Time: 0.05628596499991545
+Iteration 100000 — monitoring only (no weight updates). Train-split avg jobs: 1.0277777777777777 (n=36) Time: 0.0769457490005152
+Iteration 150000 — monitoring only (no weight updates). Train-split avg jobs: 1.1388888888888888 (n=36) Time: 0.07753691700054333
+Iteration 200000 — monitoring only (no weight updates). Train-split avg jobs: 1.8333333333333333 (n=36) Time: 0.07766615099899354
+Iteration 250000 — monitoring only (no weight updates). Train-split avg jobs: 2.0 (n=36) Time: 0.07733820400062541
+Iteration 300000 — monitoring only (no weight updates). Train-split avg jobs: 2.2222222222222223 (n=36) Time: 0.07749136299935344
+Iteration 350000 — monitoring only (no weight updates). Train-split avg jobs: 2.1944444444444446 (n=36) Time: 0.07768348200079345
+Iteration 400000 — monitoring only (no weight updates). Train-split avg jobs: 2.2777777777777777 (n=36) Time: 0.07803049300127896
+Iteration 450000 — monitoring only (no weight updates). Train-split avg jobs: 2.3333333333333335 (n=36) Time: 0.077831711001636
+Iteration 500000 — monitoring only (no weight updates). Train-split avg jobs: 2.361111111111111 (n=36) Time: 0.0777052730009018
+Iteration 550000 — monitoring only (no weight updates). Train-split avg jobs: 2.4166666666666665 (n=36) Time: 0.07745338000131596
+Iteration 600000 — monitoring only (no weight updates). Train-split avg jobs: 2.388888888888889 (n=36) Time: 0.07773520900082076
+Iteration 650000 — monitoring only (no weight updates). Train-split avg jobs: 2.4166666666666665 (n=36) Time: 0.07798603100127366
+Iteration 700000 — monitoring only (no weight updates). Train-split avg jobs: 2.4166666666666665 (n=36) Time: 0.07775497700095002
+Iteration 750000 — monitoring only (no weight updates). Train-split avg jobs: 2.4444444444444446 (n=36) Time: 0.07773729299879051
+Iteration 800000 — monitoring only (no weight updates). Train-split avg jobs: 2.4444444444444446 (n=36) Time: 0.077599995998753
+Iteration 850000 — monitoring only (no weight updates). Train-split avg jobs: 2.4444444444444446 (n=36) Time: 0.07807422500081884
+Iteration 900000 — monitoring only (no weight updates). Train-split avg jobs: 2.388888888888889 (n=36) Time: 0.0777021979993151
+Iteration 950000 — monitoring only (no weight updates). Train-split avg jobs: 2.4444444444444446 (n=36) Time: 0.07822876499994891
+Iteration 1000000 — monitoring only (no weight updates). Train-split avg jobs: 2.4444444444444446 (n=36) Time: 0.0779113309999957
+Iteration 1050000 — monitoring only (no weight updates). Train-split avg jobs: 2.4166666666666665 (n=36) Time: 0.07783188099892868
+Iteration 1100000 — monitoring only (no weight updates). Train-split avg jobs: 2.4444444444444446 (n=36) Time: 0.07752271100071084
+Iteration 1150000 — monitoring only (no weight updates). Train-split avg jobs: 2.4722222222222223 (n=36) Time: 0.07766967699899396
+Iteration 1200000 — monitoring only (no weight updates). Train-split avg jobs: 2.5 (n=36) Time: 0.07753162699918903
+Iteration 1250000 — monitoring only (no weight updates). Train-split avg jobs: 2.5 (n=36) Time: 0.07786173699969368
+Iteration 1300000 — monitoring only (no weight updates). Train-split avg jobs: 2.5 (n=36) Time: 0.07800632799990126
+Iteration 1350000 — monitoring only (no weight updates). Train-split avg jobs: 2.5 (n=36) Time: 0.0781069459990249
+Iteration 1400000 — monitoring only (no weight updates). Train-split avg jobs: 2.5 (n=36) Time: 0.0774713350001548
+Iteration 1450000 — monitoring only (no weight updates). Train-split avg jobs: 2.5277777777777777 (n=36) Time: 0.07803504399998928
+Iteration 1500000 — monitoring only (no weight updates). Train-split avg jobs: 2.5277777777777777 (n=36) Time: 0.07784987400009413
+Iteration 1550000 — monitoring only (no weight updates). Train-split avg jobs: 2.5277777777777777 (n=36) Time: 0.07784621700011485
+Iteration 1600000 — monitoring only (no weight updates). Train-split avg jobs: 2.5277777777777777 (n=36) Time: 0.077689924999504
+Iteration 1650000 — monitoring only (no weight updates). Train-split avg jobs: 2.5277777777777777 (n=36) Time: 0.07756108299872722
+Iteration 1700000 — monitoring only (no weight updates). Train-split avg jobs: 2.5277777777777777 (n=36) Time: 0.07786623500032874
+Iteration 1750000 — monitoring only (no weight updates). Train-split avg jobs: 2.5277777777777777 (n=36) Time: 0.07817644699935045
+Iteration 1800000 — monitoring only (no weight updates). Train-split avg jobs: 2.638888888888889 (n=36) Time: 0.07783949499935261
+Iteration 1850000 — monitoring only (no weight updates). Train-split avg jobs: 2.6666666666666665 (n=36) Time: 0.07761679799841659
+Iteration 1900000 — monitoring only (no weight updates). Train-split avg jobs: 2.6666666666666665 (n=36) Time: 0.07747884899981727
+Iteration 1950000 — monitoring only (no weight updates). Train-split avg jobs: 2.6666666666666665 (n=36) Time: 0.07775413499985007
+Iteration 2000000 — monitoring only (no weight updates). Train-split avg jobs: 2.6666666666666665 (n=36) Time: 0.07726068900046812
+Iteration 2050000 — monitoring only (no weight updates). Train-split avg jobs: 2.6666666666666665 (n=36) Time: 0.07771057399986603
+Iteration 2100000 — monitoring only (no weight updates). Train-split avg jobs: 2.6666666666666665 (n=36) Time: 0.07735920399863971
+Iteration 2150000 — monitoring only (no weight updates). Train-split avg jobs: 2.6666666666666665 (n=36) Time: 0.07763147500008927
+Iteration 2200000 — monitoring only (no weight updates). Train-split avg jobs: 2.6666666666666665 (n=36) Time: 0.07748584200089681
+Iteration 2250000 — monitoring only (no weight updates). Train-split avg jobs: 2.6944444444444446 (n=36) Time: 0.07796357700135559
+Iteration 2300000 — monitoring only (no weight updates). Train-split avg jobs: 2.7222222222222223 (n=36) Time: 0.07788554199942155
+Iteration 2350000 — monitoring only (no weight updates). Train-split avg jobs: 2.7222222222222223 (n=36) Time: 0.07801935099996626
+Iteration 2400000 — monitoring only (no weight updates). Train-split avg jobs: 2.7222222222222223 (n=36) Time: 0.07819498200115049
+Iteration 2450000 — monitoring only (no weight updates). Train-split avg jobs: 2.7222222222222223 (n=36) Time: 0.07756533000065247
+Iteration 2500000 — monitoring only (no weight updates). Train-split avg jobs: 2.7222222222222223 (n=36) Time: 0.07745449299909524
+Iteration 2550000 — monitoring only (no weight updates). Train-split avg jobs: 2.7222222222222223 (n=36) Time: 0.07767812100064475
+Iteration 2600000 — monitoring only (no weight updates). Train-split avg jobs: 2.7222222222222223 (n=36) Time: 0.07756763500037778
+Iteration 2650000 — monitoring only (no weight updates). Train-split avg jobs: 2.7222222222222223 (n=36) Time: 0.07764340599896968
+Iteration 2700000 — monitoring only (no weight updates). Train-split avg jobs: 2.7222222222222223 (n=36) Time: 0.07760269099890138
+Iteration 2750000 — monitoring only (no weight updates). Train-split avg jobs: 2.7222222222222223 (n=36) Time: 0.07759356300084619
+Iteration 2800000 — monitoring only (no weight updates). Train-split avg jobs: 2.7222222222222223 (n=36) Time: 0.0775578860011592
+Iteration 2850000 — monitoring only (no weight updates). Train-split avg jobs: 2.7222222222222223 (n=36) Time: 0.0775100580030994
+Iteration 2900000 — monitoring only (no weight updates). Train-split avg jobs: 2.7222222222222223 (n=36) Time: 0.07743553700129269
+Iteration 2950000 — monitoring only (no weight updates). Train-split avg jobs: 2.7222222222222223 (n=36) Time: 0.07736187900081859
+Iteration 3000000 — monitoring only (no weight updates). Train-split avg jobs: 2.7222222222222223 (n=36) Time: 0.07774061999953119
+Average recommendation time (test): 0.0017 seconds
+Test split: new average attractiveness = 798.00
+Test split: new average applicable jobs = 1.12
+Trial 3 wall time: 69.22345 min
+Trial 3 logged to sweep CSV: /home/alesage/arno_data/CourseRecSys_CLIRS/Results/CLIRS/steps_3000000/data_42/courses_100/k_2/sweeps/clirs_dqn_data42.csv
+Raw eval JSON: /home/alesage/arno_data/CourseRecSys_CLIRS/Results/CLIRS/steps_3000000/data_42/courses_100/k_2/raw/clirs_dqn_data42_rl45_k2_eval.json
+Optimal number of clusters: 8
+Clustering inertia: 119.34047055963427
+
+--- Trial 5/12 (trial_id=4, rl_seed=46) ---
+
+Initializing CourseRecEnv — TRAIN (SB3 learns here):
+  use_clustering in config: True
+  Clustering: using frozen labels (once per experiment cell)
+  Reward shaping: ON — cluster multipliers apply during train_env episodes in model.learn()
+
+Initializing CourseRecEnv — MONITOR (callback / held-out eval):
+  use_clustering in config: True
+  Reward shaping: OFF on this env — measures raw applicable jobs (EvaluateCallback on train split; final metric on test split). Training still uses train_env with shaping when config enables it.
+
+Starting model.learn() on train_env. Every 50000 steps: monitor train-split jobs via eval_env (raw reward, no weight updates). Test split runs once after training.
+
+Test split (n=16): average attractiveness = 475.06
+Test split: average applicable jobs per learner = 0.06
+Iteration 50000 — monitoring only (no weight updates). Train-split avg jobs: 0.25 (n=36) Time: 0.059528133999265265
+Iteration 100000 — monitoring only (no weight updates). Train-split avg jobs: 0.9722222222222222 (n=36) Time: 0.0772813679977844
+Iteration 150000 — monitoring only (no weight updates). Train-split avg jobs: 1.1388888888888888 (n=36) Time: 0.07735212999978103
+Iteration 200000 — monitoring only (no weight updates). Train-split avg jobs: 1.8611111111111112 (n=36) Time: 0.07753913099804777
+Iteration 250000 — monitoring only (no weight updates). Train-split avg jobs: 1.9444444444444444 (n=36) Time: 0.07776060800097184
+Iteration 300000 — monitoring only (no weight updates). Train-split avg jobs: 2.1944444444444446 (n=36) Time: 0.07785624699681648
+Iteration 350000 — monitoring only (no weight updates). Train-split avg jobs: 2.1944444444444446 (n=36) Time: 0.07759615800023312
+Iteration 400000 — monitoring only (no weight updates). Train-split avg jobs: 2.1944444444444446 (n=36) Time: 0.07769507400007569
+Iteration 450000 — monitoring only (no weight updates). Train-split avg jobs: 2.25 (n=36) Time: 0.0777372229968023
+Iteration 500000 — monitoring only (no weight updates). Train-split avg jobs: 2.25 (n=36) Time: 0.0774849000008544
+Iteration 550000 — monitoring only (no weight updates). Train-split avg jobs: 2.2222222222222223 (n=36) Time: 0.07753525500083924
+Iteration 600000 — monitoring only (no weight updates). Train-split avg jobs: 2.25 (n=36) Time: 0.07744428399746539
+Iteration 650000 — monitoring only (no weight updates). Train-split avg jobs: 2.2777777777777777 (n=36) Time: 0.07751099999950384
+Iteration 700000 — monitoring only (no weight updates). Train-split avg jobs: 2.2777777777777777 (n=36) Time: 0.0779337609965296
+Iteration 750000 — monitoring only (no weight updates). Train-split avg jobs: 2.3055555555555554 (n=36) Time: 0.07772335800109431
+Iteration 800000 — monitoring only (no weight updates). Train-split avg jobs: 2.3055555555555554 (n=36) Time: 0.0777675619974616
+Iteration 850000 — monitoring only (no weight updates). Train-split avg jobs: 2.3055555555555554 (n=36) Time: 0.07765108099920326
+Iteration 900000 — monitoring only (no weight updates). Train-split avg jobs: 2.3055555555555554 (n=36) Time: 0.07793966299868771
+Iteration 950000 — monitoring only (no weight updates). Train-split avg jobs: 2.388888888888889 (n=36) Time: 0.07766365399947972
+Iteration 1000000 — monitoring only (no weight updates). Train-split avg jobs: 2.361111111111111 (n=36) Time: 0.07784454500142601
+Iteration 1050000 — monitoring only (no weight updates). Train-split avg jobs: 2.4166666666666665 (n=36) Time: 0.07747475100040901
+Iteration 1100000 — monitoring only (no weight updates). Train-split avg jobs: 2.4166666666666665 (n=36) Time: 0.07739110399779747
+Iteration 1150000 — monitoring only (no weight updates). Train-split avg jobs: 2.4166666666666665 (n=36) Time: 0.07735642899933737
+Iteration 1200000 — monitoring only (no weight updates). Train-split avg jobs: 2.4444444444444446 (n=36) Time: 0.07736467500217259
+Iteration 1250000 — monitoring only (no weight updates). Train-split avg jobs: 2.4444444444444446 (n=36) Time: 0.07768424399910145
+Iteration 1300000 — monitoring only (no weight updates). Train-split avg jobs: 2.4444444444444446 (n=36) Time: 0.07764908799799741
+Iteration 1350000 — monitoring only (no weight updates). Train-split avg jobs: 2.5555555555555554 (n=36) Time: 0.07754491200103075
+Iteration 1400000 — monitoring only (no weight updates). Train-split avg jobs: 2.611111111111111 (n=36) Time: 0.07789293400128372
+Iteration 1450000 — monitoring only (no weight updates). Train-split avg jobs: 2.638888888888889 (n=36) Time: 0.07746813899939298
+Iteration 1500000 — monitoring only (no weight updates). Train-split avg jobs: 2.638888888888889 (n=36) Time: 0.07742210200012778
+Iteration 1550000 — monitoring only (no weight updates). Train-split avg jobs: 2.638888888888889 (n=36) Time: 0.07764706300076796
+Iteration 1600000 — monitoring only (no weight updates). Train-split avg jobs: 2.638888888888889 (n=36) Time: 0.0777767079998739
+Iteration 1650000 — monitoring only (no weight updates). Train-split avg jobs: 2.638888888888889 (n=36) Time: 0.0777701459992386
+Iteration 1700000 — monitoring only (no weight updates). Train-split avg jobs: 2.638888888888889 (n=36) Time: 0.07737384199936059
+Iteration 1750000 — monitoring only (no weight updates). Train-split avg jobs: 2.638888888888889 (n=36) Time: 0.07751440499851014
+Iteration 1800000 — monitoring only (no weight updates). Train-split avg jobs: 2.638888888888889 (n=36) Time: 0.0777260020004178
+Iteration 1850000 — monitoring only (no weight updates). Train-split avg jobs: 2.638888888888889 (n=36) Time: 0.0776880519988481
+Iteration 1900000 — monitoring only (no weight updates). Train-split avg jobs: 2.638888888888889 (n=36) Time: 0.07746520300133852
+Iteration 1950000 — monitoring only (no weight updates). Train-split avg jobs: 2.638888888888889 (n=36) Time: 0.07764449800015427
+Iteration 2000000 — monitoring only (no weight updates). Train-split avg jobs: 2.638888888888889 (n=36) Time: 0.07777934200203163
+Iteration 2050000 — monitoring only (no weight updates). Train-split avg jobs: 2.638888888888889 (n=36) Time: 0.07772052400105167
+Iteration 2100000 — monitoring only (no weight updates). Train-split avg jobs: 2.638888888888889 (n=36) Time: 0.07736220999868237
+Iteration 2150000 — monitoring only (no weight updates). Train-split avg jobs: 2.6666666666666665 (n=36) Time: 0.07801366199782933
+Iteration 2200000 — monitoring only (no weight updates). Train-split avg jobs: 2.6666666666666665 (n=36) Time: 0.07774500799860107
+Iteration 2250000 — monitoring only (no weight updates). Train-split avg jobs: 2.6666666666666665 (n=36) Time: 0.07780188600008842
+Iteration 2300000 — monitoring only (no weight updates). Train-split avg jobs: 2.6666666666666665 (n=36) Time: 0.0780978500006313
+Iteration 2350000 — monitoring only (no weight updates). Train-split avg jobs: 2.6666666666666665 (n=36) Time: 0.07750492700142786
+Iteration 2400000 — monitoring only (no weight updates). Train-split avg jobs: 2.6666666666666665 (n=36) Time: 0.07772120200024801
+Iteration 2450000 — monitoring only (no weight updates). Train-split avg jobs: 2.6666666666666665 (n=36) Time: 0.07759942399934516
+Iteration 2500000 — monitoring only (no weight updates). Train-split avg jobs: 2.6666666666666665 (n=36) Time: 0.07767409499865607
+Iteration 2550000 — monitoring only (no weight updates). Train-split avg jobs: 2.6666666666666665 (n=36) Time: 0.07774187099857954
+Iteration 2600000 — monitoring only (no weight updates). Train-split avg jobs: 2.6666666666666665 (n=36) Time: 0.07746004400178208
+Iteration 2650000 — monitoring only (no weight updates). Train-split avg jobs: 2.6666666666666665 (n=36) Time: 0.0777634020014375
+Iteration 2700000 — monitoring only (no weight updates). Train-split avg jobs: 2.6666666666666665 (n=36) Time: 0.0775651010008005
+Iteration 2750000 — monitoring only (no weight updates). Train-split avg jobs: 2.6666666666666665 (n=36) Time: 0.0776157449981838
+Iteration 2800000 — monitoring only (no weight updates). Train-split avg jobs: 2.6666666666666665 (n=36) Time: 0.07745906200216268
+Iteration 2850000 — monitoring only (no weight updates). Train-split avg jobs: 2.6666666666666665 (n=36) Time: 0.0777779099989857
+Iteration 2900000 — monitoring only (no weight updates). Train-split avg jobs: 2.6666666666666665 (n=36) Time: 0.07767346499895211
+Iteration 2950000 — monitoring only (no weight updates). Train-split avg jobs: 2.6666666666666665 (n=36) Time: 0.07751363400166156
+Iteration 3000000 — monitoring only (no weight updates). Train-split avg jobs: 2.6666666666666665 (n=36) Time: 0.07738699599940446
+Average recommendation time (test): 0.0017 seconds
+Test split: new average attractiveness = 873.38
+Test split: new average applicable jobs = 1.25
+Trial 4 wall time: 69.51200 min
+Trial 4 logged to sweep CSV: /home/alesage/arno_data/CourseRecSys_CLIRS/Results/CLIRS/steps_3000000/data_42/courses_100/k_2/sweeps/clirs_dqn_data42.csv
+Raw eval JSON: /home/alesage/arno_data/CourseRecSys_CLIRS/Results/CLIRS/steps_3000000/data_42/courses_100/k_2/raw/clirs_dqn_data42_rl46_k2_eval.json
+Optimal number of clusters: 8
+Clustering inertia: 119.34047055963427
+
+--- Trial 6/12 (trial_id=5, rl_seed=47) ---
+
+Initializing CourseRecEnv — TRAIN (SB3 learns here):
+  use_clustering in config: True
+  Clustering: using frozen labels (once per experiment cell)
+  Reward shaping: ON — cluster multipliers apply during train_env episodes in model.learn()
+
+Initializing CourseRecEnv — MONITOR (callback / held-out eval):
+  use_clustering in config: True
+  Reward shaping: OFF on this env — measures raw applicable jobs (EvaluateCallback on train split; final metric on test split). Training still uses train_env with shaping when config enables it.
+
+Starting model.learn() on train_env. Every 50000 steps: monitor train-split jobs via eval_env (raw reward, no weight updates). Test split runs once after training.
+
+Test split (n=16): average attractiveness = 475.06
+Test split: average applicable jobs per learner = 0.06
+Iteration 50000 — monitoring only (no weight updates). Train-split avg jobs: 0.2222222222222222 (n=36) Time: 0.06021839900131454
+Iteration 100000 — monitoring only (no weight updates). Train-split avg jobs: 1.1944444444444444 (n=36) Time: 0.0777209119987674
+Iteration 150000 — monitoring only (no weight updates). Train-split avg jobs: 1.0277777777777777 (n=36) Time: 0.07742843499727314
+Iteration 200000 — monitoring only (no weight updates). Train-split avg jobs: 1.3055555555555556 (n=36) Time: 0.07793801899970276
+Iteration 250000 — monitoring only (no weight updates). Train-split avg jobs: 1.5555555555555556 (n=36) Time: 0.07726328400167404
+Iteration 300000 — monitoring only (no weight updates). Train-split avg jobs: 1.9166666666666667 (n=36) Time: 0.07804167499853065
+Iteration 350000 — monitoring only (no weight updates). Train-split avg jobs: 2.1944444444444446 (n=36) Time: 0.07751233999806573
+Iteration 400000 — monitoring only (no weight updates). Train-split avg jobs: 2.25 (n=36) Time: 0.07762928100055433
+Iteration 450000 — monitoring only (no weight updates). Train-split avg jobs: 2.1666666666666665 (n=36) Time: 0.07788538999739103
+Iteration 500000 — monitoring only (no weight updates). Train-split avg jobs: 2.2777777777777777 (n=36) Time: 0.07733105100123794
+Iteration 550000 — monitoring only (no weight updates). Train-split avg jobs: 2.2777777777777777 (n=36) Time: 0.07782000999941374
+Iteration 600000 — monitoring only (no weight updates). Train-split avg jobs: 2.2222222222222223 (n=36) Time: 0.07758867399752489
+Iteration 650000 — monitoring only (no weight updates). Train-split avg jobs: 2.2777777777777777 (n=36) Time: 0.07723748499847716
+Iteration 700000 — monitoring only (no weight updates). Train-split avg jobs: 2.3055555555555554 (n=36) Time: 0.0774487329981639
+Iteration 750000 — monitoring only (no weight updates). Train-split avg jobs: 2.3333333333333335 (n=36) Time: 0.07799669999803882
+Iteration 800000 — monitoring only (no weight updates). Train-split avg jobs: 2.361111111111111 (n=36) Time: 0.07759977400201024
+Iteration 850000 — monitoring only (no weight updates). Train-split avg jobs: 2.388888888888889 (n=36) Time: 0.07740403699790477
+Iteration 900000 — monitoring only (no weight updates). Train-split avg jobs: 2.388888888888889 (n=36) Time: 0.07743947500057402
+Iteration 950000 — monitoring only (no weight updates). Train-split avg jobs: 2.388888888888889 (n=36) Time: 0.07726428699970711
+Iteration 1000000 — monitoring only (no weight updates). Train-split avg jobs: 2.388888888888889 (n=36) Time: 0.0778608250002435
+Iteration 1050000 — monitoring only (no weight updates). Train-split avg jobs: 2.388888888888889 (n=36) Time: 0.0778389339975547
+Iteration 1100000 — monitoring only (no weight updates). Train-split avg jobs: 2.388888888888889 (n=36) Time: 0.07740264700260013
+Iteration 1150000 — monitoring only (no weight updates). Train-split avg jobs: 2.4166666666666665 (n=36) Time: 0.07757321600001887
+Iteration 1200000 — monitoring only (no weight updates). Train-split avg jobs: 2.4444444444444446 (n=36) Time: 0.0776461420027772
+Iteration 1250000 — monitoring only (no weight updates). Train-split avg jobs: 2.4444444444444446 (n=36) Time: 0.07757184399815742
+Iteration 1300000 — monitoring only (no weight updates). Train-split avg jobs: 2.4722222222222223 (n=36) Time: 0.07784435400026268
+Iteration 1350000 — monitoring only (no weight updates). Train-split avg jobs: 2.4722222222222223 (n=36) Time: 0.07796515000154614
+Iteration 1400000 — monitoring only (no weight updates). Train-split avg jobs: 2.611111111111111 (n=36) Time: 0.07752820200039423
+Iteration 1450000 — monitoring only (no weight updates). Train-split avg jobs: 2.611111111111111 (n=36) Time: 0.07779268699960085
+Iteration 1500000 — monitoring only (no weight updates). Train-split avg jobs: 2.638888888888889 (n=36) Time: 0.07748957899821107
+Iteration 1550000 — monitoring only (no weight updates). Train-split avg jobs: 2.638888888888889 (n=36) Time: 0.07757600100012496
+Iteration 1600000 — monitoring only (no weight updates). Train-split avg jobs: 2.6666666666666665 (n=36) Time: 0.07738420099849463
+Iteration 1650000 — monitoring only (no weight updates). Train-split avg jobs: 2.6666666666666665 (n=36) Time: 0.07738754700039863
+Iteration 1700000 — monitoring only (no weight updates). Train-split avg jobs: 2.6666666666666665 (n=36) Time: 0.07772393800041755
+Iteration 1750000 — monitoring only (no weight updates). Train-split avg jobs: 2.6944444444444446 (n=36) Time: 0.07756086299923481
+Iteration 1800000 — monitoring only (no weight updates). Train-split avg jobs: 2.6944444444444446 (n=36) Time: 0.0775987939996412
+Iteration 1850000 — monitoring only (no weight updates). Train-split avg jobs: 2.6944444444444446 (n=36) Time: 0.07766988699950161
+Iteration 1900000 — monitoring only (no weight updates). Train-split avg jobs: 2.6944444444444446 (n=36) Time: 0.07737285899929702
+Iteration 1950000 — monitoring only (no weight updates). Train-split avg jobs: 2.6944444444444446 (n=36) Time: 0.0777515299996594
+Iteration 2000000 — monitoring only (no weight updates). Train-split avg jobs: 2.7222222222222223 (n=36) Time: 0.07770356000037282
+Iteration 2050000 — monitoring only (no weight updates). Train-split avg jobs: 2.7222222222222223 (n=36) Time: 0.07788640199942165
+Iteration 2100000 — monitoring only (no weight updates). Train-split avg jobs: 2.7222222222222223 (n=36) Time: 0.0778394839981047
+Iteration 2150000 — monitoring only (no weight updates). Train-split avg jobs: 2.7222222222222223 (n=36) Time: 0.07746545499685453
+Iteration 2200000 — monitoring only (no weight updates). Train-split avg jobs: 2.7222222222222223 (n=36) Time: 0.07795715500105871
+Iteration 2250000 — monitoring only (no weight updates). Train-split avg jobs: 2.7222222222222223 (n=36) Time: 0.07777364199864678
+Iteration 2300000 — monitoring only (no weight updates). Train-split avg jobs: 2.7222222222222223 (n=36) Time: 0.07752479400005541
+Iteration 2350000 — monitoring only (no weight updates). Train-split avg jobs: 2.7222222222222223 (n=36) Time: 0.07808580699929735
+Iteration 2400000 — monitoring only (no weight updates). Train-split avg jobs: 2.7222222222222223 (n=36) Time: 0.07771955900170724
+Iteration 2450000 — monitoring only (no weight updates). Train-split avg jobs: 2.7222222222222223 (n=36) Time: 0.07750455800123746
+Iteration 2500000 — monitoring only (no weight updates). Train-split avg jobs: 2.7222222222222223 (n=36) Time: 0.07750276400111034
+Iteration 2550000 — monitoring only (no weight updates). Train-split avg jobs: 2.6944444444444446 (n=36) Time: 0.07781697300015367
+Iteration 2600000 — monitoring only (no weight updates). Train-split avg jobs: 2.7222222222222223 (n=36) Time: 0.07778707699981169
+Iteration 2650000 — monitoring only (no weight updates). Train-split avg jobs: 2.7222222222222223 (n=36) Time: 0.07742612000220106
+Iteration 2700000 — monitoring only (no weight updates). Train-split avg jobs: 2.7222222222222223 (n=36) Time: 0.0773654959994019
+Iteration 2750000 — monitoring only (no weight updates). Train-split avg jobs: 2.7222222222222223 (n=36) Time: 0.07761678799943184
+Iteration 2800000 — monitoring only (no weight updates). Train-split avg jobs: 2.7222222222222223 (n=36) Time: 0.07755299799828208
+Iteration 2850000 — monitoring only (no weight updates). Train-split avg jobs: 2.7222222222222223 (n=36) Time: 0.07751923499745317
+Iteration 2900000 — monitoring only (no weight updates). Train-split avg jobs: 2.7222222222222223 (n=36) Time: 0.07777401299972553
+Iteration 2950000 — monitoring only (no weight updates). Train-split avg jobs: 2.7222222222222223 (n=36) Time: 0.07767499600231531
+Iteration 3000000 — monitoring only (no weight updates). Train-split avg jobs: 2.7222222222222223 (n=36) Time: 0.0775796670022828
+Average recommendation time (test): 0.0017 seconds
+Test split: new average attractiveness = 798.69
+Test split: new average applicable jobs = 0.94
+Trial 5 wall time: 69.54678 min
+Trial 5 logged to sweep CSV: /home/alesage/arno_data/CourseRecSys_CLIRS/Results/CLIRS/steps_3000000/data_42/courses_100/k_2/sweeps/clirs_dqn_data42.csv
+Raw eval JSON: /home/alesage/arno_data/CourseRecSys_CLIRS/Results/CLIRS/steps_3000000/data_42/courses_100/k_2/raw/clirs_dqn_data42_rl47_k2_eval.json
+Optimal number of clusters: 8
+Clustering inertia: 119.34047055963427
+
+--- Trial 7/12 (trial_id=6, rl_seed=48) ---
+
+Initializing CourseRecEnv — TRAIN (SB3 learns here):
+  use_clustering in config: True
+  Clustering: using frozen labels (once per experiment cell)
+  Reward shaping: ON — cluster multipliers apply during train_env episodes in model.learn()
+
+Initializing CourseRecEnv — MONITOR (callback / held-out eval):
+  use_clustering in config: True
+  Reward shaping: OFF on this env — measures raw applicable jobs (EvaluateCallback on train split; final metric on test split). Training still uses train_env with shaping when config enables it.
+
+Starting model.learn() on train_env. Every 50000 steps: monitor train-split jobs via eval_env (raw reward, no weight updates). Test split runs once after training.
+
+Test split (n=16): average attractiveness = 475.06
+Test split: average applicable jobs per learner = 0.06
+Iteration 50000 — monitoring only (no weight updates). Train-split avg jobs: 0.16666666666666666 (n=36) Time: 0.0585416960020666
+Iteration 100000 — monitoring only (no weight updates). Train-split avg jobs: 1.1111111111111112 (n=36) Time: 0.0775219789975381
+Iteration 150000 — monitoring only (no weight updates). Train-split avg jobs: 1.3611111111111112 (n=36) Time: 0.07760351199976867
+Iteration 200000 — monitoring only (no weight updates). Train-split avg jobs: 2.0 (n=36) Time: 0.07790292400022736
+Iteration 250000 — monitoring only (no weight updates). Train-split avg jobs: 2.1944444444444446 (n=36) Time: 0.07801621600083308
+Iteration 300000 — monitoring only (no weight updates). Train-split avg jobs: 2.2222222222222223 (n=36) Time: 0.07802534399888827
+Iteration 350000 — monitoring only (no weight updates). Train-split avg jobs: 2.3333333333333335 (n=36) Time: 0.0779007700002694
+Iteration 400000 — monitoring only (no weight updates). Train-split avg jobs: 2.3333333333333335 (n=36) Time: 0.07768623800075147
+Iteration 450000 — monitoring only (no weight updates). Train-split avg jobs: 2.361111111111111 (n=36) Time: 0.07777160799741978
+Iteration 500000 — monitoring only (no weight updates). Train-split avg jobs: 2.4444444444444446 (n=36) Time: 0.07799596900076722
+Iteration 550000 — monitoring only (no weight updates). Train-split avg jobs: 2.4722222222222223 (n=36) Time: 0.07806073000028846
+Iteration 600000 — monitoring only (no weight updates). Train-split avg jobs: 2.4722222222222223 (n=36) Time: 0.07752628800153616
+Iteration 650000 — monitoring only (no weight updates). Train-split avg jobs: 2.5 (n=36) Time: 0.07771612299984554
+Iteration 700000 — monitoring only (no weight updates). Train-split avg jobs: 2.5 (n=36) Time: 0.07776132800063351
+Iteration 750000 — monitoring only (no weight updates). Train-split avg jobs: 2.4722222222222223 (n=36) Time: 0.07794263799951295
+Iteration 800000 — monitoring only (no weight updates). Train-split avg jobs: 2.5 (n=36) Time: 0.07814798400067957
+Iteration 850000 — monitoring only (no weight updates). Train-split avg jobs: 2.5277777777777777 (n=36) Time: 0.07769001600172487
+Iteration 900000 — monitoring only (no weight updates). Train-split avg jobs: 2.5555555555555554 (n=36) Time: 0.07820460999937495
+Iteration 950000 — monitoring only (no weight updates). Train-split avg jobs: 2.5555555555555554 (n=36) Time: 0.07807229100217228
+Iteration 1000000 — monitoring only (no weight updates). Train-split avg jobs: 2.5555555555555554 (n=36) Time: 0.07778919100019266
+Iteration 1050000 — monitoring only (no weight updates). Train-split avg jobs: 2.5555555555555554 (n=36) Time: 0.07785635699838167
+Iteration 1100000 — monitoring only (no weight updates). Train-split avg jobs: 2.5555555555555554 (n=36) Time: 0.07763938800053438
+Iteration 1150000 — monitoring only (no weight updates). Train-split avg jobs: 2.5555555555555554 (n=36) Time: 0.07750317499812809
+Iteration 1200000 — monitoring only (no weight updates). Train-split avg jobs: 2.5555555555555554 (n=36) Time: 0.0778105110002798
+Iteration 1250000 — monitoring only (no weight updates). Train-split avg jobs: 2.5833333333333335 (n=36) Time: 0.07776602699959767
+Iteration 1300000 — monitoring only (no weight updates). Train-split avg jobs: 2.5833333333333335 (n=36) Time: 0.07755197600272368
+Iteration 1350000 — monitoring only (no weight updates). Train-split avg jobs: 2.5833333333333335 (n=36) Time: 0.07783810199907748
+Iteration 1400000 — monitoring only (no weight updates). Train-split avg jobs: 2.5833333333333335 (n=36) Time: 0.07748175399683532
+Iteration 1450000 — monitoring only (no weight updates). Train-split avg jobs: 2.5833333333333335 (n=36) Time: 0.07805237399952603
+Iteration 1500000 — monitoring only (no weight updates). Train-split avg jobs: 2.5833333333333335 (n=36) Time: 0.07774290300221764
+Iteration 1550000 — monitoring only (no weight updates). Train-split avg jobs: 2.5833333333333335 (n=36) Time: 0.07776898300289758
+Iteration 1600000 — monitoring only (no weight updates). Train-split avg jobs: 2.5833333333333335 (n=36) Time: 0.07789069000136806
+Iteration 1650000 — monitoring only (no weight updates). Train-split avg jobs: 2.5833333333333335 (n=36) Time: 0.07818869900074787
+Iteration 1700000 — monitoring only (no weight updates). Train-split avg jobs: 2.5833333333333335 (n=36) Time: 0.07799091999913799
+Iteration 1750000 — monitoring only (no weight updates). Train-split avg jobs: 2.5833333333333335 (n=36) Time: 0.07766185100263101
+Iteration 1800000 — monitoring only (no weight updates). Train-split avg jobs: 2.5833333333333335 (n=36) Time: 0.07774148099997547
+Iteration 1850000 — monitoring only (no weight updates). Train-split avg jobs: 2.611111111111111 (n=36) Time: 0.07766931600053795
+Iteration 1900000 — monitoring only (no weight updates). Train-split avg jobs: 2.611111111111111 (n=36) Time: 0.07798031899801572
+Iteration 1950000 — monitoring only (no weight updates). Train-split avg jobs: 2.611111111111111 (n=36) Time: 0.07804911700077355
+Iteration 2000000 — monitoring only (no weight updates). Train-split avg jobs: 2.611111111111111 (n=36) Time: 0.07763591399998404
+Iteration 2050000 — monitoring only (no weight updates). Train-split avg jobs: 2.7222222222222223 (n=36) Time: 0.07812861799902748
+Iteration 2100000 — monitoring only (no weight updates). Train-split avg jobs: 2.7222222222222223 (n=36) Time: 0.07782978700197418
+Iteration 2150000 — monitoring only (no weight updates). Train-split avg jobs: 2.7222222222222223 (n=36) Time: 0.07839338399935514
+Iteration 2200000 — monitoring only (no weight updates). Train-split avg jobs: 2.7222222222222223 (n=36) Time: 0.07791322300181491
+Iteration 2250000 — monitoring only (no weight updates). Train-split avg jobs: 2.7222222222222223 (n=36) Time: 0.07815697000114596
+Iteration 2300000 — monitoring only (no weight updates). Train-split avg jobs: 2.7222222222222223 (n=36) Time: 0.07787178599755862
+Iteration 2350000 — monitoring only (no weight updates). Train-split avg jobs: 2.7222222222222223 (n=36) Time: 0.07819721600026242
+Iteration 2400000 — monitoring only (no weight updates). Train-split avg jobs: 2.7222222222222223 (n=36) Time: 0.07795743699898594
+Iteration 2450000 — monitoring only (no weight updates). Train-split avg jobs: 2.7222222222222223 (n=36) Time: 0.07781271500061848
+Iteration 2500000 — monitoring only (no weight updates). Train-split avg jobs: 2.7222222222222223 (n=36) Time: 0.07815529700019397
+Iteration 2550000 — monitoring only (no weight updates). Train-split avg jobs: 2.7222222222222223 (n=36) Time: 0.07814856400000281
+Iteration 2600000 — monitoring only (no weight updates). Train-split avg jobs: 2.7222222222222223 (n=36) Time: 0.07798082099907333
+Iteration 2650000 — monitoring only (no weight updates). Train-split avg jobs: 2.7222222222222223 (n=36) Time: 0.07781926600000588
+Iteration 2700000 — monitoring only (no weight updates). Train-split avg jobs: 2.7222222222222223 (n=36) Time: 0.07797777399900951
+Iteration 2750000 — monitoring only (no weight updates). Train-split avg jobs: 2.7222222222222223 (n=36) Time: 0.07805560099950526
+Iteration 2800000 — monitoring only (no weight updates). Train-split avg jobs: 2.6944444444444446 (n=36) Time: 0.07800894300089567
+Iteration 2850000 — monitoring only (no weight updates). Train-split avg jobs: 2.6944444444444446 (n=36) Time: 0.07781030100159114
+Iteration 2900000 — monitoring only (no weight updates). Train-split avg jobs: 2.6944444444444446 (n=36) Time: 0.07761282999854302
+Iteration 2950000 — monitoring only (no weight updates). Train-split avg jobs: 2.7222222222222223 (n=36) Time: 0.07778881999911391
+Iteration 3000000 — monitoring only (no weight updates). Train-split avg jobs: 2.6944444444444446 (n=36) Time: 0.07806742199682049
+Average recommendation time (test): 0.0017 seconds
+Test split: new average attractiveness = 871.69
+Test split: new average applicable jobs = 0.81
+Trial 6 wall time: 69.73881 min
+Trial 6 logged to sweep CSV: /home/alesage/arno_data/CourseRecSys_CLIRS/Results/CLIRS/steps_3000000/data_42/courses_100/k_2/sweeps/clirs_dqn_data42.csv
+Raw eval JSON: /home/alesage/arno_data/CourseRecSys_CLIRS/Results/CLIRS/steps_3000000/data_42/courses_100/k_2/raw/clirs_dqn_data42_rl48_k2_eval.json
+Optimal number of clusters: 8
+Clustering inertia: 119.34047055963427
+
+--- Trial 8/12 (trial_id=7, rl_seed=49) ---
+
+Initializing CourseRecEnv — TRAIN (SB3 learns here):
+  use_clustering in config: True
+  Clustering: using frozen labels (once per experiment cell)
+  Reward shaping: ON — cluster multipliers apply during train_env episodes in model.learn()
+
+Initializing CourseRecEnv — MONITOR (callback / held-out eval):
+  use_clustering in config: True
+  Reward shaping: OFF on this env — measures raw applicable jobs (EvaluateCallback on train split; final metric on test split). Training still uses train_env with shaping when config enables it.
+
+Starting model.learn() on train_env. Every 50000 steps: monitor train-split jobs via eval_env (raw reward, no weight updates). Test split runs once after training.
+
+Test split (n=16): average attractiveness = 475.06
+Test split: average applicable jobs per learner = 0.06
+Iteration 50000 — monitoring only (no weight updates). Train-split avg jobs: 0.3055555555555556 (n=36) Time: 0.06287878800139879
+Iteration 100000 — monitoring only (no weight updates). Train-split avg jobs: 1.2777777777777777 (n=36) Time: 0.07785736900041229
+Iteration 150000 — monitoring only (no weight updates). Train-split avg jobs: 1.4444444444444444 (n=36) Time: 0.07728898300047149
+Iteration 200000 — monitoring only (no weight updates). Train-split avg jobs: 1.8055555555555556 (n=36) Time: 0.07789232499999343
+Iteration 250000 — monitoring only (no weight updates). Train-split avg jobs: 2.0555555555555554 (n=36) Time: 0.07765415700123413
+Iteration 300000 — monitoring only (no weight updates). Train-split avg jobs: 2.2777777777777777 (n=36) Time: 0.078051542997855
+Iteration 350000 — monitoring only (no weight updates). Train-split avg jobs: 2.2777777777777777 (n=36) Time: 0.07809179799733101
+Iteration 400000 — monitoring only (no weight updates). Train-split avg jobs: 2.2222222222222223 (n=36) Time: 0.07768600700001116
+Iteration 450000 — monitoring only (no weight updates). Train-split avg jobs: 2.4166666666666665 (n=36) Time: 0.07786330999806523
+Iteration 500000 — monitoring only (no weight updates). Train-split avg jobs: 2.4166666666666665 (n=36) Time: 0.0776377260008303
+Iteration 550000 — monitoring only (no weight updates). Train-split avg jobs: 2.4166666666666665 (n=36) Time: 0.07737901099972078
+Iteration 600000 — monitoring only (no weight updates). Train-split avg jobs: 2.4166666666666665 (n=36) Time: 0.07771651400253177
+Iteration 650000 — monitoring only (no weight updates). Train-split avg jobs: 2.4444444444444446 (n=36) Time: 0.0779738669989456
+Iteration 700000 — monitoring only (no weight updates). Train-split avg jobs: 2.4444444444444446 (n=36) Time: 0.07784226999865496
+Iteration 750000 — monitoring only (no weight updates). Train-split avg jobs: 2.4444444444444446 (n=36) Time: 0.07790153199675842
+Iteration 800000 — monitoring only (no weight updates). Train-split avg jobs: 2.5277777777777777 (n=36) Time: 0.07766375600112951
+Iteration 850000 — monitoring only (no weight updates). Train-split avg jobs: 2.5 (n=36) Time: 0.07780353699854459
+Iteration 900000 — monitoring only (no weight updates). Train-split avg jobs: 2.5 (n=36) Time: 0.0774976440006867
+Iteration 950000 — monitoring only (no weight updates). Train-split avg jobs: 2.5833333333333335 (n=36) Time: 0.07798752400049125
+Iteration 1000000 — monitoring only (no weight updates). Train-split avg jobs: 2.5833333333333335 (n=36) Time: 0.07748335699943709
+Iteration 1050000 — monitoring only (no weight updates). Train-split avg jobs: 2.5833333333333335 (n=36) Time: 0.07761864100029925
+Iteration 1100000 — monitoring only (no weight updates). Train-split avg jobs: 2.5833333333333335 (n=36) Time: 0.0776456009989488
+Iteration 1150000 — monitoring only (no weight updates). Train-split avg jobs: 2.5833333333333335 (n=36) Time: 0.07764217500152881
+Iteration 1200000 — monitoring only (no weight updates). Train-split avg jobs: 2.5833333333333335 (n=36) Time: 0.0782576399979007
+Iteration 1250000 — monitoring only (no weight updates). Train-split avg jobs: 2.5833333333333335 (n=36) Time: 0.07778704700103845
+Iteration 1300000 — monitoring only (no weight updates). Train-split avg jobs: 2.5833333333333335 (n=36) Time: 0.07736552699861932
+Iteration 1350000 — monitoring only (no weight updates). Train-split avg jobs: 2.5833333333333335 (n=36) Time: 0.07756930799951078
+Iteration 1400000 — monitoring only (no weight updates). Train-split avg jobs: 2.5833333333333335 (n=36) Time: 0.07762854000247899
+Iteration 1450000 — monitoring only (no weight updates). Train-split avg jobs: 2.5833333333333335 (n=36) Time: 0.0779086959992128
+Iteration 1500000 — monitoring only (no weight updates). Train-split avg jobs: 2.5833333333333335 (n=36) Time: 0.07752369300214923
+Iteration 1550000 — monitoring only (no weight updates). Train-split avg jobs: 2.5833333333333335 (n=36) Time: 0.07750585800022236
+Iteration 1600000 — monitoring only (no weight updates). Train-split avg jobs: 2.5833333333333335 (n=36) Time: 0.07789485899775173
+Iteration 1650000 — monitoring only (no weight updates). Train-split avg jobs: 2.5833333333333335 (n=36) Time: 0.07748065100167878
+Iteration 1700000 — monitoring only (no weight updates). Train-split avg jobs: 2.5833333333333335 (n=36) Time: 0.07787555300092208
+Iteration 1750000 — monitoring only (no weight updates). Train-split avg jobs: 2.5833333333333335 (n=36) Time: 0.0775857789994916
+Iteration 1800000 — monitoring only (no weight updates). Train-split avg jobs: 2.5833333333333335 (n=36) Time: 0.07743428499816218
+Iteration 1850000 — monitoring only (no weight updates). Train-split avg jobs: 2.611111111111111 (n=36) Time: 0.07756043200060958
+Iteration 1900000 — monitoring only (no weight updates). Train-split avg jobs: 2.611111111111111 (n=36) Time: 0.07766173200070625
+Iteration 1950000 — monitoring only (no weight updates). Train-split avg jobs: 2.7222222222222223 (n=36) Time: 0.07780225500027882
+Iteration 2000000 — monitoring only (no weight updates). Train-split avg jobs: 2.7222222222222223 (n=36) Time: 0.07756602199879126
+Iteration 2050000 — monitoring only (no weight updates). Train-split avg jobs: 2.7222222222222223 (n=36) Time: 0.07777945099951467
+Iteration 2100000 — monitoring only (no weight updates). Train-split avg jobs: 2.7222222222222223 (n=36) Time: 0.07743664000008721
+Iteration 2150000 — monitoring only (no weight updates). Train-split avg jobs: 2.7222222222222223 (n=36) Time: 0.07757464799942682
+Iteration 2200000 — monitoring only (no weight updates). Train-split avg jobs: 2.7222222222222223 (n=36) Time: 0.07735969500208739
+Iteration 2250000 — monitoring only (no weight updates). Train-split avg jobs: 2.7222222222222223 (n=36) Time: 0.07790757300244877
+Iteration 2300000 — monitoring only (no weight updates). Train-split avg jobs: 2.7222222222222223 (n=36) Time: 0.07742759100074181
+Iteration 2350000 — monitoring only (no weight updates). Train-split avg jobs: 2.7222222222222223 (n=36) Time: 0.07773671300310525
+Iteration 2400000 — monitoring only (no weight updates). Train-split avg jobs: 2.7222222222222223 (n=36) Time: 0.07791373500003829
+Iteration 2450000 — monitoring only (no weight updates). Train-split avg jobs: 2.7222222222222223 (n=36) Time: 0.07817211899964605
+Iteration 2500000 — monitoring only (no weight updates). Train-split avg jobs: 2.7222222222222223 (n=36) Time: 0.0777064550020441
+Iteration 2550000 — monitoring only (no weight updates). Train-split avg jobs: 2.7222222222222223 (n=36) Time: 0.07760402299754787
+Iteration 2600000 — monitoring only (no weight updates). Train-split avg jobs: 2.7222222222222223 (n=36) Time: 0.07759398499911185
+Iteration 2650000 — monitoring only (no weight updates). Train-split avg jobs: 2.7222222222222223 (n=36) Time: 0.07807541899819626
+Iteration 2700000 — monitoring only (no weight updates). Train-split avg jobs: 2.7222222222222223 (n=36) Time: 0.0777751849964261
+Iteration 2750000 — monitoring only (no weight updates). Train-split avg jobs: 2.7222222222222223 (n=36) Time: 0.07779828800266841
+Iteration 2800000 — monitoring only (no weight updates). Train-split avg jobs: 2.7222222222222223 (n=36) Time: 0.07790843499969924
+Iteration 2850000 — monitoring only (no weight updates). Train-split avg jobs: 2.7222222222222223 (n=36) Time: 0.07737295900005847
+Iteration 2900000 — monitoring only (no weight updates). Train-split avg jobs: 2.7222222222222223 (n=36) Time: 0.07771736699942267
+Iteration 2950000 — monitoring only (no weight updates). Train-split avg jobs: 2.7222222222222223 (n=36) Time: 0.07765657200070564
+Iteration 3000000 — monitoring only (no weight updates). Train-split avg jobs: 2.7222222222222223 (n=36) Time: 0.0776193410056294
+Average recommendation time (test): 0.0017 seconds
+Test split: new average attractiveness = 885.56
+Test split: new average applicable jobs = 1.06
+Trial 7 wall time: 69.60632 min
+Trial 7 logged to sweep CSV: /home/alesage/arno_data/CourseRecSys_CLIRS/Results/CLIRS/steps_3000000/data_42/courses_100/k_2/sweeps/clirs_dqn_data42.csv
+Raw eval JSON: /home/alesage/arno_data/CourseRecSys_CLIRS/Results/CLIRS/steps_3000000/data_42/courses_100/k_2/raw/clirs_dqn_data42_rl49_k2_eval.json
+Optimal number of clusters: 8
+Clustering inertia: 119.34047055963427
+
+--- Trial 9/12 (trial_id=8, rl_seed=50) ---
+
+Initializing CourseRecEnv — TRAIN (SB3 learns here):
+  use_clustering in config: True
+  Clustering: using frozen labels (once per experiment cell)
+  Reward shaping: ON — cluster multipliers apply during train_env episodes in model.learn()
+
+Initializing CourseRecEnv — MONITOR (callback / held-out eval):
+  use_clustering in config: True
+  Reward shaping: OFF on this env — measures raw applicable jobs (EvaluateCallback on train split; final metric on test split). Training still uses train_env with shaping when config enables it.
+
+Starting model.learn() on train_env. Every 50000 steps: monitor train-split jobs via eval_env (raw reward, no weight updates). Test split runs once after training.
+
+Test split (n=16): average attractiveness = 475.06
+Test split: average applicable jobs per learner = 0.06
+Iteration 50000 — monitoring only (no weight updates). Train-split avg jobs: 0.1111111111111111 (n=36) Time: 0.062175559003662784
+Iteration 100000 — monitoring only (no weight updates). Train-split avg jobs: 1.2222222222222223 (n=36) Time: 0.07752251000056276
+Iteration 150000 — monitoring only (no weight updates). Train-split avg jobs: 1.5 (n=36) Time: 0.07739401899743825
+Iteration 200000 — monitoring only (no weight updates). Train-split avg jobs: 1.8055555555555556 (n=36) Time: 0.07747573300002841
+Iteration 250000 — monitoring only (no weight updates). Train-split avg jobs: 1.9444444444444444 (n=36) Time: 0.07768837199546397
+Iteration 300000 — monitoring only (no weight updates). Train-split avg jobs: 2.0277777777777777 (n=36) Time: 0.07818750700243982
+Iteration 350000 — monitoring only (no weight updates). Train-split avg jobs: 2.1666666666666665 (n=36) Time: 0.07790824399853591
+Iteration 400000 — monitoring only (no weight updates). Train-split avg jobs: 2.361111111111111 (n=36) Time: 0.0777635630001896
+Iteration 450000 — monitoring only (no weight updates). Train-split avg jobs: 2.361111111111111 (n=36) Time: 0.07772063300217269
+Iteration 500000 — monitoring only (no weight updates). Train-split avg jobs: 2.361111111111111 (n=36) Time: 0.07806507799978135
+Iteration 550000 — monitoring only (no weight updates). Train-split avg jobs: 2.388888888888889 (n=36) Time: 0.07754910000221571
+Iteration 600000 — monitoring only (no weight updates). Train-split avg jobs: 2.4166666666666665 (n=36) Time: 0.07785501400212524
+Iteration 650000 — monitoring only (no weight updates). Train-split avg jobs: 2.4722222222222223 (n=36) Time: 0.07819226699939463
+Iteration 700000 — monitoring only (no weight updates). Train-split avg jobs: 2.4722222222222223 (n=36) Time: 0.07793839000078151
+Iteration 750000 — monitoring only (no weight updates). Train-split avg jobs: 2.4444444444444446 (n=36) Time: 0.0779827229998773
+Iteration 800000 — monitoring only (no weight updates). Train-split avg jobs: 2.4722222222222223 (n=36) Time: 0.07821632199920714
+Iteration 850000 — monitoring only (no weight updates). Train-split avg jobs: 2.4722222222222223 (n=36) Time: 0.0775185330057866
+Iteration 900000 — monitoring only (no weight updates). Train-split avg jobs: 2.4722222222222223 (n=36) Time: 0.07808023700636113
+Iteration 950000 — monitoring only (no weight updates). Train-split avg jobs: 2.4722222222222223 (n=36) Time: 0.07802989100309787
+Iteration 1000000 — monitoring only (no weight updates). Train-split avg jobs: 2.4722222222222223 (n=36) Time: 0.07767192000028444
+Iteration 1050000 — monitoring only (no weight updates). Train-split avg jobs: 2.4722222222222223 (n=36) Time: 0.07754917100101011
+Iteration 1100000 — monitoring only (no weight updates). Train-split avg jobs: 2.4722222222222223 (n=36) Time: 0.07784129899664549
+Iteration 1150000 — monitoring only (no weight updates). Train-split avg jobs: 2.6666666666666665 (n=36) Time: 0.0781368520038086
+Iteration 1200000 — monitoring only (no weight updates). Train-split avg jobs: 2.6666666666666665 (n=36) Time: 0.07757354700152064
+Iteration 1250000 — monitoring only (no weight updates). Train-split avg jobs: 2.6666666666666665 (n=36) Time: 0.07803075399715453
+Iteration 1300000 — monitoring only (no weight updates). Train-split avg jobs: 2.6666666666666665 (n=36) Time: 0.07772835599462269
+Iteration 1350000 — monitoring only (no weight updates). Train-split avg jobs: 2.6666666666666665 (n=36) Time: 0.07795920000353362
+Iteration 1400000 — monitoring only (no weight updates). Train-split avg jobs: 2.6666666666666665 (n=36) Time: 0.07785154600423994
+Iteration 1450000 — monitoring only (no weight updates). Train-split avg jobs: 2.6666666666666665 (n=36) Time: 0.07793630700325593
+Iteration 1500000 — monitoring only (no weight updates). Train-split avg jobs: 2.6666666666666665 (n=36) Time: 0.07777534500201
+Iteration 1550000 — monitoring only (no weight updates). Train-split avg jobs: 2.6666666666666665 (n=36) Time: 0.07769436300441157
+Iteration 1600000 — monitoring only (no weight updates). Train-split avg jobs: 2.6666666666666665 (n=36) Time: 0.07776223000109894
+Iteration 1650000 — monitoring only (no weight updates). Train-split avg jobs: 2.6666666666666665 (n=36) Time: 0.07817140700353775
+Iteration 1700000 — monitoring only (no weight updates). Train-split avg jobs: 2.6666666666666665 (n=36) Time: 0.07761045499501051
+Iteration 1750000 — monitoring only (no weight updates). Train-split avg jobs: 2.6666666666666665 (n=36) Time: 0.07799455600616056
+Iteration 1800000 — monitoring only (no weight updates). Train-split avg jobs: 2.6944444444444446 (n=36) Time: 0.07783922499947948
+Iteration 1850000 — monitoring only (no weight updates). Train-split avg jobs: 2.6944444444444446 (n=36) Time: 0.07804431900149211
+Iteration 1900000 — monitoring only (no weight updates). Train-split avg jobs: 2.6944444444444446 (n=36) Time: 0.07817601400165586
+Iteration 1950000 — monitoring only (no weight updates). Train-split avg jobs: 2.6944444444444446 (n=36) Time: 0.07778514300298411
+Iteration 2000000 — monitoring only (no weight updates). Train-split avg jobs: 2.6944444444444446 (n=36) Time: 0.07791915399866411
+Iteration 2050000 — monitoring only (no weight updates). Train-split avg jobs: 2.6944444444444446 (n=36) Time: 0.07754276900232071
+Iteration 2100000 — monitoring only (no weight updates). Train-split avg jobs: 2.6944444444444446 (n=36) Time: 0.07777757899748394
+Iteration 2150000 — monitoring only (no weight updates). Train-split avg jobs: 2.6944444444444446 (n=36) Time: 0.07766226300009293
+Iteration 2200000 — monitoring only (no weight updates). Train-split avg jobs: 2.6944444444444446 (n=36) Time: 0.07781113199598622
+Iteration 2250000 — monitoring only (no weight updates). Train-split avg jobs: 2.6666666666666665 (n=36) Time: 0.07784531600191258
+Iteration 2300000 — monitoring only (no weight updates). Train-split avg jobs: 2.6944444444444446 (n=36) Time: 0.07756023199908668
+Iteration 2350000 — monitoring only (no weight updates). Train-split avg jobs: 2.6944444444444446 (n=36) Time: 0.07759355300368043
+Iteration 2400000 — monitoring only (no weight updates). Train-split avg jobs: 2.6944444444444446 (n=36) Time: 0.07786293899698649
+Iteration 2450000 — monitoring only (no weight updates). Train-split avg jobs: 2.6944444444444446 (n=36) Time: 0.07789962900278624
+Iteration 2500000 — monitoring only (no weight updates). Train-split avg jobs: 2.6944444444444446 (n=36) Time: 0.07819313700019848
+Iteration 2550000 — monitoring only (no weight updates). Train-split avg jobs: 2.6944444444444446 (n=36) Time: 0.07773041100153932
+Iteration 2600000 — monitoring only (no weight updates). Train-split avg jobs: 2.6944444444444446 (n=36) Time: 0.07775319299980765
+Iteration 2650000 — monitoring only (no weight updates). Train-split avg jobs: 2.6944444444444446 (n=36) Time: 0.07781440899998415
+Iteration 2700000 — monitoring only (no weight updates). Train-split avg jobs: 2.6944444444444446 (n=36) Time: 0.07748839700070675
+Iteration 2750000 — monitoring only (no weight updates). Train-split avg jobs: 2.6944444444444446 (n=36) Time: 0.07779087300150422
+Iteration 2800000 — monitoring only (no weight updates). Train-split avg jobs: 2.6944444444444446 (n=36) Time: 0.07781832599721383
+Iteration 2850000 — monitoring only (no weight updates). Train-split avg jobs: 2.6944444444444446 (n=36) Time: 0.07756544099538587
+Iteration 2900000 — monitoring only (no weight updates). Train-split avg jobs: 2.6944444444444446 (n=36) Time: 0.07785148700349964
+Iteration 2950000 — monitoring only (no weight updates). Train-split avg jobs: 2.6944444444444446 (n=36) Time: 0.07778339099604636
+Iteration 3000000 — monitoring only (no weight updates). Train-split avg jobs: 2.6944444444444446 (n=36) Time: 0.07765361599740572
+Average recommendation time (test): 0.0017 seconds
+Test split: new average attractiveness = 856.00
+Test split: new average applicable jobs = 1.06
+Trial 8 wall time: 69.59020 min
+Trial 8 logged to sweep CSV: /home/alesage/arno_data/CourseRecSys_CLIRS/Results/CLIRS/steps_3000000/data_42/courses_100/k_2/sweeps/clirs_dqn_data42.csv
+Raw eval JSON: /home/alesage/arno_data/CourseRecSys_CLIRS/Results/CLIRS/steps_3000000/data_42/courses_100/k_2/raw/clirs_dqn_data42_rl50_k2_eval.json
+Optimal number of clusters: 8
+Clustering inertia: 119.34047055963427
+
+--- Trial 10/12 (trial_id=9, rl_seed=51) ---
+
+Initializing CourseRecEnv — TRAIN (SB3 learns here):
+  use_clustering in config: True
+  Clustering: using frozen labels (once per experiment cell)
+  Reward shaping: ON — cluster multipliers apply during train_env episodes in model.learn()
+
+Initializing CourseRecEnv — MONITOR (callback / held-out eval):
+  use_clustering in config: True
+  Reward shaping: OFF on this env — measures raw applicable jobs (EvaluateCallback on train split; final metric on test split). Training still uses train_env with shaping when config enables it.
+
+Starting model.learn() on train_env. Every 50000 steps: monitor train-split jobs via eval_env (raw reward, no weight updates). Test split runs once after training.
+
+Test split (n=16): average attractiveness = 475.06
+Test split: average applicable jobs per learner = 0.06
+Iteration 50000 — monitoring only (no weight updates). Train-split avg jobs: 0.1388888888888889 (n=36) Time: 0.05693712700303877
+Iteration 100000 — monitoring only (no weight updates). Train-split avg jobs: 1.25 (n=36) Time: 0.07790425600251183
+Iteration 150000 — monitoring only (no weight updates). Train-split avg jobs: 1.25 (n=36) Time: 0.07881572600308573
+Iteration 200000 — monitoring only (no weight updates). Train-split avg jobs: 1.5555555555555556 (n=36) Time: 0.07731291800155304
+Iteration 250000 — monitoring only (no weight updates). Train-split avg jobs: 2.0833333333333335 (n=36) Time: 0.07798410699615488
+Iteration 300000 — monitoring only (no weight updates). Train-split avg jobs: 2.1944444444444446 (n=36) Time: 0.07844428899988998
+Iteration 350000 — monitoring only (no weight updates). Train-split avg jobs: 2.1944444444444446 (n=36) Time: 0.077842149999924
+Iteration 400000 — monitoring only (no weight updates). Train-split avg jobs: 2.1944444444444446 (n=36) Time: 0.07789388600212988
+Iteration 450000 — monitoring only (no weight updates). Train-split avg jobs: 2.3055555555555554 (n=36) Time: 0.07801377199939452
+Iteration 500000 — monitoring only (no weight updates). Train-split avg jobs: 2.3055555555555554 (n=36) Time: 0.07831499700114364
+Iteration 550000 — monitoring only (no weight updates). Train-split avg jobs: 2.361111111111111 (n=36) Time: 0.07838692200311925
+Iteration 600000 — monitoring only (no weight updates). Train-split avg jobs: 2.361111111111111 (n=36) Time: 0.07774321400211193
+Iteration 650000 — monitoring only (no weight updates). Train-split avg jobs: 2.4166666666666665 (n=36) Time: 0.07838223299768288
+Iteration 700000 — monitoring only (no weight updates). Train-split avg jobs: 2.4722222222222223 (n=36) Time: 0.0782193780032685
+Iteration 750000 — monitoring only (no weight updates). Train-split avg jobs: 2.4722222222222223 (n=36) Time: 0.07838104000256862
+Iteration 800000 — monitoring only (no weight updates). Train-split avg jobs: 2.4722222222222223 (n=36) Time: 0.07808115799707593
+Iteration 850000 — monitoring only (no weight updates). Train-split avg jobs: 2.4722222222222223 (n=36) Time: 0.07817256900307257
+Iteration 900000 — monitoring only (no weight updates). Train-split avg jobs: 2.4722222222222223 (n=36) Time: 0.07858408099855296
+Iteration 950000 — monitoring only (no weight updates). Train-split avg jobs: 2.5 (n=36) Time: 0.07818962199962698
+Iteration 1000000 — monitoring only (no weight updates). Train-split avg jobs: 2.5277777777777777 (n=36) Time: 0.07803540200256975
+Iteration 1050000 — monitoring only (no weight updates). Train-split avg jobs: 2.5277777777777777 (n=36) Time: 0.07824463500583079
+Iteration 1100000 — monitoring only (no weight updates). Train-split avg jobs: 2.5 (n=36) Time: 0.07817247999628307
+Iteration 1150000 — monitoring only (no weight updates). Train-split avg jobs: 2.5277777777777777 (n=36) Time: 0.07793224899796769
+Iteration 1200000 — monitoring only (no weight updates). Train-split avg jobs: 2.5555555555555554 (n=36) Time: 0.07802658500440884
+Iteration 1250000 — monitoring only (no weight updates). Train-split avg jobs: 2.5555555555555554 (n=36) Time: 0.07791334299690789
+Iteration 1300000 — monitoring only (no weight updates). Train-split avg jobs: 2.5833333333333335 (n=36) Time: 0.07825309899635613
+Iteration 1350000 — monitoring only (no weight updates). Train-split avg jobs: 2.5833333333333335 (n=36) Time: 0.07787822800310096
+Iteration 1400000 — monitoring only (no weight updates). Train-split avg jobs: 2.5833333333333335 (n=36) Time: 0.07828538100147853
+Iteration 1450000 — monitoring only (no weight updates). Train-split avg jobs: 2.5833333333333335 (n=36) Time: 0.07775774200126762
+Iteration 1500000 — monitoring only (no weight updates). Train-split avg jobs: 2.5833333333333335 (n=36) Time: 0.07825524499639869
+Iteration 1550000 — monitoring only (no weight updates). Train-split avg jobs: 2.5833333333333335 (n=36) Time: 0.07804168499569641
+Iteration 1600000 — monitoring only (no weight updates). Train-split avg jobs: 2.5833333333333335 (n=36) Time: 0.07784932300273795
+Iteration 1650000 — monitoring only (no weight updates). Train-split avg jobs: 2.5833333333333335 (n=36) Time: 0.07838488800189225
+Iteration 1700000 — monitoring only (no weight updates). Train-split avg jobs: 2.5833333333333335 (n=36) Time: 0.0782222220004769
+Iteration 1750000 — monitoring only (no weight updates). Train-split avg jobs: 2.5833333333333335 (n=36) Time: 0.07862096999451751
+Iteration 1800000 — monitoring only (no weight updates). Train-split avg jobs: 2.5833333333333335 (n=36) Time: 0.07819668499723775
+Iteration 1850000 — monitoring only (no weight updates). Train-split avg jobs: 2.5833333333333335 (n=36) Time: 0.07765172299696133
+Iteration 1900000 — monitoring only (no weight updates). Train-split avg jobs: 2.5833333333333335 (n=36) Time: 0.07824513499508612
+Iteration 1950000 — monitoring only (no weight updates). Train-split avg jobs: 2.6666666666666665 (n=36) Time: 0.07807786299963482
+Iteration 2000000 — monitoring only (no weight updates). Train-split avg jobs: 2.6666666666666665 (n=36) Time: 0.07860650300426641
+Iteration 2050000 — monitoring only (no weight updates). Train-split avg jobs: 2.6666666666666665 (n=36) Time: 0.07800475499971071
+Iteration 2100000 — monitoring only (no weight updates). Train-split avg jobs: 2.6666666666666665 (n=36) Time: 0.07813001899921801
+Iteration 2150000 — monitoring only (no weight updates). Train-split avg jobs: 2.6666666666666665 (n=36) Time: 0.07817477399657946
+Iteration 2200000 — monitoring only (no weight updates). Train-split avg jobs: 2.6666666666666665 (n=36) Time: 0.07805671200185316
+Iteration 2250000 — monitoring only (no weight updates). Train-split avg jobs: 2.6666666666666665 (n=36) Time: 0.07825261999823852
+Iteration 2300000 — monitoring only (no weight updates). Train-split avg jobs: 2.6666666666666665 (n=36) Time: 0.07833724800002528
+Iteration 2350000 — monitoring only (no weight updates). Train-split avg jobs: 2.6666666666666665 (n=36) Time: 0.07857424300163984
+Iteration 2400000 — monitoring only (no weight updates). Train-split avg jobs: 2.6666666666666665 (n=36) Time: 0.07820760500180768
+Iteration 2450000 — monitoring only (no weight updates). Train-split avg jobs: 2.6666666666666665 (n=36) Time: 0.0780364140009624
+Iteration 2500000 — monitoring only (no weight updates). Train-split avg jobs: 2.6666666666666665 (n=36) Time: 0.07835305800108472
+Iteration 2550000 — monitoring only (no weight updates). Train-split avg jobs: 2.6666666666666665 (n=36) Time: 0.07825976199819706
+Iteration 2600000 — monitoring only (no weight updates). Train-split avg jobs: 2.6666666666666665 (n=36) Time: 0.07825378199777333
+Iteration 2650000 — monitoring only (no weight updates). Train-split avg jobs: 2.6944444444444446 (n=36) Time: 0.0779410250033834
+Iteration 2700000 — monitoring only (no weight updates). Train-split avg jobs: 2.6944444444444446 (n=36) Time: 0.07817870200233301
+Iteration 2750000 — monitoring only (no weight updates). Train-split avg jobs: 2.6944444444444446 (n=36) Time: 0.07804763600142905
+Iteration 2800000 — monitoring only (no weight updates). Train-split avg jobs: 2.6944444444444446 (n=36) Time: 0.07792932500160532
+Iteration 2850000 — monitoring only (no weight updates). Train-split avg jobs: 2.6944444444444446 (n=36) Time: 0.07845524000003934
+Iteration 2900000 — monitoring only (no weight updates). Train-split avg jobs: 2.6944444444444446 (n=36) Time: 0.07821172300464241
+Iteration 2950000 — monitoring only (no weight updates). Train-split avg jobs: 2.6944444444444446 (n=36) Time: 0.07816494500002591
+Iteration 3000000 — monitoring only (no weight updates). Train-split avg jobs: 2.6944444444444446 (n=36) Time: 0.0779853380008717
+Average recommendation time (test): 0.0018 seconds
+Test split: new average attractiveness = 823.38
+Test split: new average applicable jobs = 1.19
+Trial 9 wall time: 69.90583 min
+Trial 9 logged to sweep CSV: /home/alesage/arno_data/CourseRecSys_CLIRS/Results/CLIRS/steps_3000000/data_42/courses_100/k_2/sweeps/clirs_dqn_data42.csv
+Raw eval JSON: /home/alesage/arno_data/CourseRecSys_CLIRS/Results/CLIRS/steps_3000000/data_42/courses_100/k_2/raw/clirs_dqn_data42_rl51_k2_eval.json
+Optimal number of clusters: 8
+Clustering inertia: 119.34047055963427
+
+--- Trial 11/12 (trial_id=10, rl_seed=52) ---
+
+Initializing CourseRecEnv — TRAIN (SB3 learns here):
+  use_clustering in config: True
+  Clustering: using frozen labels (once per experiment cell)
+  Reward shaping: ON — cluster multipliers apply during train_env episodes in model.learn()
+
+Initializing CourseRecEnv — MONITOR (callback / held-out eval):
+  use_clustering in config: True
+  Reward shaping: OFF on this env — measures raw applicable jobs (EvaluateCallback on train split; final metric on test split). Training still uses train_env with shaping when config enables it.
+
+Starting model.learn() on train_env. Every 50000 steps: monitor train-split jobs via eval_env (raw reward, no weight updates). Test split runs once after training.
+
+Test split (n=16): average attractiveness = 475.06
+Test split: average applicable jobs per learner = 0.06
+Iteration 50000 — monitoring only (no weight updates). Train-split avg jobs: 0.1111111111111111 (n=36) Time: 0.055786618002457544
+Iteration 100000 — monitoring only (no weight updates). Train-split avg jobs: 1.3888888888888888 (n=36) Time: 0.07850415199936833
+Iteration 150000 — monitoring only (no weight updates). Train-split avg jobs: 1.25 (n=36) Time: 0.07774206199974287
+Iteration 200000 — monitoring only (no weight updates). Train-split avg jobs: 1.8611111111111112 (n=36) Time: 0.07621228400239488
+Iteration 250000 — monitoring only (no weight updates). Train-split avg jobs: 2.138888888888889 (n=36) Time: 0.07823409599950537
+Iteration 300000 — monitoring only (no weight updates). Train-split avg jobs: 2.3333333333333335 (n=36) Time: 0.07819984100206057
+Iteration 350000 — monitoring only (no weight updates). Train-split avg jobs: 2.3333333333333335 (n=36) Time: 0.0779050180062768
+Iteration 400000 — monitoring only (no weight updates). Train-split avg jobs: 2.388888888888889 (n=36) Time: 0.07815968499926385
+Iteration 450000 — monitoring only (no weight updates). Train-split avg jobs: 2.388888888888889 (n=36) Time: 0.07754678600031184
+Iteration 500000 — monitoring only (no weight updates). Train-split avg jobs: 2.388888888888889 (n=36) Time: 0.07801729899802012
+Iteration 550000 — monitoring only (no weight updates). Train-split avg jobs: 2.2777777777777777 (n=36) Time: 0.07829657199908979
+Iteration 600000 — monitoring only (no weight updates). Train-split avg jobs: 2.3055555555555554 (n=36) Time: 0.07823192099749576
+Iteration 650000 — monitoring only (no weight updates). Train-split avg jobs: 2.388888888888889 (n=36) Time: 0.07792405300278915
+Iteration 700000 — monitoring only (no weight updates). Train-split avg jobs: 2.4166666666666665 (n=36) Time: 0.07762000199727481
+Iteration 750000 — monitoring only (no weight updates). Train-split avg jobs: 2.4166666666666665 (n=36) Time: 0.07780079099757131
+Iteration 800000 — monitoring only (no weight updates). Train-split avg jobs: 2.4166666666666665 (n=36) Time: 0.07806295400223462
+Iteration 850000 — monitoring only (no weight updates). Train-split avg jobs: 2.4444444444444446 (n=36) Time: 0.07804493099683896
+Iteration 900000 — monitoring only (no weight updates). Train-split avg jobs: 2.4444444444444446 (n=36) Time: 0.07802824100508587
+Iteration 950000 — monitoring only (no weight updates). Train-split avg jobs: 2.4444444444444446 (n=36) Time: 0.07787121400178876
+Iteration 1000000 — monitoring only (no weight updates). Train-split avg jobs: 2.5833333333333335 (n=36) Time: 0.07848667899816064
+Iteration 1050000 — monitoring only (no weight updates). Train-split avg jobs: 2.5555555555555554 (n=36) Time: 0.07836135399702471
+Iteration 1100000 — monitoring only (no weight updates). Train-split avg jobs: 2.611111111111111 (n=36) Time: 0.07838238299882505
+Iteration 1150000 — monitoring only (no weight updates). Train-split avg jobs: 2.611111111111111 (n=36) Time: 0.07779067399678752
+Iteration 1200000 — monitoring only (no weight updates). Train-split avg jobs: 2.611111111111111 (n=36) Time: 0.07817098799569067
+Iteration 1250000 — monitoring only (no weight updates). Train-split avg jobs: 2.5833333333333335 (n=36) Time: 0.07769145700149238
+Iteration 1300000 — monitoring only (no weight updates). Train-split avg jobs: 2.611111111111111 (n=36) Time: 0.07751867500337539
+Iteration 1350000 — monitoring only (no weight updates). Train-split avg jobs: 2.611111111111111 (n=36) Time: 0.07803589400282362
+Iteration 1400000 — monitoring only (no weight updates). Train-split avg jobs: 2.611111111111111 (n=36) Time: 0.07752780000009807
+Iteration 1450000 — monitoring only (no weight updates). Train-split avg jobs: 2.611111111111111 (n=36) Time: 0.07786785799544305
+Iteration 1500000 — monitoring only (no weight updates). Train-split avg jobs: 2.638888888888889 (n=36) Time: 0.07802682700275909
+Iteration 1550000 — monitoring only (no weight updates). Train-split avg jobs: 2.638888888888889 (n=36) Time: 0.0775740559984115
+Iteration 1600000 — monitoring only (no weight updates). Train-split avg jobs: 2.638888888888889 (n=36) Time: 0.0778715549968183
+Iteration 1650000 — monitoring only (no weight updates). Train-split avg jobs: 2.638888888888889 (n=36) Time: 0.07762463299877709
+Iteration 1700000 — monitoring only (no weight updates). Train-split avg jobs: 2.638888888888889 (n=36) Time: 0.07780913800525013
+Iteration 1750000 — monitoring only (no weight updates). Train-split avg jobs: 2.6666666666666665 (n=36) Time: 0.07814676199632231
+Iteration 1800000 — monitoring only (no weight updates). Train-split avg jobs: 2.6666666666666665 (n=36) Time: 0.07839442600379698
+Iteration 1850000 — monitoring only (no weight updates). Train-split avg jobs: 2.6666666666666665 (n=36) Time: 0.0778052910027327
+Iteration 1900000 — monitoring only (no weight updates). Train-split avg jobs: 2.6666666666666665 (n=36) Time: 0.07749645200237865
+Iteration 1950000 — monitoring only (no weight updates). Train-split avg jobs: 2.6666666666666665 (n=36) Time: 0.07790530899364967
+Iteration 2000000 — monitoring only (no weight updates). Train-split avg jobs: 2.6666666666666665 (n=36) Time: 0.07783374300197465
+Iteration 2050000 — monitoring only (no weight updates). Train-split avg jobs: 2.6666666666666665 (n=36) Time: 0.07817285999772139
+Iteration 2100000 — monitoring only (no weight updates). Train-split avg jobs: 2.6666666666666665 (n=36) Time: 0.07749786499334732
+Iteration 2150000 — monitoring only (no weight updates). Train-split avg jobs: 2.6666666666666665 (n=36) Time: 0.077732764002576
+Iteration 2200000 — monitoring only (no weight updates). Train-split avg jobs: 2.6666666666666665 (n=36) Time: 0.07804290700005367
+Iteration 2250000 — monitoring only (no weight updates). Train-split avg jobs: 2.6666666666666665 (n=36) Time: 0.07805892599571962
+Iteration 2300000 — monitoring only (no weight updates). Train-split avg jobs: 2.6666666666666665 (n=36) Time: 0.07797029999346705
+Iteration 2350000 — monitoring only (no weight updates). Train-split avg jobs: 2.6666666666666665 (n=36) Time: 0.07804862700140802
+Iteration 2400000 — monitoring only (no weight updates). Train-split avg jobs: 2.6666666666666665 (n=36) Time: 0.07794710699818097
+Iteration 2450000 — monitoring only (no weight updates). Train-split avg jobs: 2.6666666666666665 (n=36) Time: 0.07772092300001532
+Iteration 2500000 — monitoring only (no weight updates). Train-split avg jobs: 2.6666666666666665 (n=36) Time: 0.07771003299421864
+Iteration 2550000 — monitoring only (no weight updates). Train-split avg jobs: 2.6666666666666665 (n=36) Time: 0.07796733500435948
+Iteration 2600000 — monitoring only (no weight updates). Train-split avg jobs: 2.6666666666666665 (n=36) Time: 0.07782902499457123
+Iteration 2650000 — monitoring only (no weight updates). Train-split avg jobs: 2.6666666666666665 (n=36) Time: 0.07774225199682405
+Iteration 2700000 — monitoring only (no weight updates). Train-split avg jobs: 2.6666666666666665 (n=36) Time: 0.07822255299834069
+Iteration 2750000 — monitoring only (no weight updates). Train-split avg jobs: 2.6666666666666665 (n=36) Time: 0.07769177799491445
+Iteration 2800000 — monitoring only (no weight updates). Train-split avg jobs: 2.6944444444444446 (n=36) Time: 0.07740192500205012
+Iteration 2850000 — monitoring only (no weight updates). Train-split avg jobs: 2.6944444444444446 (n=36) Time: 0.07794992200069828
+Iteration 2900000 — monitoring only (no weight updates). Train-split avg jobs: 2.6944444444444446 (n=36) Time: 0.07793307999963872
+Iteration 2950000 — monitoring only (no weight updates). Train-split avg jobs: 2.6944444444444446 (n=36) Time: 0.07786881900392473
+Iteration 3000000 — monitoring only (no weight updates). Train-split avg jobs: 2.6944444444444446 (n=36) Time: 0.07755684500443749
+Average recommendation time (test): 0.0017 seconds
+Test split: new average attractiveness = 810.94
+Test split: new average applicable jobs = 1.00
+Trial 10 wall time: 69.68222 min
+Trial 10 logged to sweep CSV: /home/alesage/arno_data/CourseRecSys_CLIRS/Results/CLIRS/steps_3000000/data_42/courses_100/k_2/sweeps/clirs_dqn_data42.csv
+Raw eval JSON: /home/alesage/arno_data/CourseRecSys_CLIRS/Results/CLIRS/steps_3000000/data_42/courses_100/k_2/raw/clirs_dqn_data42_rl52_k2_eval.json
+Optimal number of clusters: 8
+Clustering inertia: 119.34047055963427
+
+--- Trial 12/12 (trial_id=11, rl_seed=53) ---
+
+Initializing CourseRecEnv — TRAIN (SB3 learns here):
+  use_clustering in config: True
+  Clustering: using frozen labels (once per experiment cell)
+  Reward shaping: ON — cluster multipliers apply during train_env episodes in model.learn()
+
+Initializing CourseRecEnv — MONITOR (callback / held-out eval):
+  use_clustering in config: True
+  Reward shaping: OFF on this env — measures raw applicable jobs (EvaluateCallback on train split; final metric on test split). Training still uses train_env with shaping when config enables it.
+
+Starting model.learn() on train_env. Every 50000 steps: monitor train-split jobs via eval_env (raw reward, no weight updates). Test split runs once after training.
+
+Test split (n=16): average attractiveness = 475.06
+Test split: average applicable jobs per learner = 0.06
+Iteration 50000 — monitoring only (no weight updates). Train-split avg jobs: 0.1111111111111111 (n=36) Time: 0.15822159800154623
+Iteration 100000 — monitoring only (no weight updates). Train-split avg jobs: 1.1666666666666667 (n=36) Time: 0.07734672199876513
+Iteration 150000 — monitoring only (no weight updates). Train-split avg jobs: 1.0555555555555556 (n=36) Time: 0.07725684199976968
+Iteration 200000 — monitoring only (no weight updates). Train-split avg jobs: 1.6944444444444444 (n=36) Time: 0.07751947399810888
+Iteration 250000 — monitoring only (no weight updates). Train-split avg jobs: 1.8888888888888888 (n=36) Time: 0.07822746300371364
+Iteration 300000 — monitoring only (no weight updates). Train-split avg jobs: 2.0833333333333335 (n=36) Time: 0.07789811400289182
+Iteration 350000 — monitoring only (no weight updates). Train-split avg jobs: 2.1666666666666665 (n=36) Time: 0.07833166800264735
+Iteration 400000 — monitoring only (no weight updates). Train-split avg jobs: 2.1666666666666665 (n=36) Time: 0.07763990099920193
+Iteration 450000 — monitoring only (no weight updates). Train-split avg jobs: 2.1666666666666665 (n=36) Time: 0.07794992099661613
+Iteration 500000 — monitoring only (no weight updates). Train-split avg jobs: 2.2222222222222223 (n=36) Time: 0.07788942899787799
+Iteration 550000 — monitoring only (no weight updates). Train-split avg jobs: 2.1944444444444446 (n=36) Time: 0.07769865099544404
+Iteration 600000 — monitoring only (no weight updates). Train-split avg jobs: 2.2222222222222223 (n=36) Time: 0.07752588699804619
+Iteration 650000 — monitoring only (no weight updates). Train-split avg jobs: 2.25 (n=36) Time: 0.07774636099929921
+Iteration 700000 — monitoring only (no weight updates). Train-split avg jobs: 2.25 (n=36) Time: 0.0779754800023511
+Iteration 750000 — monitoring only (no weight updates). Train-split avg jobs: 2.2222222222222223 (n=36) Time: 0.07766233300208114
+Iteration 800000 — monitoring only (no weight updates). Train-split avg jobs: 2.25 (n=36) Time: 0.07772156400460517
+Iteration 850000 — monitoring only (no weight updates). Train-split avg jobs: 2.25 (n=36) Time: 0.07758860499598086
+Iteration 900000 — monitoring only (no weight updates). Train-split avg jobs: 2.3333333333333335 (n=36) Time: 0.07790553900122177
+Iteration 950000 — monitoring only (no weight updates). Train-split avg jobs: 2.3333333333333335 (n=36) Time: 0.07774819400219712
+Iteration 1000000 — monitoring only (no weight updates). Train-split avg jobs: 2.3333333333333335 (n=36) Time: 0.07748375800292706
+Iteration 1050000 — monitoring only (no weight updates). Train-split avg jobs: 2.3333333333333335 (n=36) Time: 0.07804024099459639
+Iteration 1100000 — monitoring only (no weight updates). Train-split avg jobs: 2.3333333333333335 (n=36) Time: 0.07769303999521071
+Iteration 1150000 — monitoring only (no weight updates). Train-split avg jobs: 2.3333333333333335 (n=36) Time: 0.07762353999714833
+Iteration 1200000 — monitoring only (no weight updates). Train-split avg jobs: 2.361111111111111 (n=36) Time: 0.07793016499635996
+Iteration 1250000 — monitoring only (no weight updates). Train-split avg jobs: 2.361111111111111 (n=36) Time: 0.07773847600037698
+Iteration 1300000 — monitoring only (no weight updates). Train-split avg jobs: 2.361111111111111 (n=36) Time: 0.07760623800277244
+Iteration 1350000 — monitoring only (no weight updates). Train-split avg jobs: 2.388888888888889 (n=36) Time: 0.07761603499966441
+Iteration 1400000 — monitoring only (no weight updates). Train-split avg jobs: 2.388888888888889 (n=36) Time: 0.07807852500263834
+Iteration 1450000 — monitoring only (no weight updates). Train-split avg jobs: 2.388888888888889 (n=36) Time: 0.07768577699607704
+Iteration 1500000 — monitoring only (no weight updates). Train-split avg jobs: 2.5277777777777777 (n=36) Time: 0.07800019600108499
+Iteration 1550000 — monitoring only (no weight updates). Train-split avg jobs: 2.5833333333333335 (n=36) Time: 0.07755895800073631
+Iteration 1600000 — monitoring only (no weight updates). Train-split avg jobs: 2.5833333333333335 (n=36) Time: 0.0777206019993173
+Iteration 1650000 — monitoring only (no weight updates). Train-split avg jobs: 2.5833333333333335 (n=36) Time: 0.07751519700104836
+Iteration 1700000 — monitoring only (no weight updates). Train-split avg jobs: 2.5833333333333335 (n=36) Time: 0.07791892399836797
+Iteration 1750000 — monitoring only (no weight updates). Train-split avg jobs: 2.5833333333333335 (n=36) Time: 0.07760778900410514
+Iteration 1800000 — monitoring only (no weight updates). Train-split avg jobs: 2.5833333333333335 (n=36) Time: 0.07788970999536105
+Iteration 1850000 — monitoring only (no weight updates). Train-split avg jobs: 2.5833333333333335 (n=36) Time: 0.07758383499458432
+Iteration 1900000 — monitoring only (no weight updates). Train-split avg jobs: 2.638888888888889 (n=36) Time: 0.07774158200481907
+Iteration 1950000 — monitoring only (no weight updates). Train-split avg jobs: 2.611111111111111 (n=36) Time: 0.07762769699911587
+Iteration 2000000 — monitoring only (no weight updates). Train-split avg jobs: 2.638888888888889 (n=36) Time: 0.07750084999861429
+Iteration 2050000 — monitoring only (no weight updates). Train-split avg jobs: 2.611111111111111 (n=36) Time: 0.0775965599968913
+Iteration 2100000 — monitoring only (no weight updates). Train-split avg jobs: 2.638888888888889 (n=36) Time: 0.07763227700343123
+Iteration 2150000 — monitoring only (no weight updates). Train-split avg jobs: 2.638888888888889 (n=36) Time: 0.07759881299716653
+Iteration 2200000 — monitoring only (no weight updates). Train-split avg jobs: 2.638888888888889 (n=36) Time: 0.07756868599972222
+Iteration 2250000 — monitoring only (no weight updates). Train-split avg jobs: 2.638888888888889 (n=36) Time: 0.07746296899858862
+Iteration 2300000 — monitoring only (no weight updates). Train-split avg jobs: 2.638888888888889 (n=36) Time: 0.07751869400090072
+Iteration 2350000 — monitoring only (no weight updates). Train-split avg jobs: 2.638888888888889 (n=36) Time: 0.07763282700034324
+Iteration 2400000 — monitoring only (no weight updates). Train-split avg jobs: 2.638888888888889 (n=36) Time: 0.07748938800068572
+Iteration 2450000 — monitoring only (no weight updates). Train-split avg jobs: 2.6666666666666665 (n=36) Time: 0.07771195499663008
+Iteration 2500000 — monitoring only (no weight updates). Train-split avg jobs: 2.6666666666666665 (n=36) Time: 0.07768374199804384
+Iteration 2550000 — monitoring only (no weight updates). Train-split avg jobs: 2.6666666666666665 (n=36) Time: 0.07764553099696059
+Iteration 2600000 — monitoring only (no weight updates). Train-split avg jobs: 2.6666666666666665 (n=36) Time: 0.07760521599993808
+Iteration 2650000 — monitoring only (no weight updates). Train-split avg jobs: 2.6666666666666665 (n=36) Time: 0.07764080299966736
+Iteration 2700000 — monitoring only (no weight updates). Train-split avg jobs: 2.6666666666666665 (n=36) Time: 0.0776428270037286
+Iteration 2750000 — monitoring only (no weight updates). Train-split avg jobs: 2.6666666666666665 (n=36) Time: 0.07778636500006542
+Iteration 2800000 — monitoring only (no weight updates). Train-split avg jobs: 2.6666666666666665 (n=36) Time: 0.07758040900080232
+Iteration 2850000 — monitoring only (no weight updates). Train-split avg jobs: 2.6666666666666665 (n=36) Time: 0.07752391500252998
+Iteration 2900000 — monitoring only (no weight updates). Train-split avg jobs: 2.6666666666666665 (n=36) Time: 0.077813967000111
+Iteration 2950000 — monitoring only (no weight updates). Train-split avg jobs: 2.6666666666666665 (n=36) Time: 0.07754723700054456
+Iteration 3000000 — monitoring only (no weight updates). Train-split avg jobs: 2.6666666666666665 (n=36) Time: 0.0779015719963354
+Average recommendation time (test): 0.0017 seconds
+Test split: new average attractiveness = 815.69
+Test split: new average applicable jobs = 1.06
+Trial 11 wall time: 69.61212 min
+Trial 11 logged to sweep CSV: /home/alesage/arno_data/CourseRecSys_CLIRS/Results/CLIRS/steps_3000000/data_42/courses_100/k_2/sweeps/clirs_dqn_data42.csv
+Raw eval JSON: /home/alesage/arno_data/CourseRecSys_CLIRS/Results/CLIRS/steps_3000000/data_42/courses_100/k_2/raw/clirs_dqn_data42_rl53_k2_eval.json
+Optimal number of clusters: 8
+Clustering inertia: 119.34047055963427
+
+--- Sweep summary ---
+Trials in CSV: 12/12
+  end mean: 1.052083 95% CI [0.984375, 1.114583]
+  end median: 1.062500 95% CI [0.968750, 1.125000]
+  life mean: 2.699074 95% CI [2.687500, 2.708333]
+  life median: 2.694444 95% CI [2.694444, 2.722222]
+
+--- Trial metrics (long) ---
+Methods: 2 — ['clirs_dqn', 'clirs_ppo']
+Bootstrap summary: /home/alesage/arno_data/CourseRecSys_CLIRS/Results/CLIRS/steps_3000000/data_42/courses_100/k_2/reports/bootstrap_end_mean.csv
+Bootstrap summary: /home/alesage/arno_data/CourseRecSys_CLIRS/Results/CLIRS/steps_3000000/data_42/courses_100/k_2/reports/bootstrap_end_median.csv
+Bootstrap summary: /home/alesage/arno_data/CourseRecSys_CLIRS/Results/CLIRS/steps_3000000/data_42/courses_100/k_2/reports/bootstrap_life_mean.csv
+Bootstrap summary: /home/alesage/arno_data/CourseRecSys_CLIRS/Results/CLIRS/steps_3000000/data_42/courses_100/k_2/reports/bootstrap_life_median.csv
+Performance analysis: /home/alesage/arno_data/CourseRecSys_CLIRS/Results/CLIRS/steps_3000000/data_42/courses_100/k_2/reports/performance_analysis.json
+Trial metrics: /home/alesage/arno_data/CourseRecSys_CLIRS/Results/CLIRS/steps_3000000/data_42/courses_100/k_2/reports/trial_metrics_long.csv
+
+Done. Results under: /home/alesage/arno_data/CourseRecSys_CLIRS/Results/CLIRS/steps_3000000/data_42/courses_100/k_2
+Orchestration: ['clirs']
+
+========== Pipeline 1/1: clirs ==========
+Cross-lineage: CLIRS vs JCRecFair skipped: missing baseline sweep /home/alesage/arno_data/CourseRecSys_CLIRS/Results/JCRecFair/steps_3000000/data_42/courses_100/k_2/sweeps/jcrec_fair_dqn_data42.csv
+Cross-lineage: CLIRS vs JCRec (author) skipped: missing baseline sweep /home/alesage/arno_data/CourseRecSys_CLIRS/Results/JCRec/steps_3000000/data_42/courses_100/k_2/sweeps/jcrec_dqn_data42.csv
+
+Orchestration complete.

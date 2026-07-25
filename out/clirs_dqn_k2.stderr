@@ -1,0 +1,2 @@
+/home/alesage/arno_data/CourseRecSys_CLIRS/CLIRS/Scripts/clustering.py:547: UserWarning: This figure includes Axes that are not compatible with tight_layout, so results might be incorrect.
+  plt.tight_layout(rect=[0, 0, 0.9, 0.95])
