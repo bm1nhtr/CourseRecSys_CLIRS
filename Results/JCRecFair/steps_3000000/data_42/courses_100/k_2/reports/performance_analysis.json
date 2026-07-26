@@ -1,0 +1,39 @@
+{
+  "trial_metrics_long_csv": "/home/alesage/arno_data/CourseRecSys_CLIRS/Results/JCRecFair/steps_3000000/data_42/courses_100/k_2/reports/trial_metrics_long.csv",
+  "trial_metrics_summary": {
+    "n_methods": 1,
+    "methods": [
+      "jcrec_fair_dqn"
+    ],
+    "expected_trials": 12,
+    "methods_detail": {
+      "jcrec_fair_dqn": {
+        "completed_trials": 12,
+        "trial_ids": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          9,
+          10,
+          11
+        ],
+        "missing_trial_ids": [],
+        "source_csv": "jcrec_fair_dqn_data42.csv"
+      }
+    }
+  },
+  "bootstrap_aggregates": {
+    "end_mean": "/home/alesage/arno_data/CourseRecSys_CLIRS/Results/JCRecFair/steps_3000000/data_42/courses_100/k_2/reports/bootstrap_end_mean.csv",
+    "end_median": "/home/alesage/arno_data/CourseRecSys_CLIRS/Results/JCRecFair/steps_3000000/data_42/courses_100/k_2/reports/bootstrap_end_median.csv",
+    "life_mean": "/home/alesage/arno_data/CourseRecSys_CLIRS/Results/JCRecFair/steps_3000000/data_42/courses_100/k_2/reports/bootstrap_life_mean.csv",
+    "life_median": "/home/alesage/arno_data/CourseRecSys_CLIRS/Results/JCRecFair/steps_3000000/data_42/courses_100/k_2/reports/bootstrap_life_median.csv"
+  },
+  "current_method": "jcrec_fair_dqn",
+  "current_method_summary": "/home/alesage/arno_data/CourseRecSys_CLIRS/Results/JCRecFair/steps_3000000/data_42/courses_100/k_2/reports/jcrec_fair_dqn_sweep_summary.json"
+}
