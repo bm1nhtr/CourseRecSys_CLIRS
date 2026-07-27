@@ -1,0 +1,823 @@
+CLIRS split found: /home/alesage/arno_data/CourseRecSys_CLIRS/Results/CLIRS/steps_3000000/data_42/courses_100/k_2/split_indices.json
+Experiment cell: /home/alesage/arno_data/CourseRecSys_CLIRS/Results/JCRecFair/steps_3000000/data_42/courses_100/k_2
+JCRec fair model=ppo, nb_runs=12
+Trial plan: 12/12 to run (resume=on)
+RL seed policy: rl_base(42) + trial_id
+Next rl_seeds: 42, 43, 44, 45, 46, ...
+Split pinned from CLIRS: /home/alesage/arno_data/CourseRecSys_CLIRS/Results/CLIRS/steps_3000000/data_42/courses_100/k_2/split_indices.json
+Dataset with 52 learners (train=36, test=16), 100 jobs, 100 courses and 46 skills.
+
+--- Trial 1/12 (trial_id=0, rl_seed=42) ---
+Test split (n=16): baseline applicable jobs = 0.0625
+Iteration 50000. Train-split average jobs: 2.0278 Time: 0.0912
+Iteration 100000. Train-split average jobs: 2.4444 Time: 0.0913
+Iteration 150000. Train-split average jobs: 2.5000 Time: 0.0914
+Iteration 200000. Train-split average jobs: 2.5278 Time: 0.0910
+Iteration 250000. Train-split average jobs: 2.5278 Time: 0.0912
+Iteration 300000. Train-split average jobs: 2.5278 Time: 0.0917
+Iteration 350000. Train-split average jobs: 2.5278 Time: 0.0922
+Iteration 400000. Train-split average jobs: 2.5278 Time: 0.0921
+Iteration 450000. Train-split average jobs: 2.5278 Time: 0.0914
+Iteration 500000. Train-split average jobs: 2.5278 Time: 0.0911
+Iteration 550000. Train-split average jobs: 2.5278 Time: 0.0913
+Iteration 600000. Train-split average jobs: 2.5278 Time: 0.0917
+Iteration 650000. Train-split average jobs: 2.5556 Time: 0.0916
+Iteration 700000. Train-split average jobs: 2.5556 Time: 0.0913
+Iteration 750000. Train-split average jobs: 2.5556 Time: 0.0914
+Iteration 800000. Train-split average jobs: 2.6389 Time: 0.0914
+Iteration 850000. Train-split average jobs: 2.6667 Time: 0.0912
+Iteration 900000. Train-split average jobs: 2.6667 Time: 0.0914
+Iteration 950000. Train-split average jobs: 2.6667 Time: 0.0918
+Iteration 1000000. Train-split average jobs: 2.6667 Time: 0.0909
+Iteration 1050000. Train-split average jobs: 2.6667 Time: 0.0916
+Iteration 1100000. Train-split average jobs: 2.6944 Time: 0.0916
+Iteration 1150000. Train-split average jobs: 2.6944 Time: 0.0921
+Iteration 1200000. Train-split average jobs: 2.6944 Time: 0.0915
+Iteration 1250000. Train-split average jobs: 2.6944 Time: 0.0919
+Iteration 1300000. Train-split average jobs: 2.6944 Time: 0.0910
+Iteration 1350000. Train-split average jobs: 2.6944 Time: 0.0913
+Iteration 1400000. Train-split average jobs: 2.6944 Time: 0.0914
+Iteration 1450000. Train-split average jobs: 2.6944 Time: 0.0918
+Iteration 1500000. Train-split average jobs: 2.6944 Time: 0.0910
+Iteration 1550000. Train-split average jobs: 2.6944 Time: 0.0916
+Iteration 1600000. Train-split average jobs: 2.6944 Time: 0.0912
+Iteration 1650000. Train-split average jobs: 2.6944 Time: 0.0917
+Iteration 1700000. Train-split average jobs: 2.6944 Time: 0.0917
+Iteration 1750000. Train-split average jobs: 2.6944 Time: 0.0918
+Iteration 1800000. Train-split average jobs: 2.6944 Time: 0.0914
+Iteration 1850000. Train-split average jobs: 2.6944 Time: 0.0919
+Iteration 1900000. Train-split average jobs: 2.6944 Time: 0.0912
+Iteration 1950000. Train-split average jobs: 2.6944 Time: 0.0906
+Iteration 2000000. Train-split average jobs: 2.6944 Time: 0.0916
+Iteration 2050000. Train-split average jobs: 2.6944 Time: 0.0909
+Iteration 2100000. Train-split average jobs: 2.6944 Time: 0.0919
+Iteration 2150000. Train-split average jobs: 2.6944 Time: 0.0914
+Iteration 2200000. Train-split average jobs: 2.6944 Time: 0.0910
+Iteration 2250000. Train-split average jobs: 2.6944 Time: 0.0908
+Iteration 2300000. Train-split average jobs: 2.6944 Time: 0.0903
+Iteration 2350000. Train-split average jobs: 2.6944 Time: 0.0911
+Iteration 2400000. Train-split average jobs: 2.6944 Time: 0.0914
+Iteration 2450000. Train-split average jobs: 2.6389 Time: 0.0912
+Iteration 2500000. Train-split average jobs: 2.6667 Time: 0.0911
+Iteration 2550000. Train-split average jobs: 2.6944 Time: 0.0910
+Iteration 2600000. Train-split average jobs: 2.6667 Time: 0.0910
+Iteration 2650000. Train-split average jobs: 2.6944 Time: 0.0908
+Iteration 2700000. Train-split average jobs: 2.6944 Time: 0.0913
+Iteration 2750000. Train-split average jobs: 2.6944 Time: 0.0918
+Iteration 2800000. Train-split average jobs: 2.6944 Time: 0.0906
+Iteration 2850000. Train-split average jobs: 2.6944 Time: 0.0917
+Iteration 2900000. Train-split average jobs: 2.6944 Time: 0.0910
+Iteration 2950000. Train-split average jobs: 2.6389 Time: 0.0908
+Iteration 3000000. Train-split average jobs: 2.6944 Time: 0.0915
+Test split: jcrec_fair end = 1.0000
+Trial 0 wall time: 98.96096 min
+Trial 0 logged (jcrec_fair end=1.0)
+
+--- Trial 2/12 (trial_id=1, rl_seed=43) ---
+Test split (n=16): baseline applicable jobs = 0.0625
+Iteration 50000. Train-split average jobs: 2.2222 Time: 0.0910
+Iteration 100000. Train-split average jobs: 2.4444 Time: 0.0913
+Iteration 150000. Train-split average jobs: 2.5000 Time: 0.0901
+Iteration 200000. Train-split average jobs: 2.4444 Time: 0.0914
+Iteration 250000. Train-split average jobs: 2.5278 Time: 0.0905
+Iteration 300000. Train-split average jobs: 2.5278 Time: 0.0917
+Iteration 350000. Train-split average jobs: 2.5278 Time: 0.0912
+Iteration 400000. Train-split average jobs: 2.5278 Time: 0.0916
+Iteration 450000. Train-split average jobs: 2.5278 Time: 0.0919
+Iteration 500000. Train-split average jobs: 2.5278 Time: 0.0909
+Iteration 550000. Train-split average jobs: 2.5278 Time: 0.0914
+Iteration 600000. Train-split average jobs: 2.5278 Time: 0.0912
+Iteration 650000. Train-split average jobs: 2.5278 Time: 0.0914
+Iteration 700000. Train-split average jobs: 2.5278 Time: 0.0915
+Iteration 750000. Train-split average jobs: 2.5278 Time: 0.0906
+Iteration 800000. Train-split average jobs: 2.5278 Time: 0.0909
+Iteration 850000. Train-split average jobs: 2.5278 Time: 0.0908
+Iteration 900000. Train-split average jobs: 2.5278 Time: 0.0915
+Iteration 950000. Train-split average jobs: 2.5278 Time: 0.0910
+Iteration 1000000. Train-split average jobs: 2.5278 Time: 0.0907
+Iteration 1050000. Train-split average jobs: 2.5278 Time: 0.0907
+Iteration 1100000. Train-split average jobs: 2.5278 Time: 0.0905
+Iteration 1150000. Train-split average jobs: 2.5278 Time: 0.0903
+Iteration 1200000. Train-split average jobs: 2.5278 Time: 0.0917
+Iteration 1250000. Train-split average jobs: 2.5278 Time: 0.0907
+Iteration 1300000. Train-split average jobs: 2.5278 Time: 0.0910
+Iteration 1350000. Train-split average jobs: 2.5278 Time: 0.0905
+Iteration 1400000. Train-split average jobs: 2.5278 Time: 0.0901
+Iteration 1450000. Train-split average jobs: 2.5278 Time: 0.0904
+Iteration 1500000. Train-split average jobs: 2.5278 Time: 0.0908
+Iteration 1550000. Train-split average jobs: 2.5278 Time: 0.0903
+Iteration 1600000. Train-split average jobs: 2.5278 Time: 0.0907
+Iteration 1650000. Train-split average jobs: 2.5000 Time: 0.0909
+Iteration 1700000. Train-split average jobs: 2.5278 Time: 0.0906
+Iteration 1750000. Train-split average jobs: 2.5278 Time: 0.0915
+Iteration 1800000. Train-split average jobs: 2.4167 Time: 0.0923
+Iteration 1850000. Train-split average jobs: 2.5278 Time: 0.0909
+Iteration 1900000. Train-split average jobs: 2.5278 Time: 0.0917
+Iteration 1950000. Train-split average jobs: 2.5278 Time: 0.0905
+Iteration 2000000. Train-split average jobs: 2.5278 Time: 0.0910
+Iteration 2050000. Train-split average jobs: 2.4722 Time: 0.0905
+Iteration 2100000. Train-split average jobs: 2.5278 Time: 0.0907
+Iteration 2150000. Train-split average jobs: 2.5278 Time: 0.0915
+Iteration 2200000. Train-split average jobs: 2.5278 Time: 0.0908
+Iteration 2250000. Train-split average jobs: 2.5278 Time: 0.0912
+Iteration 2300000. Train-split average jobs: 2.5278 Time: 0.0914
+Iteration 2350000. Train-split average jobs: 2.6111 Time: 0.0914
+Iteration 2400000. Train-split average jobs: 2.6111 Time: 0.0911
+Iteration 2450000. Train-split average jobs: 2.6111 Time: 0.0907
+Iteration 2500000. Train-split average jobs: 2.5000 Time: 0.0912
+Iteration 2550000. Train-split average jobs: 2.5833 Time: 0.0903
+Iteration 2600000. Train-split average jobs: 2.6111 Time: 0.0912
+Iteration 2650000. Train-split average jobs: 2.6111 Time: 0.0912
+Iteration 2700000. Train-split average jobs: 2.6111 Time: 0.0915
+Iteration 2750000. Train-split average jobs: 2.6111 Time: 0.0911
+Iteration 2800000. Train-split average jobs: 2.6389 Time: 0.0904
+Iteration 2850000. Train-split average jobs: 2.6389 Time: 0.0920
+Iteration 2900000. Train-split average jobs: 2.6389 Time: 0.0909
+Iteration 2950000. Train-split average jobs: 2.6389 Time: 0.0916
+Iteration 3000000. Train-split average jobs: 2.6389 Time: 0.0910
+Test split: jcrec_fair end = 1.1250
+Trial 1 wall time: 98.46931 min
+Trial 1 logged (jcrec_fair end=1.125)
+
+--- Trial 3/12 (trial_id=2, rl_seed=44) ---
+Test split (n=16): baseline applicable jobs = 0.0625
+Iteration 50000. Train-split average jobs: 2.2778 Time: 0.0919
+Iteration 100000. Train-split average jobs: 2.5000 Time: 0.0911
+Iteration 150000. Train-split average jobs: 2.5000 Time: 0.0909
+Iteration 200000. Train-split average jobs: 2.5278 Time: 0.0922
+Iteration 250000. Train-split average jobs: 2.6111 Time: 0.0906
+Iteration 300000. Train-split average jobs: 2.6111 Time: 0.0915
+Iteration 350000. Train-split average jobs: 2.6111 Time: 0.0912
+Iteration 400000. Train-split average jobs: 2.6111 Time: 0.0916
+Iteration 450000. Train-split average jobs: 2.6111 Time: 0.0910
+Iteration 500000. Train-split average jobs: 2.6111 Time: 0.0904
+Iteration 550000. Train-split average jobs: 2.6111 Time: 0.0914
+Iteration 600000. Train-split average jobs: 2.6111 Time: 0.0917
+Iteration 650000. Train-split average jobs: 2.2222 Time: 0.0907
+Iteration 700000. Train-split average jobs: 2.6111 Time: 0.0911
+Iteration 750000. Train-split average jobs: 2.6111 Time: 0.0905
+Iteration 800000. Train-split average jobs: 2.6111 Time: 0.0908
+Iteration 850000. Train-split average jobs: 2.6111 Time: 0.0916
+Iteration 900000. Train-split average jobs: 2.6111 Time: 0.0918
+Iteration 950000. Train-split average jobs: 2.6111 Time: 0.0921
+Iteration 1000000. Train-split average jobs: 2.6111 Time: 0.0917
+Iteration 1050000. Train-split average jobs: 2.6111 Time: 0.0915
+Iteration 1100000. Train-split average jobs: 2.6111 Time: 0.0914
+Iteration 1150000. Train-split average jobs: 2.6111 Time: 0.0916
+Iteration 1200000. Train-split average jobs: 2.6111 Time: 0.0923
+Iteration 1250000. Train-split average jobs: 2.6111 Time: 0.0917
+Iteration 1300000. Train-split average jobs: 2.6111 Time: 0.0911
+Iteration 1350000. Train-split average jobs: 2.6111 Time: 0.0914
+Iteration 1400000. Train-split average jobs: 2.6111 Time: 0.0917
+Iteration 1450000. Train-split average jobs: 2.6389 Time: 0.0911
+Iteration 1500000. Train-split average jobs: 2.6389 Time: 0.0918
+Iteration 1550000. Train-split average jobs: 2.6389 Time: 0.0912
+Iteration 1600000. Train-split average jobs: 2.6389 Time: 0.0911
+Iteration 1650000. Train-split average jobs: 2.6389 Time: 0.0913
+Iteration 1700000. Train-split average jobs: 2.6389 Time: 0.0908
+Iteration 1750000. Train-split average jobs: 2.6389 Time: 0.0911
+Iteration 1800000. Train-split average jobs: 2.6389 Time: 0.0908
+Iteration 1850000. Train-split average jobs: 2.6389 Time: 0.0914
+Iteration 1900000. Train-split average jobs: 2.6389 Time: 0.0918
+Iteration 1950000. Train-split average jobs: 2.6389 Time: 0.0904
+Iteration 2000000. Train-split average jobs: 2.6389 Time: 0.0916
+Iteration 2050000. Train-split average jobs: 2.6389 Time: 0.0914
+Iteration 2100000. Train-split average jobs: 2.6389 Time: 0.0913
+Iteration 2150000. Train-split average jobs: 2.6389 Time: 0.0918
+Iteration 2200000. Train-split average jobs: 2.6389 Time: 0.0909
+Iteration 2250000. Train-split average jobs: 2.6389 Time: 0.0918
+Iteration 2300000. Train-split average jobs: 2.6389 Time: 0.0919
+Iteration 2350000. Train-split average jobs: 2.6389 Time: 0.0922
+Iteration 2400000. Train-split average jobs: 2.6389 Time: 0.0924
+Iteration 2450000. Train-split average jobs: 2.6667 Time: 0.0908
+Iteration 2500000. Train-split average jobs: 2.6667 Time: 0.0916
+Iteration 2550000. Train-split average jobs: 2.6667 Time: 0.0911
+Iteration 2600000. Train-split average jobs: 2.6667 Time: 0.0913
+Iteration 2650000. Train-split average jobs: 2.6667 Time: 0.0913
+Iteration 2700000. Train-split average jobs: 2.6667 Time: 0.0920
+Iteration 2750000. Train-split average jobs: 2.6667 Time: 0.0913
+Iteration 2800000. Train-split average jobs: 2.6667 Time: 0.0916
+Iteration 2850000. Train-split average jobs: 2.6667 Time: 0.0909
+Iteration 2900000. Train-split average jobs: 2.6667 Time: 0.0913
+Iteration 2950000. Train-split average jobs: 2.6667 Time: 0.0918
+Iteration 3000000. Train-split average jobs: 2.6667 Time: 0.0917
+Test split: jcrec_fair end = 0.9375
+Trial 2 wall time: 98.74070 min
+Trial 2 logged (jcrec_fair end=0.9375)
+
+--- Trial 4/12 (trial_id=3, rl_seed=45) ---
+Test split (n=16): baseline applicable jobs = 0.0625
+Iteration 50000. Train-split average jobs: 2.1944 Time: 0.0907
+Iteration 100000. Train-split average jobs: 2.3889 Time: 0.0910
+Iteration 150000. Train-split average jobs: 2.3333 Time: 0.0905
+Iteration 200000. Train-split average jobs: 2.3889 Time: 0.0907
+Iteration 250000. Train-split average jobs: 2.3889 Time: 0.0904
+Iteration 300000. Train-split average jobs: 2.3889 Time: 0.0907
+Iteration 350000. Train-split average jobs: 2.3889 Time: 0.0905
+Iteration 400000. Train-split average jobs: 2.3889 Time: 0.0906
+Iteration 450000. Train-split average jobs: 2.3889 Time: 0.0908
+Iteration 500000. Train-split average jobs: 2.3889 Time: 0.0904
+Iteration 550000. Train-split average jobs: 2.4167 Time: 0.0910
+Iteration 600000. Train-split average jobs: 2.4167 Time: 0.0907
+Iteration 650000. Train-split average jobs: 2.4167 Time: 0.0915
+Iteration 700000. Train-split average jobs: 2.4167 Time: 0.0912
+Iteration 750000. Train-split average jobs: 2.4167 Time: 0.0910
+Iteration 800000. Train-split average jobs: 2.4167 Time: 0.0913
+Iteration 850000. Train-split average jobs: 2.4167 Time: 0.0911
+Iteration 900000. Train-split average jobs: 2.4167 Time: 0.0918
+Iteration 950000. Train-split average jobs: 2.4167 Time: 0.0916
+Iteration 1000000. Train-split average jobs: 2.4167 Time: 0.0913
+Iteration 1050000. Train-split average jobs: 2.4167 Time: 0.0916
+Iteration 1100000. Train-split average jobs: 2.4167 Time: 0.0903
+Iteration 1150000. Train-split average jobs: 2.4167 Time: 0.0912
+Iteration 1200000. Train-split average jobs: 2.4167 Time: 0.0913
+Iteration 1250000. Train-split average jobs: 2.4167 Time: 0.0905
+Iteration 1300000. Train-split average jobs: 2.4167 Time: 0.0908
+Iteration 1350000. Train-split average jobs: 2.4167 Time: 0.0910
+Iteration 1400000. Train-split average jobs: 2.4167 Time: 0.0915
+Iteration 1450000. Train-split average jobs: 2.4167 Time: 0.0910
+Iteration 1500000. Train-split average jobs: 2.4167 Time: 0.0913
+Iteration 1550000. Train-split average jobs: 2.4167 Time: 0.0915
+Iteration 1600000. Train-split average jobs: 2.4167 Time: 0.0909
+Iteration 1650000. Train-split average jobs: 2.4167 Time: 0.0913
+Iteration 1700000. Train-split average jobs: 2.4167 Time: 0.0905
+Iteration 1750000. Train-split average jobs: 2.4167 Time: 0.0916
+Iteration 1800000. Train-split average jobs: 2.4167 Time: 0.0912
+Iteration 1850000. Train-split average jobs: 2.4167 Time: 0.0913
+Iteration 1900000. Train-split average jobs: 2.4167 Time: 0.0919
+Iteration 1950000. Train-split average jobs: 2.4167 Time: 0.0920
+Iteration 2000000. Train-split average jobs: 2.4167 Time: 0.0914
+Iteration 2050000. Train-split average jobs: 2.3333 Time: 0.0915
+Iteration 2100000. Train-split average jobs: 2.4167 Time: 0.0919
+Iteration 2150000. Train-split average jobs: 2.4167 Time: 0.0912
+Iteration 2200000. Train-split average jobs: 2.4167 Time: 0.0907
+Iteration 2250000. Train-split average jobs: 2.4167 Time: 0.0908
+Iteration 2300000. Train-split average jobs: 2.4167 Time: 0.0904
+Iteration 2350000. Train-split average jobs: 2.4167 Time: 0.0907
+Iteration 2400000. Train-split average jobs: 2.4167 Time: 0.0902
+Iteration 2450000. Train-split average jobs: 2.4167 Time: 0.0903
+Iteration 2500000. Train-split average jobs: 2.4167 Time: 0.0918
+Iteration 2550000. Train-split average jobs: 2.4167 Time: 0.0913
+Iteration 2600000. Train-split average jobs: 2.4167 Time: 0.0909
+Iteration 2650000. Train-split average jobs: 2.4167 Time: 0.0920
+Iteration 2700000. Train-split average jobs: 2.4167 Time: 0.0917
+Iteration 2750000. Train-split average jobs: 2.4167 Time: 0.0912
+Iteration 2800000. Train-split average jobs: 2.4167 Time: 0.0909
+Iteration 2850000. Train-split average jobs: 2.4167 Time: 0.0912
+Iteration 2900000. Train-split average jobs: 2.4167 Time: 0.0914
+Iteration 2950000. Train-split average jobs: 2.4167 Time: 0.0915
+Iteration 3000000. Train-split average jobs: 2.4167 Time: 0.0916
+Test split: jcrec_fair end = 1.1875
+Trial 3 wall time: 98.59225 min
+Trial 3 logged (jcrec_fair end=1.1875)
+
+--- Trial 5/12 (trial_id=4, rl_seed=46) ---
+Test split (n=16): baseline applicable jobs = 0.0625
+Iteration 50000. Train-split average jobs: 2.1944 Time: 0.0916
+Iteration 100000. Train-split average jobs: 2.5556 Time: 0.0914
+Iteration 150000. Train-split average jobs: 2.5833 Time: 0.0906
+Iteration 200000. Train-split average jobs: 2.5833 Time: 0.0909
+Iteration 250000. Train-split average jobs: 2.5833 Time: 0.0910
+Iteration 300000. Train-split average jobs: 2.6111 Time: 0.0922
+Iteration 350000. Train-split average jobs: 2.6111 Time: 0.0911
+Iteration 400000. Train-split average jobs: 2.6389 Time: 0.0906
+Iteration 450000. Train-split average jobs: 2.6389 Time: 0.0906
+Iteration 500000. Train-split average jobs: 2.6389 Time: 0.0909
+Iteration 550000. Train-split average jobs: 2.6389 Time: 0.0916
+Iteration 600000. Train-split average jobs: 2.6389 Time: 0.0912
+Iteration 650000. Train-split average jobs: 2.6389 Time: 0.0911
+Iteration 700000. Train-split average jobs: 2.6389 Time: 0.0916
+Iteration 750000. Train-split average jobs: 2.6389 Time: 0.0909
+Iteration 800000. Train-split average jobs: 2.6389 Time: 0.0913
+Iteration 850000. Train-split average jobs: 2.6389 Time: 0.0912
+Iteration 900000. Train-split average jobs: 2.6389 Time: 0.0912
+Iteration 950000. Train-split average jobs: 2.6389 Time: 0.0916
+Iteration 1000000. Train-split average jobs: 2.6389 Time: 0.0910
+Iteration 1050000. Train-split average jobs: 2.6389 Time: 0.0916
+Iteration 1100000. Train-split average jobs: 2.6389 Time: 0.0915
+Iteration 1150000. Train-split average jobs: 2.6389 Time: 0.0917
+Iteration 1200000. Train-split average jobs: 2.6389 Time: 0.0914
+Iteration 1250000. Train-split average jobs: 2.6389 Time: 0.0912
+Iteration 1300000. Train-split average jobs: 2.5278 Time: 0.0908
+Iteration 1350000. Train-split average jobs: 2.6389 Time: 0.0913
+Iteration 1400000. Train-split average jobs: 2.6389 Time: 0.0910
+Iteration 1450000. Train-split average jobs: 2.6389 Time: 0.0914
+Iteration 1500000. Train-split average jobs: 2.6389 Time: 0.0914
+Iteration 1550000. Train-split average jobs: 2.6389 Time: 0.0918
+Iteration 1600000. Train-split average jobs: 2.6667 Time: 0.0914
+Iteration 1650000. Train-split average jobs: 2.6667 Time: 0.0913
+Iteration 1700000. Train-split average jobs: 2.6667 Time: 0.0909
+Iteration 1750000. Train-split average jobs: 2.6667 Time: 0.0918
+Iteration 1800000. Train-split average jobs: 2.6667 Time: 0.0916
+Iteration 1850000. Train-split average jobs: 2.6667 Time: 0.0913
+Iteration 1900000. Train-split average jobs: 2.6667 Time: 0.0917
+Iteration 1950000. Train-split average jobs: 2.6667 Time: 0.0911
+Iteration 2000000. Train-split average jobs: 2.6667 Time: 0.0915
+Iteration 2050000. Train-split average jobs: 2.6667 Time: 0.0923
+Iteration 2100000. Train-split average jobs: 2.6389 Time: 0.0910
+Iteration 2150000. Train-split average jobs: 2.6667 Time: 0.0910
+Iteration 2200000. Train-split average jobs: 2.6667 Time: 0.0902
+Iteration 2250000. Train-split average jobs: 2.6667 Time: 0.0912
+Iteration 2300000. Train-split average jobs: 2.6667 Time: 0.0909
+Iteration 2350000. Train-split average jobs: 2.6667 Time: 0.0907
+Iteration 2400000. Train-split average jobs: 2.6389 Time: 0.0906
+Iteration 2450000. Train-split average jobs: 2.6667 Time: 0.0911
+Iteration 2500000. Train-split average jobs: 2.6667 Time: 0.0912
+Iteration 2550000. Train-split average jobs: 2.6389 Time: 0.0901
+Iteration 2600000. Train-split average jobs: 2.6667 Time: 0.0912
+Iteration 2650000. Train-split average jobs: 2.6667 Time: 0.0915
+Iteration 2700000. Train-split average jobs: 2.6667 Time: 0.0917
+Iteration 2750000. Train-split average jobs: 2.6667 Time: 0.0917
+Iteration 2800000. Train-split average jobs: 2.6667 Time: 0.0907
+Iteration 2850000. Train-split average jobs: 2.6667 Time: 0.0921
+Iteration 2900000. Train-split average jobs: 2.6667 Time: 0.0912
+Iteration 2950000. Train-split average jobs: 2.6667 Time: 0.0914
+Iteration 3000000. Train-split average jobs: 2.6667 Time: 0.0910
+Test split: jcrec_fair end = 1.1250
+Trial 4 wall time: 98.60478 min
+Trial 4 logged (jcrec_fair end=1.125)
+
+--- Trial 6/12 (trial_id=5, rl_seed=47) ---
+Test split (n=16): baseline applicable jobs = 0.0625
+Iteration 50000. Train-split average jobs: 2.1667 Time: 0.0911
+Iteration 100000. Train-split average jobs: 2.4722 Time: 0.0912
+Iteration 150000. Train-split average jobs: 2.5278 Time: 0.0910
+Iteration 200000. Train-split average jobs: 2.4722 Time: 0.0913
+Iteration 250000. Train-split average jobs: 2.5278 Time: 0.0910
+Iteration 300000. Train-split average jobs: 2.5278 Time: 0.0913
+Iteration 350000. Train-split average jobs: 2.5278 Time: 0.0916
+Iteration 400000. Train-split average jobs: 2.5278 Time: 0.0912
+Iteration 450000. Train-split average jobs: 2.5278 Time: 0.0910
+Iteration 500000. Train-split average jobs: 2.5278 Time: 0.0908
+Iteration 550000. Train-split average jobs: 2.5278 Time: 0.0915
+Iteration 600000. Train-split average jobs: 2.4444 Time: 0.0915
+Iteration 650000. Train-split average jobs: 2.5278 Time: 0.0911
+Iteration 700000. Train-split average jobs: 2.5278 Time: 0.0913
+Iteration 750000. Train-split average jobs: 2.5278 Time: 0.0907
+Iteration 800000. Train-split average jobs: 2.5278 Time: 0.0910
+Iteration 850000. Train-split average jobs: 2.5278 Time: 0.0914
+Iteration 900000. Train-split average jobs: 2.5000 Time: 0.0917
+Iteration 950000. Train-split average jobs: 2.5278 Time: 0.0907
+Iteration 1000000. Train-split average jobs: 2.5278 Time: 0.0902
+Iteration 1050000. Train-split average jobs: 2.5278 Time: 0.0913
+Iteration 1100000. Train-split average jobs: 2.5556 Time: 0.0903
+Iteration 1150000. Train-split average jobs: 2.6389 Time: 0.0907
+Iteration 1200000. Train-split average jobs: 2.6389 Time: 0.0907
+Iteration 1250000. Train-split average jobs: 2.5556 Time: 0.0916
+Iteration 1300000. Train-split average jobs: 2.6389 Time: 0.0910
+Iteration 1350000. Train-split average jobs: 2.6389 Time: 0.0906
+Iteration 1400000. Train-split average jobs: 2.6389 Time: 0.0907
+Iteration 1450000. Train-split average jobs: 2.6389 Time: 0.0905
+Iteration 1500000. Train-split average jobs: 2.6389 Time: 0.0908
+Iteration 1550000. Train-split average jobs: 2.6667 Time: 0.0908
+Iteration 1600000. Train-split average jobs: 2.6667 Time: 0.0903
+Iteration 1650000. Train-split average jobs: 2.6667 Time: 0.0905
+Iteration 1700000. Train-split average jobs: 2.6667 Time: 0.0905
+Iteration 1750000. Train-split average jobs: 2.6667 Time: 0.0914
+Iteration 1800000. Train-split average jobs: 2.6667 Time: 0.0910
+Iteration 1850000. Train-split average jobs: 2.6667 Time: 0.0908
+Iteration 1900000. Train-split average jobs: 2.6667 Time: 0.0920
+Iteration 1950000. Train-split average jobs: 2.6667 Time: 0.0908
+Iteration 2000000. Train-split average jobs: 2.6667 Time: 0.0916
+Iteration 2050000. Train-split average jobs: 2.6667 Time: 0.0913
+Iteration 2100000. Train-split average jobs: 2.5833 Time: 0.0913
+Iteration 2150000. Train-split average jobs: 2.6667 Time: 0.0914
+Iteration 2200000. Train-split average jobs: 2.6667 Time: 0.0907
+Iteration 2250000. Train-split average jobs: 2.6667 Time: 0.0912
+Iteration 2300000. Train-split average jobs: 2.6667 Time: 0.0909
+Iteration 2350000. Train-split average jobs: 2.6667 Time: 0.0919
+Iteration 2400000. Train-split average jobs: 2.6667 Time: 0.0914
+Iteration 2450000. Train-split average jobs: 2.6667 Time: 0.0908
+Iteration 2500000. Train-split average jobs: 2.6667 Time: 0.0910
+Iteration 2550000. Train-split average jobs: 2.6667 Time: 0.0913
+Iteration 2600000. Train-split average jobs: 2.6667 Time: 0.0909
+Iteration 2650000. Train-split average jobs: 2.6667 Time: 0.0920
+Iteration 2700000. Train-split average jobs: 2.6667 Time: 0.0916
+Iteration 2750000. Train-split average jobs: 2.6667 Time: 0.0926
+Iteration 2800000. Train-split average jobs: 2.6667 Time: 0.0910
+Iteration 2850000. Train-split average jobs: 2.6667 Time: 0.0911
+Iteration 2900000. Train-split average jobs: 2.5833 Time: 0.0912
+Iteration 2950000. Train-split average jobs: 2.6667 Time: 0.0914
+Iteration 3000000. Train-split average jobs: 2.6667 Time: 0.0916
+Test split: jcrec_fair end = 0.7500
+Trial 5 wall time: 98.71536 min
+Trial 5 logged (jcrec_fair end=0.75)
+
+--- Trial 7/12 (trial_id=6, rl_seed=48) ---
+Test split (n=16): baseline applicable jobs = 0.0625
+Iteration 50000. Train-split average jobs: 2.1389 Time: 0.0911
+Iteration 100000. Train-split average jobs: 2.4722 Time: 0.0915
+Iteration 150000. Train-split average jobs: 2.4722 Time: 0.0912
+Iteration 200000. Train-split average jobs: 2.4722 Time: 0.0921
+Iteration 250000. Train-split average jobs: 2.4722 Time: 0.0910
+Iteration 300000. Train-split average jobs: 2.4722 Time: 0.0912
+Iteration 350000. Train-split average jobs: 2.4722 Time: 0.0921
+Iteration 400000. Train-split average jobs: 2.4722 Time: 0.0911
+Iteration 450000. Train-split average jobs: 2.4167 Time: 0.0903
+Iteration 500000. Train-split average jobs: 2.5000 Time: 0.0906
+Iteration 550000. Train-split average jobs: 2.5000 Time: 0.0913
+Iteration 600000. Train-split average jobs: 2.5000 Time: 0.0920
+Iteration 650000. Train-split average jobs: 2.5000 Time: 0.0914
+Iteration 700000. Train-split average jobs: 2.5000 Time: 0.0913
+Iteration 750000. Train-split average jobs: 2.5000 Time: 0.0912
+Iteration 800000. Train-split average jobs: 2.5278 Time: 0.0918
+Iteration 850000. Train-split average jobs: 2.5278 Time: 0.0909
+Iteration 900000. Train-split average jobs: 2.4722 Time: 0.0917
+Iteration 950000. Train-split average jobs: 2.5278 Time: 0.0906
+Iteration 1000000. Train-split average jobs: 2.5278 Time: 0.0911
+Iteration 1050000. Train-split average jobs: 2.5278 Time: 0.0916
+Iteration 1100000. Train-split average jobs: 2.5278 Time: 0.0905
+Iteration 1150000. Train-split average jobs: 2.5278 Time: 0.0908
+Iteration 1200000. Train-split average jobs: 2.5278 Time: 0.0911
+Iteration 1250000. Train-split average jobs: 2.5278 Time: 0.0908
+Iteration 1300000. Train-split average jobs: 2.5000 Time: 0.0910
+Iteration 1350000. Train-split average jobs: 2.5278 Time: 0.0913
+Iteration 1400000. Train-split average jobs: 2.5278 Time: 0.0914
+Iteration 1450000. Train-split average jobs: 2.5278 Time: 0.0902
+Iteration 1500000. Train-split average jobs: 2.5278 Time: 0.0912
+Iteration 1550000. Train-split average jobs: 2.5278 Time: 0.0911
+Iteration 1600000. Train-split average jobs: 2.5278 Time: 0.0912
+Iteration 1650000. Train-split average jobs: 2.5278 Time: 0.0915
+Iteration 1700000. Train-split average jobs: 2.5278 Time: 0.0908
+Iteration 1750000. Train-split average jobs: 2.5278 Time: 0.0915
+Iteration 1800000. Train-split average jobs: 2.5278 Time: 0.0914
+Iteration 1850000. Train-split average jobs: 2.5278 Time: 0.0909
+Iteration 1900000. Train-split average jobs: 2.5278 Time: 0.0910
+Iteration 1950000. Train-split average jobs: 2.5278 Time: 0.0907
+Iteration 2000000. Train-split average jobs: 2.5278 Time: 0.0911
+Iteration 2050000. Train-split average jobs: 2.5278 Time: 0.0906
+Iteration 2100000. Train-split average jobs: 2.5278 Time: 0.0908
+Iteration 2150000. Train-split average jobs: 2.5278 Time: 0.0908
+Iteration 2200000. Train-split average jobs: 2.5278 Time: 0.0897
+Iteration 2250000. Train-split average jobs: 2.5278 Time: 0.0906
+Iteration 2300000. Train-split average jobs: 2.5278 Time: 0.0909
+Iteration 2350000. Train-split average jobs: 2.5278 Time: 0.0907
+Iteration 2400000. Train-split average jobs: 2.5278 Time: 0.0915
+Iteration 2450000. Train-split average jobs: 2.5278 Time: 0.0903
+Iteration 2500000. Train-split average jobs: 2.5278 Time: 0.0911
+Iteration 2550000. Train-split average jobs: 2.5278 Time: 0.0907
+Iteration 2600000. Train-split average jobs: 2.5278 Time: 0.0913
+Iteration 2650000. Train-split average jobs: 2.5278 Time: 0.0914
+Iteration 2700000. Train-split average jobs: 2.5278 Time: 0.0912
+Iteration 2750000. Train-split average jobs: 2.5278 Time: 0.0913
+Iteration 2800000. Train-split average jobs: 2.5278 Time: 0.0905
+Iteration 2850000. Train-split average jobs: 2.5278 Time: 0.0906
+Iteration 2900000. Train-split average jobs: 2.5278 Time: 0.0912
+Iteration 2950000. Train-split average jobs: 2.5278 Time: 0.0911
+Iteration 3000000. Train-split average jobs: 2.5278 Time: 0.0916
+Test split: jcrec_fair end = 1.3125
+Trial 6 wall time: 98.47603 min
+Trial 6 logged (jcrec_fair end=1.3125)
+
+--- Trial 8/12 (trial_id=7, rl_seed=49) ---
+Test split (n=16): baseline applicable jobs = 0.0625
+Iteration 50000. Train-split average jobs: 2.1389 Time: 0.0915
+Iteration 100000. Train-split average jobs: 2.4167 Time: 0.0914
+Iteration 150000. Train-split average jobs: 2.5000 Time: 0.0905
+Iteration 200000. Train-split average jobs: 2.5000 Time: 0.0916
+Iteration 250000. Train-split average jobs: 2.5278 Time: 0.0906
+Iteration 300000. Train-split average jobs: 2.5000 Time: 0.0906
+Iteration 350000. Train-split average jobs: 2.5278 Time: 0.0913
+Iteration 400000. Train-split average jobs: 2.5278 Time: 0.0905
+Iteration 450000. Train-split average jobs: 2.3889 Time: 0.0901
+Iteration 500000. Train-split average jobs: 2.5556 Time: 0.0905
+Iteration 550000. Train-split average jobs: 2.5000 Time: 0.0906
+Iteration 600000. Train-split average jobs: 2.6111 Time: 0.0908
+Iteration 650000. Train-split average jobs: 2.6111 Time: 0.0907
+Iteration 700000. Train-split average jobs: 2.6111 Time: 0.0912
+Iteration 750000. Train-split average jobs: 2.6111 Time: 0.0908
+Iteration 800000. Train-split average jobs: 2.6111 Time: 0.0909
+Iteration 850000. Train-split average jobs: 2.6111 Time: 0.0907
+Iteration 900000. Train-split average jobs: 2.6111 Time: 0.0907
+Iteration 950000. Train-split average jobs: 2.6111 Time: 0.0911
+Iteration 1000000. Train-split average jobs: 2.6111 Time: 0.0902
+Iteration 1050000. Train-split average jobs: 2.6111 Time: 0.0922
+Iteration 1100000. Train-split average jobs: 2.6111 Time: 0.0907
+Iteration 1150000. Train-split average jobs: 2.6111 Time: 0.0908
+Iteration 1200000. Train-split average jobs: 2.6111 Time: 0.0913
+Iteration 1250000. Train-split average jobs: 2.6111 Time: 0.0908
+Iteration 1300000. Train-split average jobs: 2.6111 Time: 0.0912
+Iteration 1350000. Train-split average jobs: 2.6111 Time: 0.0910
+Iteration 1400000. Train-split average jobs: 2.6111 Time: 0.0911
+Iteration 1450000. Train-split average jobs: 2.6111 Time: 0.0903
+Iteration 1500000. Train-split average jobs: 2.6111 Time: 0.0910
+Iteration 1550000. Train-split average jobs: 2.5278 Time: 0.0912
+Iteration 1600000. Train-split average jobs: 2.5556 Time: 0.0894
+Iteration 1650000. Train-split average jobs: 2.6111 Time: 0.0912
+Iteration 1700000. Train-split average jobs: 2.6111 Time: 0.0911
+Iteration 1750000. Train-split average jobs: 2.6111 Time: 0.0914
+Iteration 1800000. Train-split average jobs: 2.6111 Time: 0.0913
+Iteration 1850000. Train-split average jobs: 2.6111 Time: 0.0914
+Iteration 1900000. Train-split average jobs: 2.6111 Time: 0.0916
+Iteration 1950000. Train-split average jobs: 2.6111 Time: 0.0914
+Iteration 2000000. Train-split average jobs: 2.6111 Time: 0.0913
+Iteration 2050000. Train-split average jobs: 2.6111 Time: 0.0923
+Iteration 2100000. Train-split average jobs: 2.6111 Time: 0.0913
+Iteration 2150000. Train-split average jobs: 2.4722 Time: 0.0916
+Iteration 2200000. Train-split average jobs: 2.5833 Time: 0.0901
+Iteration 2250000. Train-split average jobs: 2.6111 Time: 0.0908
+Iteration 2300000. Train-split average jobs: 2.6111 Time: 0.0907
+Iteration 2350000. Train-split average jobs: 2.6111 Time: 0.0907
+Iteration 2400000. Train-split average jobs: 2.6111 Time: 0.0917
+Iteration 2450000. Train-split average jobs: 2.6111 Time: 0.0911
+Iteration 2500000. Train-split average jobs: 2.5556 Time: 0.0920
+Iteration 2550000. Train-split average jobs: 2.6111 Time: 0.0909
+Iteration 2600000. Train-split average jobs: 2.6111 Time: 0.0919
+Iteration 2650000. Train-split average jobs: 2.6111 Time: 0.0912
+Iteration 2700000. Train-split average jobs: 2.6111 Time: 0.0909
+Iteration 2750000. Train-split average jobs: 2.5833 Time: 0.0917
+Iteration 2800000. Train-split average jobs: 2.6111 Time: 0.0911
+Iteration 2850000. Train-split average jobs: 2.4722 Time: 0.0906
+Iteration 2900000. Train-split average jobs: 2.6111 Time: 0.0908
+Iteration 2950000. Train-split average jobs: 2.6111 Time: 0.0916
+Iteration 3000000. Train-split average jobs: 2.6111 Time: 0.0915
+Test split: jcrec_fair end = 0.8125
+Trial 7 wall time: 98.65586 min
+Trial 7 logged (jcrec_fair end=0.8125)
+
+--- Trial 9/12 (trial_id=8, rl_seed=50) ---
+Test split (n=16): baseline applicable jobs = 0.0625
+Iteration 50000. Train-split average jobs: 2.3333 Time: 0.0913
+Iteration 100000. Train-split average jobs: 2.5000 Time: 0.0917
+Iteration 150000. Train-split average jobs: 2.5833 Time: 0.0906
+Iteration 200000. Train-split average jobs: 2.6111 Time: 0.0918
+Iteration 250000. Train-split average jobs: 2.6111 Time: 0.0907
+Iteration 300000. Train-split average jobs: 2.6389 Time: 0.0917
+Iteration 350000. Train-split average jobs: 2.6389 Time: 0.0912
+Iteration 400000. Train-split average jobs: 2.6389 Time: 0.0910
+Iteration 450000. Train-split average jobs: 2.6389 Time: 0.0914
+Iteration 500000. Train-split average jobs: 2.6389 Time: 0.0909
+Iteration 550000. Train-split average jobs: 2.6389 Time: 0.0919
+Iteration 600000. Train-split average jobs: 2.6389 Time: 0.0917
+Iteration 650000. Train-split average jobs: 2.6389 Time: 0.0912
+Iteration 700000. Train-split average jobs: 2.6389 Time: 0.0918
+Iteration 750000. Train-split average jobs: 2.5000 Time: 0.0911
+Iteration 800000. Train-split average jobs: 2.6389 Time: 0.0918
+Iteration 850000. Train-split average jobs: 2.6389 Time: 0.0915
+Iteration 900000. Train-split average jobs: 2.6389 Time: 0.0913
+Iteration 950000. Train-split average jobs: 2.6389 Time: 0.0917
+Iteration 1000000. Train-split average jobs: 2.6389 Time: 0.0910
+Iteration 1050000. Train-split average jobs: 2.6389 Time: 0.0913
+Iteration 1100000. Train-split average jobs: 2.6389 Time: 0.0910
+Iteration 1150000. Train-split average jobs: 2.6389 Time: 0.0924
+Iteration 1200000. Train-split average jobs: 2.6389 Time: 0.0915
+Iteration 1250000. Train-split average jobs: 2.6389 Time: 0.0916
+Iteration 1300000. Train-split average jobs: 2.6389 Time: 0.0912
+Iteration 1350000. Train-split average jobs: 2.6389 Time: 0.0907
+Iteration 1400000. Train-split average jobs: 2.6389 Time: 0.0912
+Iteration 1450000. Train-split average jobs: 2.6111 Time: 0.0913
+Iteration 1500000. Train-split average jobs: 2.6111 Time: 0.0912
+Iteration 1550000. Train-split average jobs: 2.6389 Time: 0.0915
+Iteration 1600000. Train-split average jobs: 2.6389 Time: 0.0907
+Iteration 1650000. Train-split average jobs: 2.6389 Time: 0.0916
+Iteration 1700000. Train-split average jobs: 2.6389 Time: 0.0912
+Iteration 1750000. Train-split average jobs: 2.6389 Time: 0.0914
+Iteration 1800000. Train-split average jobs: 2.6111 Time: 0.0909
+Iteration 1850000. Train-split average jobs: 2.6389 Time: 0.0914
+Iteration 1900000. Train-split average jobs: 2.6389 Time: 0.0915
+Iteration 1950000. Train-split average jobs: 2.6389 Time: 0.0911
+Iteration 2000000. Train-split average jobs: 2.6389 Time: 0.0913
+Iteration 2050000. Train-split average jobs: 2.6389 Time: 0.0918
+Iteration 2100000. Train-split average jobs: 2.6389 Time: 0.0915
+Iteration 2150000. Train-split average jobs: 2.6389 Time: 0.0920
+Iteration 2200000. Train-split average jobs: 2.6389 Time: 0.0906
+Iteration 2250000. Train-split average jobs: 2.6389 Time: 0.0916
+Iteration 2300000. Train-split average jobs: 2.6389 Time: 0.0915
+Iteration 2350000. Train-split average jobs: 2.6389 Time: 0.0911
+Iteration 2400000. Train-split average jobs: 2.6389 Time: 0.0917
+Iteration 2450000. Train-split average jobs: 2.6389 Time: 0.0908
+Iteration 2500000. Train-split average jobs: 2.6389 Time: 0.0914
+Iteration 2550000. Train-split average jobs: 2.6389 Time: 0.0911
+Iteration 2600000. Train-split average jobs: 2.6389 Time: 0.0916
+Iteration 2650000. Train-split average jobs: 2.6389 Time: 0.0922
+Iteration 2700000. Train-split average jobs: 2.6667 Time: 0.0910
+Iteration 2750000. Train-split average jobs: 2.6667 Time: 0.0914
+Iteration 2800000. Train-split average jobs: 2.6667 Time: 0.0912
+Iteration 2850000. Train-split average jobs: 2.6667 Time: 0.0914
+Iteration 2900000. Train-split average jobs: 2.6667 Time: 0.0914
+Iteration 2950000. Train-split average jobs: 2.6667 Time: 0.0916
+Iteration 3000000. Train-split average jobs: 2.6667 Time: 0.0917
+Test split: jcrec_fair end = 0.9375
+Trial 8 wall time: 99.08252 min
+Trial 8 logged (jcrec_fair end=0.9375)
+
+--- Trial 10/12 (trial_id=9, rl_seed=51) ---
+Test split (n=16): baseline applicable jobs = 0.0625
+Iteration 50000. Train-split average jobs: 2.1667 Time: 0.0914
+Iteration 100000. Train-split average jobs: 2.3611 Time: 0.0910
+Iteration 150000. Train-split average jobs: 2.4444 Time: 0.0909
+Iteration 200000. Train-split average jobs: 2.4444 Time: 0.0915
+Iteration 250000. Train-split average jobs: 2.5278 Time: 0.0907
+Iteration 300000. Train-split average jobs: 2.5556 Time: 0.0915
+Iteration 350000. Train-split average jobs: 2.5278 Time: 0.0916
+Iteration 400000. Train-split average jobs: 2.5556 Time: 0.0914
+Iteration 450000. Train-split average jobs: 2.5556 Time: 0.0918
+Iteration 500000. Train-split average jobs: 2.5556 Time: 0.0910
+Iteration 550000. Train-split average jobs: 2.5556 Time: 0.0914
+Iteration 600000. Train-split average jobs: 2.5556 Time: 0.0915
+Iteration 650000. Train-split average jobs: 2.4722 Time: 0.0916
+Iteration 700000. Train-split average jobs: 2.5556 Time: 0.0912
+Iteration 750000. Train-split average jobs: 2.5556 Time: 0.0908
+Iteration 800000. Train-split average jobs: 2.5556 Time: 0.0913
+Iteration 850000. Train-split average jobs: 2.5556 Time: 0.0913
+Iteration 900000. Train-split average jobs: 2.5556 Time: 0.0916
+Iteration 950000. Train-split average jobs: 2.5556 Time: 0.0915
+Iteration 1000000. Train-split average jobs: 2.5556 Time: 0.0917
+Iteration 1050000. Train-split average jobs: 2.5556 Time: 0.0919
+Iteration 1100000. Train-split average jobs: 2.5556 Time: 0.0912
+Iteration 1150000. Train-split average jobs: 2.5556 Time: 0.0915
+Iteration 1200000. Train-split average jobs: 2.5556 Time: 0.0909
+Iteration 1250000. Train-split average jobs: 2.6667 Time: 0.0914
+Iteration 1300000. Train-split average jobs: 2.6667 Time: 0.0918
+Iteration 1350000. Train-split average jobs: 2.6667 Time: 0.0906
+Iteration 1400000. Train-split average jobs: 2.6667 Time: 0.0908
+Iteration 1450000. Train-split average jobs: 2.6667 Time: 0.0913
+Iteration 1500000. Train-split average jobs: 2.6667 Time: 0.0913
+Iteration 1550000. Train-split average jobs: 2.6667 Time: 0.0912
+Iteration 1600000. Train-split average jobs: 2.6667 Time: 0.0912
+Iteration 1650000. Train-split average jobs: 2.6667 Time: 0.0910
+Iteration 1700000. Train-split average jobs: 2.6667 Time: 0.0914
+Iteration 1750000. Train-split average jobs: 2.6667 Time: 0.0920
+Iteration 1800000. Train-split average jobs: 2.6667 Time: 0.0913
+Iteration 1850000. Train-split average jobs: 2.6667 Time: 0.0915
+Iteration 1900000. Train-split average jobs: 2.6667 Time: 0.0911
+Iteration 1950000. Train-split average jobs: 2.6667 Time: 0.0910
+Iteration 2000000. Train-split average jobs: 2.6667 Time: 0.0916
+Iteration 2050000. Train-split average jobs: 2.6667 Time: 0.0914
+Iteration 2100000. Train-split average jobs: 2.6667 Time: 0.0918
+Iteration 2150000. Train-split average jobs: 2.6667 Time: 0.0910
+Iteration 2200000. Train-split average jobs: 2.6667 Time: 0.0907
+Iteration 2250000. Train-split average jobs: 2.6667 Time: 0.0918
+Iteration 2300000. Train-split average jobs: 2.6667 Time: 0.0912
+Iteration 2350000. Train-split average jobs: 2.6667 Time: 0.0909
+Iteration 2400000. Train-split average jobs: 2.6667 Time: 0.0916
+Iteration 2450000. Train-split average jobs: 2.6667 Time: 0.0908
+Iteration 2500000. Train-split average jobs: 2.6667 Time: 0.0918
+Iteration 2550000. Train-split average jobs: 2.6667 Time: 0.0907
+Iteration 2600000. Train-split average jobs: 2.6667 Time: 0.0916
+Iteration 2650000. Train-split average jobs: 2.6667 Time: 0.0916
+Iteration 2700000. Train-split average jobs: 2.6667 Time: 0.0912
+Iteration 2750000. Train-split average jobs: 2.6667 Time: 0.0915
+Iteration 2800000. Train-split average jobs: 2.6667 Time: 0.0911
+Iteration 2850000. Train-split average jobs: 2.6667 Time: 0.0908
+Iteration 2900000. Train-split average jobs: 2.6667 Time: 0.0915
+Iteration 2950000. Train-split average jobs: 2.6667 Time: 0.0912
+Iteration 3000000. Train-split average jobs: 2.6667 Time: 0.0915
+Test split: jcrec_fair end = 1.1250
+Trial 9 wall time: 98.97721 min
+Trial 9 logged (jcrec_fair end=1.125)
+
+--- Trial 11/12 (trial_id=10, rl_seed=52) ---
+Test split (n=16): baseline applicable jobs = 0.0625
+Iteration 50000. Train-split average jobs: 2.2778 Time: 0.0912
+Iteration 100000. Train-split average jobs: 2.3889 Time: 0.0917
+Iteration 150000. Train-split average jobs: 2.4444 Time: 0.0913
+Iteration 200000. Train-split average jobs: 2.4444 Time: 0.0918
+Iteration 250000. Train-split average jobs: 2.4444 Time: 0.0914
+Iteration 300000. Train-split average jobs: 2.4444 Time: 0.0911
+Iteration 350000. Train-split average jobs: 2.4444 Time: 0.0913
+Iteration 400000. Train-split average jobs: 2.4722 Time: 0.0908
+Iteration 450000. Train-split average jobs: 2.4722 Time: 0.0916
+Iteration 500000. Train-split average jobs: 2.5000 Time: 0.0910
+Iteration 550000. Train-split average jobs: 2.4444 Time: 0.0913
+Iteration 600000. Train-split average jobs: 2.5000 Time: 0.0910
+Iteration 650000. Train-split average jobs: 2.4722 Time: 0.0918
+Iteration 700000. Train-split average jobs: 2.5000 Time: 0.0906
+Iteration 750000. Train-split average jobs: 2.5000 Time: 0.0914
+Iteration 800000. Train-split average jobs: 2.5000 Time: 0.0909
+Iteration 850000. Train-split average jobs: 2.5000 Time: 0.0909
+Iteration 900000. Train-split average jobs: 2.5000 Time: 0.0906
+Iteration 950000. Train-split average jobs: 2.4722 Time: 0.0907
+Iteration 1000000. Train-split average jobs: 2.5000 Time: 0.0908
+Iteration 1050000. Train-split average jobs: 2.5000 Time: 0.0911
+Iteration 1100000. Train-split average jobs: 2.4722 Time: 0.0905
+Iteration 1150000. Train-split average jobs: 2.5000 Time: 0.0908
+Iteration 1200000. Train-split average jobs: 2.5000 Time: 0.0907
+Iteration 1250000. Train-split average jobs: 2.5000 Time: 0.0910
+Iteration 1300000. Train-split average jobs: 2.4444 Time: 0.0905
+Iteration 1350000. Train-split average jobs: 2.5000 Time: 0.0905
+Iteration 1400000. Train-split average jobs: 2.5000 Time: 0.0908
+Iteration 1450000. Train-split average jobs: 2.5000 Time: 0.0905
+Iteration 1500000. Train-split average jobs: 2.5000 Time: 0.0913
+Iteration 1550000. Train-split average jobs: 2.5833 Time: 0.0910
+Iteration 1600000. Train-split average jobs: 2.5833 Time: 0.0907
+Iteration 1650000. Train-split average jobs: 2.5833 Time: 0.0913
+Iteration 1700000. Train-split average jobs: 2.5833 Time: 0.0909
+Iteration 1750000. Train-split average jobs: 2.5833 Time: 0.0908
+Iteration 1800000. Train-split average jobs: 2.5556 Time: 0.0909
+Iteration 1850000. Train-split average jobs: 2.5833 Time: 0.0911
+Iteration 1900000. Train-split average jobs: 2.5833 Time: 0.0914
+Iteration 1950000. Train-split average jobs: 2.5556 Time: 0.0903
+Iteration 2000000. Train-split average jobs: 2.5833 Time: 0.0913
+Iteration 2050000. Train-split average jobs: 2.5833 Time: 0.0915
+Iteration 2100000. Train-split average jobs: 2.5833 Time: 0.0917
+Iteration 2150000. Train-split average jobs: 2.5833 Time: 0.0909
+Iteration 2200000. Train-split average jobs: 2.5833 Time: 0.0911
+Iteration 2250000. Train-split average jobs: 2.5833 Time: 0.0910
+Iteration 2300000. Train-split average jobs: 2.5833 Time: 0.0911
+Iteration 2350000. Train-split average jobs: 2.5833 Time: 0.0909
+Iteration 2400000. Train-split average jobs: 2.5833 Time: 0.0913
+Iteration 2450000. Train-split average jobs: 2.5833 Time: 0.0908
+Iteration 2500000. Train-split average jobs: 2.5833 Time: 0.0906
+Iteration 2550000. Train-split average jobs: 2.5833 Time: 0.0905
+Iteration 2600000. Train-split average jobs: 2.5833 Time: 0.0911
+Iteration 2650000. Train-split average jobs: 2.5833 Time: 0.0908
+Iteration 2700000. Train-split average jobs: 2.5833 Time: 0.0909
+Iteration 2750000. Train-split average jobs: 2.5833 Time: 0.0909
+Iteration 2800000. Train-split average jobs: 2.5833 Time: 0.0901
+Iteration 2850000. Train-split average jobs: 2.5833 Time: 0.0912
+Iteration 2900000. Train-split average jobs: 2.5833 Time: 0.0905
+Iteration 2950000. Train-split average jobs: 2.5833 Time: 0.0901
+Iteration 3000000. Train-split average jobs: 2.5833 Time: 0.0915
+Test split: jcrec_fair end = 1.1250
+Trial 10 wall time: 98.37432 min
+Trial 10 logged (jcrec_fair end=1.125)
+
+--- Trial 12/12 (trial_id=11, rl_seed=53) ---
+Test split (n=16): baseline applicable jobs = 0.0625
+Iteration 50000. Train-split average jobs: 2.1111 Time: 0.0914
+Iteration 100000. Train-split average jobs: 2.4167 Time: 0.0912
+Iteration 150000. Train-split average jobs: 2.4167 Time: 0.0906
+Iteration 200000. Train-split average jobs: 2.4167 Time: 0.0909
+Iteration 250000. Train-split average jobs: 2.4167 Time: 0.0901
+Iteration 300000. Train-split average jobs: 2.4444 Time: 0.0908
+Iteration 350000. Train-split average jobs: 2.4444 Time: 0.0905
+Iteration 400000. Train-split average jobs: 2.4444 Time: 0.0906
+Iteration 450000. Train-split average jobs: 2.4444 Time: 0.0911
+Iteration 500000. Train-split average jobs: 2.4444 Time: 0.0907
+Iteration 550000. Train-split average jobs: 2.5000 Time: 0.0908
+Iteration 600000. Train-split average jobs: 2.5000 Time: 0.0910
+Iteration 650000. Train-split average jobs: 2.5000 Time: 0.0909
+Iteration 700000. Train-split average jobs: 2.5000 Time: 0.0915
+Iteration 750000. Train-split average jobs: 2.5000 Time: 0.0907
+Iteration 800000. Train-split average jobs: 2.5000 Time: 0.0914
+Iteration 850000. Train-split average jobs: 2.5278 Time: 0.0906
+Iteration 900000. Train-split average jobs: 2.5278 Time: 0.0909
+Iteration 950000. Train-split average jobs: 2.5278 Time: 0.0914
+Iteration 1000000. Train-split average jobs: 2.5278 Time: 0.0913
+Iteration 1050000. Train-split average jobs: 2.5278 Time: 0.0911
+Iteration 1100000. Train-split average jobs: 2.5556 Time: 0.0903
+Iteration 1150000. Train-split average jobs: 2.5556 Time: 0.0909
+Iteration 1200000. Train-split average jobs: 2.5556 Time: 0.0914
+Iteration 1250000. Train-split average jobs: 2.5278 Time: 0.0915
+Iteration 1300000. Train-split average jobs: 2.5556 Time: 0.0916
+Iteration 1350000. Train-split average jobs: 2.5556 Time: 0.0909
+Iteration 1400000. Train-split average jobs: 2.5556 Time: 0.0919
+Iteration 1450000. Train-split average jobs: 2.5556 Time: 0.0912
+Iteration 1500000. Train-split average jobs: 2.5556 Time: 0.0908
+Iteration 1550000. Train-split average jobs: 2.5556 Time: 0.0904
+Iteration 1600000. Train-split average jobs: 2.5556 Time: 0.0901
+Iteration 1650000. Train-split average jobs: 2.5556 Time: 0.0912
+Iteration 1700000. Train-split average jobs: 2.5556 Time: 0.0904
+Iteration 1750000. Train-split average jobs: 2.5556 Time: 0.0913
+Iteration 1800000. Train-split average jobs: 2.5556 Time: 0.0906
+Iteration 1850000. Train-split average jobs: 2.5556 Time: 0.0905
+Iteration 1900000. Train-split average jobs: 2.3333 Time: 0.0906
+Iteration 1950000. Train-split average jobs: 2.5556 Time: 0.0905
+Iteration 2000000. Train-split average jobs: 2.5000 Time: 0.0913
+Iteration 2050000. Train-split average jobs: 2.5556 Time: 0.0904
+Iteration 2100000. Train-split average jobs: 2.5556 Time: 0.0910
+Iteration 2150000. Train-split average jobs: 2.5556 Time: 0.0905
+Iteration 2200000. Train-split average jobs: 2.5556 Time: 0.0901
+Iteration 2250000. Train-split average jobs: 2.5556 Time: 0.0906
+Iteration 2300000. Train-split average jobs: 2.5556 Time: 0.0907
+Iteration 2350000. Train-split average jobs: 2.5556 Time: 0.0907
+Iteration 2400000. Train-split average jobs: 2.5556 Time: 0.0906
+Iteration 2450000. Train-split average jobs: 2.5556 Time: 0.0906
+Iteration 2500000. Train-split average jobs: 2.5556 Time: 0.0903
+Iteration 2550000. Train-split average jobs: 2.5556 Time: 0.0905
+Iteration 2600000. Train-split average jobs: 2.5556 Time: 0.0903
+Iteration 2650000. Train-split average jobs: 2.5556 Time: 0.0918
+Iteration 2700000. Train-split average jobs: 2.5556 Time: 0.0918
+Iteration 2750000. Train-split average jobs: 2.4722 Time: 0.0911
+Iteration 2800000. Train-split average jobs: 2.5556 Time: 0.0912
+Iteration 2850000. Train-split average jobs: 2.5556 Time: 0.0916
+Iteration 2900000. Train-split average jobs: 2.5556 Time: 0.0915
+Iteration 2950000. Train-split average jobs: 2.5556 Time: 0.0916
+Iteration 3000000. Train-split average jobs: 2.5556 Time: 0.0920
+Test split: jcrec_fair end = 1.0625
+Trial 11 wall time: 98.59639 min
+Trial 11 logged (jcrec_fair end=1.0625)
+
+--- Sweep summary ---
+Trials in CSV: 12/12
+  end mean: 1.041667 95% CI [0.953125, 1.125000]
+  end median: 1.093750 95% CI [0.937500, 1.125000]
+  life mean: 2.613426 95% CI [2.564815, 2.652778]
+  life median: 2.652778 95% CI [2.569444, 2.666667]
+
+--- Trial metrics (long) ---
+Methods: 2 — ['jcrec_fair_dqn', 'jcrec_fair_ppo']
+Bootstrap summary: /home/alesage/arno_data/CourseRecSys_CLIRS/Results/JCRecFair/steps_3000000/data_42/courses_100/k_2/reports/bootstrap_end_mean.csv
+Bootstrap summary: /home/alesage/arno_data/CourseRecSys_CLIRS/Results/JCRecFair/steps_3000000/data_42/courses_100/k_2/reports/bootstrap_end_median.csv
+Bootstrap summary: /home/alesage/arno_data/CourseRecSys_CLIRS/Results/JCRecFair/steps_3000000/data_42/courses_100/k_2/reports/bootstrap_life_mean.csv
+Bootstrap summary: /home/alesage/arno_data/CourseRecSys_CLIRS/Results/JCRecFair/steps_3000000/data_42/courses_100/k_2/reports/bootstrap_life_median.csv
+Performance analysis: /home/alesage/arno_data/CourseRecSys_CLIRS/Results/JCRecFair/steps_3000000/data_42/courses_100/k_2/reports/performance_analysis.json
+Trial metrics: /home/alesage/arno_data/CourseRecSys_CLIRS/Results/JCRecFair/steps_3000000/data_42/courses_100/k_2/reports/trial_metrics_long.csv
+
+Done. Results under: /home/alesage/arno_data/CourseRecSys_CLIRS/Results/JCRecFair/steps_3000000/data_42/courses_100/k_2
+Orchestration: ['jcrec_fair']
+
+========== Pipeline 1/1: jcrec_fair ==========
+
+Orchestration complete.
