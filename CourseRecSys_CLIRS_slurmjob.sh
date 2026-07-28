@@ -1,8 +1,8 @@
 #!/bin/bash
 
-#SBATCH --job-name=jcrecFair_ppo_k2
-#SBATCH --output=out/jcrecFair_ppo_k2.stdout
-#SBATCH --error=out/jcrecFair_ppo_k2.stderr
+#SBATCH --job-name=clirs_ppo_k3
+#SBATCH --output=out/clirs_ppo_k3.stdout
+#SBATCH --error=out/clirs_ppo_k3.stderr
 #SBATCH --mem=44G
 #SBATCH --cpus-per-task=6
 #SBATCH --gpus=slice
@@ -12,5 +12,5 @@
 
 eval "$(mamba shell hook --shell bash)"
 mamba activate myenv
-python pipelines/run_pipeline.py --Config Config/run_ppo_k2_jcrecFair.json
+python pipelines/run_pipeline.py --Config Config/run_ppo_k3_clirs.json
 mamba deactivate

@@ -1,0 +1,821 @@
+Experiment cell: /home/alesage/arno_data/CourseRecSys_CLIRS/Results/JCRec/steps_3000000/data_42/courses_100/k_2
+JCRec model=ppo, nb_runs=12
+Trial plan: 12/12 to run (resume=on)
+RL seed policy: rl_base(42) + trial_id
+Next rl_seeds: 42, 43, 44, 45, 46, ...
+Dataset with 52 learners, 100 jobs, 100 courses and 46 skills.
+
+--- Trial 1/12 (trial_id=0, rl_seed=42) ---
+Iteration 50000. Average jobs: 1.0769230769230769 Time: 0.132296139999994
+Iteration 100000. Average jobs: 1.0961538461538463 Time: 0.13189658100000656
+Iteration 150000. Average jobs: 1.0961538461538463 Time: 0.13119186800003035
+Iteration 200000. Average jobs: 1.0961538461538463 Time: 0.1318592320000107
+Iteration 250000. Average jobs: 1.6538461538461537 Time: 0.13199914199998375
+Iteration 300000. Average jobs: 1.6538461538461537 Time: 0.13259512000001905
+Iteration 350000. Average jobs: 1.6346153846153846 Time: 0.1327486279999448
+Iteration 400000. Average jobs: 1.6923076923076923 Time: 0.13262161899990588
+Iteration 450000. Average jobs: 1.6923076923076923 Time: 0.13332043000002614
+Iteration 500000. Average jobs: 1.6730769230769231 Time: 0.131833332000042
+Iteration 550000. Average jobs: 1.6730769230769231 Time: 0.13319015699994452
+Iteration 600000. Average jobs: 1.5576923076923077 Time: 0.132194489000085
+Iteration 650000. Average jobs: 1.6153846153846154 Time: 0.13212987799988696
+Iteration 700000. Average jobs: 1.5961538461538463 Time: 0.13225183700001253
+Iteration 750000. Average jobs: 1.6730769230769231 Time: 0.13206501500008017
+Iteration 800000. Average jobs: 1.6153846153846154 Time: 0.1327293809999901
+Iteration 850000. Average jobs: 1.7115384615384615 Time: 0.13254231099995195
+Iteration 900000. Average jobs: 1.6346153846153846 Time: 0.13229182200007017
+Iteration 950000. Average jobs: 1.6346153846153846 Time: 0.13325186199995187
+Iteration 1000000. Average jobs: 1.7115384615384615 Time: 0.1320174270001644
+Iteration 1050000. Average jobs: 1.6923076923076923 Time: 0.13272753899991585
+Iteration 1100000. Average jobs: 1.6923076923076923 Time: 0.13178701500009993
+Iteration 1150000. Average jobs: 1.6923076923076923 Time: 0.13251564199981658
+Iteration 1200000. Average jobs: 1.6730769230769231 Time: 0.13308763299983184
+Iteration 1250000. Average jobs: 1.6730769230769231 Time: 0.13200442300012583
+Iteration 1300000. Average jobs: 1.6923076923076923 Time: 0.13259742499985805
+Iteration 1350000. Average jobs: 1.7115384615384615 Time: 0.1317975749998368
+Iteration 1400000. Average jobs: 1.6923076923076923 Time: 0.13334614699988379
+Iteration 1450000. Average jobs: 1.7307692307692308 Time: 0.13150896300021486
+Iteration 1500000. Average jobs: 1.7307692307692308 Time: 0.13177469099991868
+Iteration 1550000. Average jobs: 1.7115384615384615 Time: 0.13272466399985205
+Iteration 1600000. Average jobs: 1.7307692307692308 Time: 0.13191873000005216
+Iteration 1650000. Average jobs: 1.7307692307692308 Time: 0.13319128800003455
+Iteration 1700000. Average jobs: 1.7115384615384615 Time: 0.13260380600013377
+Iteration 1750000. Average jobs: 1.7307692307692308 Time: 0.1327117979999457
+Iteration 1800000. Average jobs: 1.7307692307692308 Time: 0.13317986599986398
+Iteration 1850000. Average jobs: 1.7307692307692308 Time: 0.13202467099972637
+Iteration 1900000. Average jobs: 1.7307692307692308 Time: 0.1331884030000765
+Iteration 1950000. Average jobs: 1.6923076923076923 Time: 0.13265140499970585
+Iteration 2000000. Average jobs: 1.6923076923076923 Time: 0.13369552299991483
+Iteration 2050000. Average jobs: 1.6923076923076923 Time: 0.13367908300006093
+Iteration 2100000. Average jobs: 1.7115384615384615 Time: 0.13330079299976205
+Iteration 2150000. Average jobs: 1.6923076923076923 Time: 0.1330631770006221
+Iteration 2200000. Average jobs: 1.6923076923076923 Time: 0.1318760719996135
+Iteration 2250000. Average jobs: 1.7307692307692308 Time: 0.1323431589999018
+Iteration 2300000. Average jobs: 1.7115384615384615 Time: 0.13225722599963774
+Iteration 2350000. Average jobs: 1.7115384615384615 Time: 0.13198352300059923
+Iteration 2400000. Average jobs: 1.7307692307692308 Time: 0.13234000200009177
+Iteration 2450000. Average jobs: 1.7115384615384615 Time: 0.1323742670001593
+Iteration 2500000. Average jobs: 1.7115384615384615 Time: 0.13301722199958022
+Iteration 2550000. Average jobs: 1.6730769230769231 Time: 0.13151791099971888
+Iteration 2600000. Average jobs: 1.7115384615384615 Time: 0.13190248200044152
+Iteration 2650000. Average jobs: 1.7307692307692308 Time: 0.1325083680003445
+Iteration 2700000. Average jobs: 1.7115384615384615 Time: 0.13247379300082684
+Iteration 2750000. Average jobs: 1.7307692307692308 Time: 0.13221100000009756
+Iteration 2800000. Average jobs: 1.7307692307692308 Time: 0.13217474300017784
+Iteration 2850000. Average jobs: 1.7115384615384615 Time: 0.1325170939999225
+Iteration 2900000. Average jobs: 1.7307692307692308 Time: 0.13179535099970963
+Iteration 2950000. Average jobs: 1.7307692307692308 Time: 0.13186226500056364
+Iteration 3000000. Average jobs: 1.7307692307692308 Time: 0.13275968000016292
+Trial 0 wall time: 98.71327 min
+Trial 0 logged to sweep CSV: /home/alesage/arno_data/CourseRecSys_CLIRS/Results/JCRec/steps_3000000/data_42/courses_100/k_2/sweeps/jcrec_ppo_data42.csv
+Raw eval JSON: /home/alesage/arno_data/CourseRecSys_CLIRS/Results/JCRec/steps_3000000/data_42/courses_100/k_2/raw/jcrec_ppo_data42_rl42_k2_eval.json
+Raw training log: /home/alesage/arno_data/CourseRecSys_CLIRS/Results/JCRec/steps_3000000/data_42/courses_100/k_2/raw/jcrec_ppo_data42_rl42_k2_training.txt
+
+--- Trial 2/12 (trial_id=1, rl_seed=43) ---
+Iteration 50000. Average jobs: 1.4230769230769231 Time: 0.13366322300043976
+Iteration 100000. Average jobs: 1.75 Time: 0.13401196700033324
+Iteration 150000. Average jobs: 1.7692307692307692 Time: 0.13322140600030252
+Iteration 200000. Average jobs: 1.7692307692307692 Time: 0.13378266799918492
+Iteration 250000. Average jobs: 1.75 Time: 0.1329964619999373
+Iteration 300000. Average jobs: 1.75 Time: 0.1339428470000712
+Iteration 350000. Average jobs: 1.75 Time: 0.13413368700003048
+Iteration 400000. Average jobs: 1.9423076923076923 Time: 0.13354878799964354
+Iteration 450000. Average jobs: 1.9615384615384615 Time: 0.1325651540000763
+Iteration 500000. Average jobs: 2.0 Time: 0.13259063199984666
+Iteration 550000. Average jobs: 2.019230769230769 Time: 0.13187753500005783
+Iteration 600000. Average jobs: 2.019230769230769 Time: 0.1323159849998774
+Iteration 650000. Average jobs: 1.9615384615384615 Time: 0.13293801300005725
+Iteration 700000. Average jobs: 2.0 Time: 0.13309950599978038
+Iteration 750000. Average jobs: 1.9807692307692308 Time: 0.13268216400047095
+Iteration 800000. Average jobs: 1.9807692307692308 Time: 0.13322892899941507
+Iteration 850000. Average jobs: 1.9807692307692308 Time: 0.13186405899978126
+Iteration 900000. Average jobs: 1.9807692307692308 Time: 0.13199429399992368
+Iteration 950000. Average jobs: 1.9807692307692308 Time: 0.1361539649997212
+Iteration 1000000. Average jobs: 1.9038461538461537 Time: 0.13190304199997627
+Iteration 1050000. Average jobs: 1.9807692307692308 Time: 0.13515391900000395
+Iteration 1100000. Average jobs: 2.0 Time: 0.1315513319996171
+Iteration 1150000. Average jobs: 1.9615384615384615 Time: 0.1327303119996941
+Iteration 1200000. Average jobs: 2.0 Time: 0.13299985099911282
+Iteration 1250000. Average jobs: 2.019230769230769 Time: 0.13232251800036465
+Iteration 1300000. Average jobs: 2.0 Time: 0.1326605220001511
+Iteration 1350000. Average jobs: 2.019230769230769 Time: 0.1316568809997989
+Iteration 1400000. Average jobs: 2.019230769230769 Time: 0.13250939899990044
+Iteration 1450000. Average jobs: 2.019230769230769 Time: 0.1325285860002623
+Iteration 1500000. Average jobs: 2.0 Time: 0.13227524899957643
+Iteration 1550000. Average jobs: 1.9807692307692308 Time: 0.13280428199868766
+Iteration 1600000. Average jobs: 2.0 Time: 0.13148986799933482
+Iteration 1650000. Average jobs: 1.9807692307692308 Time: 0.13253869399886753
+Iteration 1700000. Average jobs: 1.9807692307692308 Time: 0.13180401700083166
+Iteration 1750000. Average jobs: 2.0 Time: 0.13194418099919858
+Iteration 1800000. Average jobs: 2.019230769230769 Time: 0.13300964799964277
+Iteration 1850000. Average jobs: 2.019230769230769 Time: 0.13250658399920212
+Iteration 1900000. Average jobs: 2.0 Time: 0.13315435799995612
+Iteration 1950000. Average jobs: 1.9807692307692308 Time: 0.1318855289991916
+Iteration 2000000. Average jobs: 2.1538461538461537 Time: 0.13507426900105202
+Iteration 2050000. Average jobs: 2.1346153846153846 Time: 0.13286955399962608
+Iteration 2100000. Average jobs: 2.173076923076923 Time: 0.13194555299924104
+Iteration 2150000. Average jobs: 2.1153846153846154 Time: 0.13283834499998193
+Iteration 2200000. Average jobs: 2.1153846153846154 Time: 0.13171687300018675
+Iteration 2250000. Average jobs: 2.1346153846153846 Time: 0.13407802100118715
+Iteration 2300000. Average jobs: 2.1538461538461537 Time: 0.1337074160001066
+Iteration 2350000. Average jobs: 2.076923076923077 Time: 0.13279227900056867
+Iteration 2400000. Average jobs: 2.0 Time: 0.13117101100033324
+Iteration 2450000. Average jobs: 2.1346153846153846 Time: 0.13227397899936477
+Iteration 2500000. Average jobs: 2.1538461538461537 Time: 0.13251325599958363
+Iteration 2550000. Average jobs: 2.1538461538461537 Time: 0.13208257899896125
+Iteration 2600000. Average jobs: 2.1538461538461537 Time: 0.13249736599937023
+Iteration 2650000. Average jobs: 2.1538461538461537 Time: 0.13269911499992304
+Iteration 2700000. Average jobs: 2.1538461538461537 Time: 0.13303034599994135
+Iteration 2750000. Average jobs: 2.173076923076923 Time: 0.13304897200032428
+Iteration 2800000. Average jobs: 2.1923076923076925 Time: 0.1324586749997252
+Iteration 2850000. Average jobs: 2.1346153846153846 Time: 0.13299834499957797
+Iteration 2900000. Average jobs: 2.1346153846153846 Time: 0.13333268300084455
+Iteration 2950000. Average jobs: 2.173076923076923 Time: 0.13340622200121288
+Iteration 3000000. Average jobs: 2.1538461538461537 Time: 0.13377230700098153
+Trial 1 wall time: 101.49404 min
+Trial 1 logged to sweep CSV: /home/alesage/arno_data/CourseRecSys_CLIRS/Results/JCRec/steps_3000000/data_42/courses_100/k_2/sweeps/jcrec_ppo_data42.csv
+Raw eval JSON: /home/alesage/arno_data/CourseRecSys_CLIRS/Results/JCRec/steps_3000000/data_42/courses_100/k_2/raw/jcrec_ppo_data42_rl43_k2_eval.json
+Raw training log: /home/alesage/arno_data/CourseRecSys_CLIRS/Results/JCRec/steps_3000000/data_42/courses_100/k_2/raw/jcrec_ppo_data42_rl43_k2_training.txt
+
+--- Trial 3/12 (trial_id=2, rl_seed=44) ---
+Iteration 50000. Average jobs: 1.5 Time: 0.13419862699993246
+Iteration 100000. Average jobs: 1.75 Time: 0.13406504600061453
+Iteration 150000. Average jobs: 1.75 Time: 0.13308704200062493
+Iteration 200000. Average jobs: 1.75 Time: 0.13418574199931754
+Iteration 250000. Average jobs: 1.75 Time: 0.13358336399869586
+Iteration 300000. Average jobs: 1.75 Time: 0.1328999819997989
+Iteration 350000. Average jobs: 1.75 Time: 0.13332614099999773
+Iteration 400000. Average jobs: 1.75 Time: 0.1341868350009463
+Iteration 450000. Average jobs: 1.75 Time: 0.1341929659993184
+Iteration 500000. Average jobs: 1.75 Time: 0.13270774199918378
+Iteration 550000. Average jobs: 1.75 Time: 0.1331871910006157
+Iteration 600000. Average jobs: 1.75 Time: 0.13283071200021368
+Iteration 650000. Average jobs: 1.75 Time: 0.13573817500036967
+Iteration 700000. Average jobs: 1.75 Time: 0.13335756000014953
+Iteration 750000. Average jobs: 1.75 Time: 0.13219559999924968
+Iteration 800000. Average jobs: 1.75 Time: 0.13322474000051443
+Iteration 850000. Average jobs: 1.75 Time: 0.13375574599922402
+Iteration 900000. Average jobs: 1.7692307692307692 Time: 0.13281906899828755
+Iteration 950000. Average jobs: 1.7692307692307692 Time: 0.13284950599881995
+Iteration 1000000. Average jobs: 1.75 Time: 0.1335956349994376
+Iteration 1050000. Average jobs: 1.7307692307692308 Time: 0.13303899099992123
+Iteration 1100000. Average jobs: 1.7692307692307692 Time: 0.1325138389984204
+Iteration 1150000. Average jobs: 1.7692307692307692 Time: 0.13281769700006407
+Iteration 1200000. Average jobs: 1.7884615384615385 Time: 0.13271320199964975
+Iteration 1250000. Average jobs: 1.7884615384615385 Time: 0.13252140199983842
+Iteration 1300000. Average jobs: 1.7884615384615385 Time: 0.1336875079996389
+Iteration 1350000. Average jobs: 1.7884615384615385 Time: 0.13203629199961142
+Iteration 1400000. Average jobs: 1.8076923076923077 Time: 0.1333407679994707
+Iteration 1450000. Average jobs: 1.7884615384615385 Time: 0.1332672000007733
+Iteration 1500000. Average jobs: 1.7884615384615385 Time: 0.1329636610007583
+Iteration 1550000. Average jobs: 1.7884615384615385 Time: 0.13225144599891792
+Iteration 1600000. Average jobs: 1.7884615384615385 Time: 0.13208951300111949
+Iteration 1650000. Average jobs: 1.8653846153846154 Time: 0.1334927729985793
+Iteration 1700000. Average jobs: 1.9230769230769231 Time: 0.13263518599887902
+Iteration 1750000. Average jobs: 1.9615384615384615 Time: 0.1329627499999333
+Iteration 1800000. Average jobs: 1.9230769230769231 Time: 0.1338519159999123
+Iteration 1850000. Average jobs: 2.0 Time: 0.1326315380010783
+Iteration 1900000. Average jobs: 2.0384615384615383 Time: 0.13302826300059678
+Iteration 1950000. Average jobs: 2.0 Time: 0.13182345399945916
+Iteration 2000000. Average jobs: 2.076923076923077 Time: 0.13304690699987987
+Iteration 2050000. Average jobs: 2.0 Time: 0.1327590879991476
+Iteration 2100000. Average jobs: 2.0 Time: 0.13299611000002187
+Iteration 2150000. Average jobs: 1.9807692307692308 Time: 0.1327852670001448
+Iteration 2200000. Average jobs: 2.0 Time: 0.13182873299956555
+Iteration 2250000. Average jobs: 1.9423076923076923 Time: 0.13282835599966347
+Iteration 2300000. Average jobs: 2.076923076923077 Time: 0.1339087449996441
+Iteration 2350000. Average jobs: 2.076923076923077 Time: 0.1329216929989343
+Iteration 2400000. Average jobs: 2.0384615384615383 Time: 0.1326235730011831
+Iteration 2450000. Average jobs: 2.0384615384615383 Time: 0.13235670100038988
+Iteration 2500000. Average jobs: 2.0384615384615383 Time: 0.13189890499779722
+Iteration 2550000. Average jobs: 2.0384615384615383 Time: 0.13226864700118313
+Iteration 2600000. Average jobs: 2.019230769230769 Time: 0.13318360500124982
+Iteration 2650000. Average jobs: 2.019230769230769 Time: 0.13298547299928032
+Iteration 2700000. Average jobs: 2.019230769230769 Time: 0.13299679299962008
+Iteration 2750000. Average jobs: 2.0384615384615383 Time: 0.133068949002336
+Iteration 2800000. Average jobs: 2.0384615384615383 Time: 0.13265522299843724
+Iteration 2850000. Average jobs: 2.0576923076923075 Time: 0.13306640399969183
+Iteration 2900000. Average jobs: 2.0576923076923075 Time: 0.13288823000038974
+Iteration 2950000. Average jobs: 2.0 Time: 0.13256556499982253
+Iteration 3000000. Average jobs: 2.0 Time: 0.13272966300064581
+Trial 2 wall time: 102.10803 min
+Trial 2 logged to sweep CSV: /home/alesage/arno_data/CourseRecSys_CLIRS/Results/JCRec/steps_3000000/data_42/courses_100/k_2/sweeps/jcrec_ppo_data42.csv
+Raw eval JSON: /home/alesage/arno_data/CourseRecSys_CLIRS/Results/JCRec/steps_3000000/data_42/courses_100/k_2/raw/jcrec_ppo_data42_rl44_k2_eval.json
+Raw training log: /home/alesage/arno_data/CourseRecSys_CLIRS/Results/JCRec/steps_3000000/data_42/courses_100/k_2/raw/jcrec_ppo_data42_rl44_k2_training.txt
+
+--- Trial 4/12 (trial_id=3, rl_seed=45) ---
+Iteration 50000. Average jobs: 1.3076923076923077 Time: 0.13259608099906472
+Iteration 100000. Average jobs: 1.75 Time: 0.13326737099851016
+Iteration 150000. Average jobs: 1.75 Time: 0.13333643899750314
+Iteration 200000. Average jobs: 1.75 Time: 0.13212674200258334
+Iteration 250000. Average jobs: 1.75 Time: 0.13243930799944792
+Iteration 300000. Average jobs: 1.7692307692307692 Time: 0.1325030379994132
+Iteration 350000. Average jobs: 1.75 Time: 0.13234011100212228
+Iteration 400000. Average jobs: 1.75 Time: 0.13373493700055405
+Iteration 450000. Average jobs: 1.75 Time: 0.13367932300025132
+Iteration 500000. Average jobs: 1.75 Time: 0.13240847999986727
+Iteration 550000. Average jobs: 1.75 Time: 0.1333223049987282
+Iteration 600000. Average jobs: 1.75 Time: 0.13284876600300777
+Iteration 650000. Average jobs: 1.75 Time: 0.13276242400024785
+Iteration 700000. Average jobs: 1.7307692307692308 Time: 0.13251712499913992
+Iteration 750000. Average jobs: 1.7307692307692308 Time: 0.1319710909992864
+Iteration 800000. Average jobs: 1.75 Time: 0.13338377000036417
+Iteration 850000. Average jobs: 1.75 Time: 0.13257732700003544
+Iteration 900000. Average jobs: 1.75 Time: 0.1321212219991139
+Iteration 950000. Average jobs: 1.75 Time: 0.1337150709987327
+Iteration 1000000. Average jobs: 1.75 Time: 0.13241955200282973
+Iteration 1050000. Average jobs: 1.75 Time: 0.1321492950009997
+Iteration 1100000. Average jobs: 1.75 Time: 0.132593407000968
+Iteration 1150000. Average jobs: 1.9038461538461537 Time: 0.1322287420007342
+Iteration 1200000. Average jobs: 1.9423076923076923 Time: 0.13495257099930313
+Iteration 1250000. Average jobs: 2.0 Time: 0.1319124900001043
+Iteration 1300000. Average jobs: 2.0 Time: 0.13299838500097394
+Iteration 1350000. Average jobs: 1.9615384615384615 Time: 0.13118297099936171
+Iteration 1400000. Average jobs: 1.9038461538461537 Time: 0.13251106399911805
+Iteration 1450000. Average jobs: 1.9615384615384615 Time: 0.13251041100011207
+Iteration 1500000. Average jobs: 1.9615384615384615 Time: 0.13218042099833838
+Iteration 1550000. Average jobs: 2.0 Time: 0.13208050599860144
+Iteration 1600000. Average jobs: 2.0384615384615383 Time: 0.13230608699814184
+Iteration 1650000. Average jobs: 2.019230769230769 Time: 0.13234021199968993
+Iteration 1700000. Average jobs: 1.9423076923076923 Time: 0.1317470689973561
+Iteration 1750000. Average jobs: 1.9807692307692308 Time: 0.13249337000161177
+Iteration 1800000. Average jobs: 2.0 Time: 0.13278548699963721
+Iteration 1850000. Average jobs: 1.9230769230769231 Time: 0.13216102599835722
+Iteration 1900000. Average jobs: 1.9423076923076923 Time: 0.13305714699890814
+Iteration 1950000. Average jobs: 1.9230769230769231 Time: 0.13214957399759442
+Iteration 2000000. Average jobs: 1.9230769230769231 Time: 0.13212309499795083
+Iteration 2050000. Average jobs: 1.9807692307692308 Time: 0.13279469500048435
+Iteration 2100000. Average jobs: 1.9807692307692308 Time: 0.13226269699953264
+Iteration 2150000. Average jobs: 2.0 Time: 0.13212853599907248
+Iteration 2200000. Average jobs: 1.9615384615384615 Time: 0.1314156879998336
+Iteration 2250000. Average jobs: 1.9615384615384615 Time: 0.13193402999968384
+Iteration 2300000. Average jobs: 2.0 Time: 0.13243526099904557
+Iteration 2350000. Average jobs: 1.9807692307692308 Time: 0.13318040599915548
+Iteration 2400000. Average jobs: 2.0 Time: 0.132860948000598
+Iteration 2450000. Average jobs: 1.9615384615384615 Time: 0.13184308099880582
+Iteration 2500000. Average jobs: 1.9807692307692308 Time: 0.13277193199974135
+Iteration 2550000. Average jobs: 1.9038461538461537 Time: 0.13064535499870544
+Iteration 2600000. Average jobs: 1.9807692307692308 Time: 0.13211005900302553
+Iteration 2650000. Average jobs: 1.9807692307692308 Time: 0.13313227700200514
+Iteration 2700000. Average jobs: 2.019230769230769 Time: 0.13249187600013101
+Iteration 2750000. Average jobs: 2.0 Time: 0.13218330900053843
+Iteration 2800000. Average jobs: 2.0 Time: 0.13238801999978023
+Iteration 2850000. Average jobs: 2.019230769230769 Time: 0.13305084400053602
+Iteration 2900000. Average jobs: 2.0 Time: 0.13230601900067995
+Iteration 2950000. Average jobs: 1.9807692307692308 Time: 0.13213154199911514
+Iteration 3000000. Average jobs: 2.0 Time: 0.13211181299993768
+Trial 3 wall time: 100.02719 min
+Trial 3 logged to sweep CSV: /home/alesage/arno_data/CourseRecSys_CLIRS/Results/JCRec/steps_3000000/data_42/courses_100/k_2/sweeps/jcrec_ppo_data42.csv
+Raw eval JSON: /home/alesage/arno_data/CourseRecSys_CLIRS/Results/JCRec/steps_3000000/data_42/courses_100/k_2/raw/jcrec_ppo_data42_rl45_k2_eval.json
+Raw training log: /home/alesage/arno_data/CourseRecSys_CLIRS/Results/JCRec/steps_3000000/data_42/courses_100/k_2/raw/jcrec_ppo_data42_rl45_k2_training.txt
+
+--- Trial 5/12 (trial_id=4, rl_seed=46) ---
+Iteration 50000. Average jobs: 1.4038461538461537 Time: 0.13276775399936014
+Iteration 100000. Average jobs: 1.75 Time: 0.13382318499861867
+Iteration 150000. Average jobs: 1.7692307692307692 Time: 0.13179964699884295
+Iteration 200000. Average jobs: 1.7692307692307692 Time: 0.1325130849982088
+Iteration 250000. Average jobs: 1.7692307692307692 Time: 0.13187172199832276
+Iteration 300000. Average jobs: 1.7692307692307692 Time: 0.13362200499977916
+Iteration 350000. Average jobs: 1.7692307692307692 Time: 0.13334395399942878
+Iteration 400000. Average jobs: 1.75 Time: 0.13223167899923283
+Iteration 450000. Average jobs: 1.75 Time: 0.1326417579984991
+Iteration 500000. Average jobs: 1.75 Time: 0.13187282400031108
+Iteration 550000. Average jobs: 1.75 Time: 0.13263346199892112
+Iteration 600000. Average jobs: 1.9038461538461537 Time: 0.13253499699931126
+Iteration 650000. Average jobs: 1.9807692307692308 Time: 0.13292848499986576
+Iteration 700000. Average jobs: 1.9230769230769231 Time: 0.13308596999922884
+Iteration 750000. Average jobs: 1.9038461538461537 Time: 0.1327517120007542
+Iteration 800000. Average jobs: 1.9230769230769231 Time: 0.1323543990001781
+Iteration 850000. Average jobs: 1.9423076923076923 Time: 0.13247545599733712
+Iteration 900000. Average jobs: 1.9423076923076923 Time: 0.13281289899896365
+Iteration 950000. Average jobs: 2.0 Time: 0.13283258600131376
+Iteration 1000000. Average jobs: 1.9807692307692308 Time: 0.13273563500115415
+Iteration 1050000. Average jobs: 2.0 Time: 0.13229438599955756
+Iteration 1100000. Average jobs: 2.0 Time: 0.13232583599892678
+Iteration 1150000. Average jobs: 1.9807692307692308 Time: 0.13348226400194108
+Iteration 1200000. Average jobs: 1.9807692307692308 Time: 0.13326674900235957
+Iteration 1250000. Average jobs: 2.0 Time: 0.13240681599927484
+Iteration 1300000. Average jobs: 1.9807692307692308 Time: 0.13260178299969994
+Iteration 1350000. Average jobs: 2.0 Time: 0.13252912600000855
+Iteration 1400000. Average jobs: 2.0 Time: 0.1329134570005408
+Iteration 1450000. Average jobs: 1.9615384615384615 Time: 0.13250767499994254
+Iteration 1500000. Average jobs: 1.9807692307692308 Time: 0.13352981400021235
+Iteration 1550000. Average jobs: 1.9807692307692308 Time: 0.1334868429985363
+Iteration 1600000. Average jobs: 1.9615384615384615 Time: 0.1324659080019046
+Iteration 1650000. Average jobs: 1.9615384615384615 Time: 0.1323090849982691
+Iteration 1700000. Average jobs: 2.019230769230769 Time: 0.13222802099699038
+Iteration 1750000. Average jobs: 1.9807692307692308 Time: 0.13309545799711486
+Iteration 1800000. Average jobs: 1.9615384615384615 Time: 0.1328882589987188
+Iteration 1850000. Average jobs: 2.0 Time: 0.13264900200010743
+Iteration 1900000. Average jobs: 2.0 Time: 0.13259660200128565
+Iteration 1950000. Average jobs: 2.019230769230769 Time: 0.13166920399817172
+Iteration 2000000. Average jobs: 2.019230769230769 Time: 0.1323776409990387
+Iteration 2050000. Average jobs: 2.0 Time: 0.13239372299722163
+Iteration 2100000. Average jobs: 1.9615384615384615 Time: 0.13281323900082498
+Iteration 2150000. Average jobs: 2.019230769230769 Time: 0.13318136000088998
+Iteration 2200000. Average jobs: 2.0 Time: 0.13209320799796842
+Iteration 2250000. Average jobs: 1.9807692307692308 Time: 0.1320278969978972
+Iteration 2300000. Average jobs: 2.0384615384615383 Time: 0.1326445330014394
+Iteration 2350000. Average jobs: 2.0384615384615383 Time: 0.13332590099889785
+Iteration 2400000. Average jobs: 2.0576923076923075 Time: 0.1325544940009422
+Iteration 2450000. Average jobs: 2.1923076923076925 Time: 0.1318978720009909
+Iteration 2500000. Average jobs: 2.173076923076923 Time: 0.13217563399666687
+Iteration 2550000. Average jobs: 2.173076923076923 Time: 0.13250864899964654
+Iteration 2600000. Average jobs: 2.173076923076923 Time: 0.1328039340005489
+Iteration 2650000. Average jobs: 2.0961538461538463 Time: 0.13292501000250923
+Iteration 2700000. Average jobs: 2.1153846153846154 Time: 0.13299298600031761
+Iteration 2750000. Average jobs: 2.1346153846153846 Time: 0.13227926699983072
+Iteration 2800000. Average jobs: 2.1346153846153846 Time: 0.1321759940001357
+Iteration 2850000. Average jobs: 2.1538461538461537 Time: 0.13323267500163638
+Iteration 2900000. Average jobs: 2.1153846153846154 Time: 0.13128411100115045
+Iteration 2950000. Average jobs: 2.0961538461538463 Time: 0.13336109700321686
+Iteration 3000000. Average jobs: 2.1153846153846154 Time: 0.13270374399871798
+Trial 4 wall time: 100.21750 min
+Trial 4 logged to sweep CSV: /home/alesage/arno_data/CourseRecSys_CLIRS/Results/JCRec/steps_3000000/data_42/courses_100/k_2/sweeps/jcrec_ppo_data42.csv
+Raw eval JSON: /home/alesage/arno_data/CourseRecSys_CLIRS/Results/JCRec/steps_3000000/data_42/courses_100/k_2/raw/jcrec_ppo_data42_rl46_k2_eval.json
+Raw training log: /home/alesage/arno_data/CourseRecSys_CLIRS/Results/JCRec/steps_3000000/data_42/courses_100/k_2/raw/jcrec_ppo_data42_rl46_k2_training.txt
+
+--- Trial 6/12 (trial_id=5, rl_seed=47) ---
+Iteration 50000. Average jobs: 1.6153846153846154 Time: 0.13258631300050183
+Iteration 100000. Average jobs: 1.7307692307692308 Time: 0.1331624140002532
+Iteration 150000. Average jobs: 1.75 Time: 0.132247539000673
+Iteration 200000. Average jobs: 1.75 Time: 0.1330209290026687
+Iteration 250000. Average jobs: 1.7692307692307692 Time: 0.13191926299987244
+Iteration 300000. Average jobs: 1.75 Time: 0.13348617999872658
+Iteration 350000. Average jobs: 1.75 Time: 0.13363869699969655
+Iteration 400000. Average jobs: 1.75 Time: 0.1331061890014098
+Iteration 450000. Average jobs: 1.75 Time: 0.13301279300139868
+Iteration 500000. Average jobs: 1.75 Time: 0.13304077599968878
+Iteration 550000. Average jobs: 1.75 Time: 0.13412155300102313
+Iteration 600000. Average jobs: 1.75 Time: 0.13306951800041134
+Iteration 650000. Average jobs: 1.75 Time: 0.13270864300284302
+Iteration 700000. Average jobs: 1.7692307692307692 Time: 0.13291125199975795
+Iteration 750000. Average jobs: 1.75 Time: 0.13288358099816833
+Iteration 800000. Average jobs: 1.75 Time: 0.1329509679999319
+Iteration 850000. Average jobs: 1.75 Time: 0.13266430899966508
+Iteration 900000. Average jobs: 1.75 Time: 0.13298457100245287
+Iteration 950000. Average jobs: 1.75 Time: 0.1328554179999628
+Iteration 1000000. Average jobs: 1.75 Time: 0.1327390500009642
+Iteration 1050000. Average jobs: 1.75 Time: 0.13297259799946914
+Iteration 1100000. Average jobs: 1.75 Time: 0.13241320899760467
+Iteration 1150000. Average jobs: 1.75 Time: 0.13288118499986012
+Iteration 1200000. Average jobs: 1.75 Time: 0.1336260839998431
+Iteration 1250000. Average jobs: 1.75 Time: 0.13383830100065097
+Iteration 1300000. Average jobs: 1.7307692307692308 Time: 0.13461523000296438
+Iteration 1350000. Average jobs: 1.75 Time: 0.13343547499971464
+Iteration 1400000. Average jobs: 1.75 Time: 0.13366657000005944
+Iteration 1450000. Average jobs: 1.75 Time: 0.13298983999993652
+Iteration 1500000. Average jobs: 1.75 Time: 0.13350471499870764
+Iteration 1550000. Average jobs: 1.75 Time: 0.1328863770031603
+Iteration 1600000. Average jobs: 1.75 Time: 0.13256685800297419
+Iteration 1650000. Average jobs: 1.7307692307692308 Time: 0.13198402400303166
+Iteration 1700000. Average jobs: 1.7307692307692308 Time: 0.1319042350005475
+Iteration 1750000. Average jobs: 1.7307692307692308 Time: 0.1327491599950008
+Iteration 1800000. Average jobs: 1.7115384615384615 Time: 0.13302020800620085
+Iteration 1850000. Average jobs: 1.7307692307692308 Time: 0.1338889280013973
+Iteration 1900000. Average jobs: 1.75 Time: 0.13311586799682118
+Iteration 1950000. Average jobs: 1.7307692307692308 Time: 0.13244766400021035
+Iteration 2000000. Average jobs: 1.75 Time: 0.13345247899997048
+Iteration 2050000. Average jobs: 1.75 Time: 0.1329348180006491
+Iteration 2100000. Average jobs: 1.75 Time: 0.13266162399668247
+Iteration 2150000. Average jobs: 1.75 Time: 0.13340520799829392
+Iteration 2200000. Average jobs: 1.75 Time: 0.13289469099981943
+Iteration 2250000. Average jobs: 1.7307692307692308 Time: 0.1335843950000708
+Iteration 2300000. Average jobs: 1.75 Time: 0.13291327800106956
+Iteration 2350000. Average jobs: 1.75 Time: 0.1318957280018367
+Iteration 2400000. Average jobs: 1.75 Time: 0.1337351080001099
+Iteration 2450000. Average jobs: 1.75 Time: 0.13275938900187612
+Iteration 2500000. Average jobs: 1.75 Time: 0.13289613500091946
+Iteration 2550000. Average jobs: 1.75 Time: 0.1332726199980243
+Iteration 2600000. Average jobs: 1.75 Time: 0.13296375200297916
+Iteration 2650000. Average jobs: 1.7307692307692308 Time: 0.13339415700465906
+Iteration 2700000. Average jobs: 1.75 Time: 0.1328238389978651
+Iteration 2750000. Average jobs: 1.75 Time: 0.13343098699988332
+Iteration 2800000. Average jobs: 1.75 Time: 0.13286033699841937
+Iteration 2850000. Average jobs: 1.75 Time: 0.1336489960012841
+Iteration 2900000. Average jobs: 1.75 Time: 0.13338430899602827
+Iteration 2950000. Average jobs: 1.7307692307692308 Time: 0.13350601899583125
+Iteration 3000000. Average jobs: 1.7692307692307692 Time: 0.13293093999527628
+Trial 5 wall time: 102.12227 min
+Trial 5 logged to sweep CSV: /home/alesage/arno_data/CourseRecSys_CLIRS/Results/JCRec/steps_3000000/data_42/courses_100/k_2/sweeps/jcrec_ppo_data42.csv
+Raw eval JSON: /home/alesage/arno_data/CourseRecSys_CLIRS/Results/JCRec/steps_3000000/data_42/courses_100/k_2/raw/jcrec_ppo_data42_rl47_k2_eval.json
+Raw training log: /home/alesage/arno_data/CourseRecSys_CLIRS/Results/JCRec/steps_3000000/data_42/courses_100/k_2/raw/jcrec_ppo_data42_rl47_k2_training.txt
+
+--- Trial 7/12 (trial_id=6, rl_seed=48) ---
+Iteration 50000. Average jobs: 1.5 Time: 0.13354827699367888
+Iteration 100000. Average jobs: 1.75 Time: 0.13264563400298357
+Iteration 150000. Average jobs: 1.75 Time: 0.13135027499811258
+Iteration 200000. Average jobs: 1.7307692307692308 Time: 0.13318903400067938
+Iteration 250000. Average jobs: 1.75 Time: 0.132209105999209
+Iteration 300000. Average jobs: 1.7307692307692308 Time: 0.13307937899662647
+Iteration 350000. Average jobs: 1.75 Time: 0.13298742600454716
+Iteration 400000. Average jobs: 1.75 Time: 0.13399831100105075
+Iteration 450000. Average jobs: 1.75 Time: 0.13356873500015354
+Iteration 500000. Average jobs: 1.75 Time: 0.1330602420057403
+Iteration 550000. Average jobs: 1.75 Time: 0.13254554699960863
+Iteration 600000. Average jobs: 1.75 Time: 0.13255403200309956
+Iteration 650000. Average jobs: 1.75 Time: 0.1337314510019496
+Iteration 700000. Average jobs: 1.75 Time: 0.1330771239954629
+Iteration 750000. Average jobs: 1.75 Time: 0.13309228300204268
+Iteration 800000. Average jobs: 1.75 Time: 0.13369488400348928
+Iteration 850000. Average jobs: 1.75 Time: 0.13420549999864306
+Iteration 900000. Average jobs: 1.75 Time: 0.13358218200301053
+Iteration 950000. Average jobs: 1.75 Time: 0.1325089680030942
+Iteration 1000000. Average jobs: 1.75 Time: 0.13209921000088798
+Iteration 1050000. Average jobs: 1.75 Time: 0.13271527599863475
+Iteration 1100000. Average jobs: 1.75 Time: 0.13214321399573237
+Iteration 1150000. Average jobs: 1.75 Time: 0.13328455299779307
+Iteration 1200000. Average jobs: 1.75 Time: 0.13295145900337957
+Iteration 1250000. Average jobs: 1.75 Time: 0.1329296269977931
+Iteration 1300000. Average jobs: 1.75 Time: 0.1323163690030924
+Iteration 1350000. Average jobs: 1.7307692307692308 Time: 0.13106236699968576
+Iteration 1400000. Average jobs: 1.7307692307692308 Time: 0.1340142310000374
+Iteration 1450000. Average jobs: 1.7307692307692308 Time: 0.13288535500032594
+Iteration 1500000. Average jobs: 1.7307692307692308 Time: 0.13277065900183516
+Iteration 1550000. Average jobs: 1.7307692307692308 Time: 0.1337852720025694
+Iteration 1600000. Average jobs: 1.7307692307692308 Time: 0.13254668699664762
+Iteration 1650000. Average jobs: 1.7307692307692308 Time: 0.13299314599862555
+Iteration 1700000. Average jobs: 1.7884615384615385 Time: 0.13264858099864796
+Iteration 1750000. Average jobs: 1.8846153846153846 Time: 0.13237344499793835
+Iteration 1800000. Average jobs: 1.8846153846153846 Time: 0.13425122600165196
+Iteration 1850000. Average jobs: 1.8846153846153846 Time: 0.13308717199834064
+Iteration 1900000. Average jobs: 1.9230769230769231 Time: 0.13399430299614323
+Iteration 1950000. Average jobs: 1.9230769230769231 Time: 0.13273340099840425
+Iteration 2000000. Average jobs: 1.9230769230769231 Time: 0.13336703700042563
+Iteration 2050000. Average jobs: 1.9230769230769231 Time: 0.13289834900206188
+Iteration 2100000. Average jobs: 1.9230769230769231 Time: 0.13239319199783495
+Iteration 2150000. Average jobs: 1.9230769230769231 Time: 0.1324920960032614
+Iteration 2200000. Average jobs: 1.9230769230769231 Time: 0.13165274299535668
+Iteration 2250000. Average jobs: 1.9230769230769231 Time: 0.1328226480036392
+Iteration 2300000. Average jobs: 1.9230769230769231 Time: 0.13251446899812436
+Iteration 2350000. Average jobs: 1.9230769230769231 Time: 0.13324337499943795
+Iteration 2400000. Average jobs: 1.9423076923076923 Time: 0.13313289800134953
+Iteration 2450000. Average jobs: 1.9230769230769231 Time: 0.132142410002416
+Iteration 2500000. Average jobs: 1.9423076923076923 Time: 0.13345263799419627
+Iteration 2550000. Average jobs: 1.9423076923076923 Time: 0.13284157100133598
+Iteration 2600000. Average jobs: 1.9423076923076923 Time: 0.13301084900012938
+Iteration 2650000. Average jobs: 1.9230769230769231 Time: 0.13251070299884304
+Iteration 2700000. Average jobs: 1.9423076923076923 Time: 0.13337293799850158
+Iteration 2750000. Average jobs: 1.9423076923076923 Time: 0.13359121800021967
+Iteration 2800000. Average jobs: 1.9615384615384615 Time: 0.13319355299609015
+Iteration 2850000. Average jobs: 1.9423076923076923 Time: 0.13405903399689123
+Iteration 2900000. Average jobs: 1.9615384615384615 Time: 0.1329109919970506
+Iteration 2950000. Average jobs: 1.9615384615384615 Time: 0.13301298499573022
+Iteration 3000000. Average jobs: 1.9230769230769231 Time: 0.13448216899996623
+Trial 6 wall time: 100.64064 min
+Trial 6 logged to sweep CSV: /home/alesage/arno_data/CourseRecSys_CLIRS/Results/JCRec/steps_3000000/data_42/courses_100/k_2/sweeps/jcrec_ppo_data42.csv
+Raw eval JSON: /home/alesage/arno_data/CourseRecSys_CLIRS/Results/JCRec/steps_3000000/data_42/courses_100/k_2/raw/jcrec_ppo_data42_rl48_k2_eval.json
+Raw training log: /home/alesage/arno_data/CourseRecSys_CLIRS/Results/JCRec/steps_3000000/data_42/courses_100/k_2/raw/jcrec_ppo_data42_rl48_k2_training.txt
+
+--- Trial 8/12 (trial_id=7, rl_seed=49) ---
+Iteration 50000. Average jobs: 1.5 Time: 0.13290990999666974
+Iteration 100000. Average jobs: 1.6538461538461537 Time: 0.1329789899973548
+Iteration 150000. Average jobs: 1.7692307692307692 Time: 0.1323205840017181
+Iteration 200000. Average jobs: 1.7692307692307692 Time: 0.1332335570041323
+Iteration 250000. Average jobs: 1.7692307692307692 Time: 0.13256789799925173
+Iteration 300000. Average jobs: 1.75 Time: 0.13318516800063662
+Iteration 350000. Average jobs: 1.75 Time: 0.13277776299946709
+Iteration 400000. Average jobs: 1.75 Time: 0.1336920569956419
+Iteration 450000. Average jobs: 1.75 Time: 0.13304166700254427
+Iteration 500000. Average jobs: 1.75 Time: 0.13198346299759578
+Iteration 550000. Average jobs: 1.75 Time: 0.13324976800504373
+Iteration 600000. Average jobs: 1.75 Time: 0.13309637999918777
+Iteration 650000. Average jobs: 1.75 Time: 0.13392783000017516
+Iteration 700000. Average jobs: 1.75 Time: 0.13388148200465366
+Iteration 750000. Average jobs: 1.75 Time: 0.13266786799795227
+Iteration 800000. Average jobs: 1.75 Time: 0.13296731800073758
+Iteration 850000. Average jobs: 1.7307692307692308 Time: 0.13349585800460773
+Iteration 900000. Average jobs: 1.7307692307692308 Time: 0.13260170199646382
+Iteration 950000. Average jobs: 1.75 Time: 0.1337382229976356
+Iteration 1000000. Average jobs: 1.7307692307692308 Time: 0.13219121300062397
+Iteration 1050000. Average jobs: 1.6923076923076923 Time: 0.13239672800409608
+Iteration 1100000. Average jobs: 1.75 Time: 0.13165511799888918
+Iteration 1150000. Average jobs: 1.75 Time: 0.1318213089980418
+Iteration 1200000. Average jobs: 1.75 Time: 0.1325814649972017
+Iteration 1250000. Average jobs: 1.7307692307692308 Time: 0.13374783199833473
+Iteration 1300000. Average jobs: 1.75 Time: 0.13278367300517857
+Iteration 1350000. Average jobs: 1.7307692307692308 Time: 0.1330949370021699
+Iteration 1400000. Average jobs: 1.7307692307692308 Time: 0.1324302809953224
+Iteration 1450000. Average jobs: 1.75 Time: 0.13295089699386153
+Iteration 1500000. Average jobs: 1.7307692307692308 Time: 0.13372145099856425
+Iteration 1550000. Average jobs: 1.75 Time: 0.13443205500516342
+Iteration 1600000. Average jobs: 1.7307692307692308 Time: 0.1326016110033379
+Iteration 1650000. Average jobs: 1.75 Time: 0.13295888199354522
+Iteration 1700000. Average jobs: 1.75 Time: 0.1336144710003282
+Iteration 1750000. Average jobs: 1.75 Time: 0.13257766700553475
+Iteration 1800000. Average jobs: 1.75 Time: 0.13251800499710953
+Iteration 1850000. Average jobs: 1.7692307692307692 Time: 0.13290886799950385
+Iteration 1900000. Average jobs: 1.7692307692307692 Time: 0.13266319799731718
+Iteration 1950000. Average jobs: 1.75 Time: 0.13240668499929598
+Iteration 2000000. Average jobs: 1.75 Time: 0.13341594899975462
+Iteration 2050000. Average jobs: 1.75 Time: 0.13295803200162482
+Iteration 2100000. Average jobs: 1.75 Time: 0.1330035559949465
+Iteration 2150000. Average jobs: 1.7115384615384615 Time: 0.13334628899610834
+Iteration 2200000. Average jobs: 1.7692307692307692 Time: 0.13254226100252708
+Iteration 2250000. Average jobs: 1.75 Time: 0.13292735199502204
+Iteration 2300000. Average jobs: 1.7692307692307692 Time: 0.1330158099954133
+Iteration 2350000. Average jobs: 1.7692307692307692 Time: 0.1328116049990058
+Iteration 2400000. Average jobs: 1.7692307692307692 Time: 0.1337069450019044
+Iteration 2450000. Average jobs: 1.75 Time: 0.1329584609993617
+Iteration 2500000. Average jobs: 1.75 Time: 0.13298503000260098
+Iteration 2550000. Average jobs: 1.7692307692307692 Time: 0.1325694939951063
+Iteration 2600000. Average jobs: 1.7692307692307692 Time: 0.13281356999505078
+Iteration 2650000. Average jobs: 1.75 Time: 0.13334721099818125
+Iteration 2700000. Average jobs: 1.7115384615384615 Time: 0.13208452399703674
+Iteration 2750000. Average jobs: 1.75 Time: 0.1330271709957742
+Iteration 2800000. Average jobs: 1.75 Time: 0.1321645720017841
+Iteration 2850000. Average jobs: 1.7692307692307692 Time: 0.1327559810015373
+Iteration 2900000. Average jobs: 1.7692307692307692 Time: 0.13220151200221153
+Iteration 2950000. Average jobs: 1.7884615384615385 Time: 0.13261357600276824
+Iteration 3000000. Average jobs: 1.7692307692307692 Time: 0.13280722699710168
+Trial 7 wall time: 100.52768 min
+Trial 7 logged to sweep CSV: /home/alesage/arno_data/CourseRecSys_CLIRS/Results/JCRec/steps_3000000/data_42/courses_100/k_2/sweeps/jcrec_ppo_data42.csv
+Raw eval JSON: /home/alesage/arno_data/CourseRecSys_CLIRS/Results/JCRec/steps_3000000/data_42/courses_100/k_2/raw/jcrec_ppo_data42_rl49_k2_eval.json
+Raw training log: /home/alesage/arno_data/CourseRecSys_CLIRS/Results/JCRec/steps_3000000/data_42/courses_100/k_2/raw/jcrec_ppo_data42_rl49_k2_training.txt
+
+--- Trial 9/12 (trial_id=8, rl_seed=50) ---
+Iteration 50000. Average jobs: 1.4423076923076923 Time: 0.13224121600069338
+Iteration 100000. Average jobs: 1.75 Time: 0.1326066309993621
+Iteration 150000. Average jobs: 1.75 Time: 0.1333498959938879
+Iteration 200000. Average jobs: 1.75 Time: 0.13246454500040272
+Iteration 250000. Average jobs: 1.75 Time: 0.1320204930016189
+Iteration 300000. Average jobs: 1.75 Time: 0.13236036900343606
+Iteration 350000. Average jobs: 1.75 Time: 0.13242952200380387
+Iteration 400000. Average jobs: 1.75 Time: 0.1330022940019262
+Iteration 450000. Average jobs: 1.75 Time: 0.13207634600257734
+Iteration 500000. Average jobs: 1.7884615384615385 Time: 0.1320409319960163
+Iteration 550000. Average jobs: 1.75 Time: 0.13303555499442155
+Iteration 600000. Average jobs: 1.7884615384615385 Time: 0.13293877500109375
+Iteration 650000. Average jobs: 1.9230769230769231 Time: 0.13305163699988043
+Iteration 700000. Average jobs: 1.9230769230769231 Time: 0.1333666870050365
+Iteration 750000. Average jobs: 1.9038461538461537 Time: 0.13128721700195456
+Iteration 800000. Average jobs: 1.9230769230769231 Time: 0.13223596599709708
+Iteration 850000. Average jobs: 1.9230769230769231 Time: 0.1328256019987748
+Iteration 900000. Average jobs: 1.9230769230769231 Time: 0.1319170499991742
+Iteration 950000. Average jobs: 1.9230769230769231 Time: 0.1331285409978591
+Iteration 1000000. Average jobs: 1.9423076923076923 Time: 0.13244446900353068
+Iteration 1050000. Average jobs: 1.8076923076923077 Time: 0.13203050200536381
+Iteration 1100000. Average jobs: 1.9423076923076923 Time: 0.13343617499776883
+Iteration 1150000. Average jobs: 1.9423076923076923 Time: 0.1342134949954925
+Iteration 1200000. Average jobs: 1.9615384615384615 Time: 0.13356771400140133
+Iteration 1250000. Average jobs: 2.1153846153846154 Time: 0.1334483899991028
+Iteration 1300000. Average jobs: 2.1346153846153846 Time: 0.1346798700033105
+Iteration 1350000. Average jobs: 2.0961538461538463 Time: 0.1333088190003764
+Iteration 1400000. Average jobs: 2.1346153846153846 Time: 0.1326151379980729
+Iteration 1450000. Average jobs: 2.1346153846153846 Time: 0.13350506799906725
+Iteration 1500000. Average jobs: 2.173076923076923 Time: 0.13341730200045276
+Iteration 1550000. Average jobs: 2.1346153846153846 Time: 0.13357763300155057
+Iteration 1600000. Average jobs: 2.1153846153846154 Time: 0.13265716699970653
+Iteration 1650000. Average jobs: 2.1538461538461537 Time: 0.13348098099959316
+Iteration 1700000. Average jobs: 2.1538461538461537 Time: 0.13216862899571424
+Iteration 1750000. Average jobs: 2.1538461538461537 Time: 0.13427169399801642
+Iteration 1800000. Average jobs: 2.1346153846153846 Time: 0.1341373620016384
+Iteration 1850000. Average jobs: 2.1538461538461537 Time: 0.1338754290045472
+Iteration 1900000. Average jobs: 2.0576923076923075 Time: 0.1339495399952284
+Iteration 1950000. Average jobs: 2.1153846153846154 Time: 0.1325642519950634
+Iteration 2000000. Average jobs: 2.1538461538461537 Time: 0.13310430499404902
+Iteration 2050000. Average jobs: 2.173076923076923 Time: 0.13205192999885185
+Iteration 2100000. Average jobs: 2.173076923076923 Time: 0.13251211299939314
+Iteration 2150000. Average jobs: 2.1346153846153846 Time: 0.1328683820029255
+Iteration 2200000. Average jobs: 2.1153846153846154 Time: 0.13150147900159936
+Iteration 2250000. Average jobs: 2.1346153846153846 Time: 0.13312504399800673
+Iteration 2300000. Average jobs: 2.1153846153846154 Time: 0.13217620499926852
+Iteration 2350000. Average jobs: 2.1153846153846154 Time: 0.13297052399866516
+Iteration 2400000. Average jobs: 2.1346153846153846 Time: 0.13276166199648287
+Iteration 2450000. Average jobs: 2.1346153846153846 Time: 0.13190409399976488
+Iteration 2500000. Average jobs: 2.1153846153846154 Time: 0.1331091340034618
+Iteration 2550000. Average jobs: 2.1346153846153846 Time: 0.1320651159985573
+Iteration 2600000. Average jobs: 2.1538461538461537 Time: 0.13263855100376531
+Iteration 2650000. Average jobs: 2.1346153846153846 Time: 0.13264464199892245
+Iteration 2700000. Average jobs: 2.1538461538461537 Time: 0.13327109799865866
+Iteration 2750000. Average jobs: 2.1346153846153846 Time: 0.13204284299717983
+Iteration 2800000. Average jobs: 2.0961538461538463 Time: 0.1322087350054062
+Iteration 2850000. Average jobs: 2.1153846153846154 Time: 0.13266128300165292
+Iteration 2900000. Average jobs: 2.1346153846153846 Time: 0.1325057630019728
+Iteration 2950000. Average jobs: 2.1346153846153846 Time: 0.1328032500023255
+Iteration 3000000. Average jobs: 2.1153846153846154 Time: 0.13415822199749527
+Trial 8 wall time: 100.72460 min
+Trial 8 logged to sweep CSV: /home/alesage/arno_data/CourseRecSys_CLIRS/Results/JCRec/steps_3000000/data_42/courses_100/k_2/sweeps/jcrec_ppo_data42.csv
+Raw eval JSON: /home/alesage/arno_data/CourseRecSys_CLIRS/Results/JCRec/steps_3000000/data_42/courses_100/k_2/raw/jcrec_ppo_data42_rl50_k2_eval.json
+Raw training log: /home/alesage/arno_data/CourseRecSys_CLIRS/Results/JCRec/steps_3000000/data_42/courses_100/k_2/raw/jcrec_ppo_data42_rl50_k2_training.txt
+
+--- Trial 10/12 (trial_id=9, rl_seed=51) ---
+Iteration 50000. Average jobs: 1.3846153846153846 Time: 0.1329801019965089
+Iteration 100000. Average jobs: 1.8076923076923077 Time: 0.1339894750053645
+Iteration 150000. Average jobs: 1.75 Time: 0.13236999799846672
+Iteration 200000. Average jobs: 1.8269230769230769 Time: 0.13341502800176386
+Iteration 250000. Average jobs: 1.7884615384615385 Time: 0.1317923959941254
+Iteration 300000. Average jobs: 1.7884615384615385 Time: 0.1335347130006994
+Iteration 350000. Average jobs: 1.7884615384615385 Time: 0.13299056200048653
+Iteration 400000. Average jobs: 1.8076923076923077 Time: 0.1329189980024239
+Iteration 450000. Average jobs: 1.9423076923076923 Time: 0.13339121299941326
+Iteration 500000. Average jobs: 1.8076923076923077 Time: 0.1317073949976475
+Iteration 550000. Average jobs: 1.8461538461538463 Time: 0.13264852100110147
+Iteration 600000. Average jobs: 1.9423076923076923 Time: 0.1321845200000098
+Iteration 650000. Average jobs: 1.9423076923076923 Time: 0.13294294299703324
+Iteration 700000. Average jobs: 1.9230769230769231 Time: 0.13254676899668993
+Iteration 750000. Average jobs: 1.8846153846153846 Time: 0.13275431899819523
+Iteration 800000. Average jobs: 1.9423076923076923 Time: 0.132882439000241
+Iteration 850000. Average jobs: 1.9423076923076923 Time: 0.13285166199784726
+Iteration 900000. Average jobs: 1.9615384615384615 Time: 0.13240182799927425
+Iteration 950000. Average jobs: 1.9230769230769231 Time: 0.13312604499515146
+Iteration 1000000. Average jobs: 1.9423076923076923 Time: 0.133216957001423
+Iteration 1050000. Average jobs: 1.9423076923076923 Time: 0.13319167000008747
+Iteration 1100000. Average jobs: 1.9615384615384615 Time: 0.13285239299875684
+Iteration 1150000. Average jobs: 1.9423076923076923 Time: 0.13322907900146674
+Iteration 1200000. Average jobs: 1.9615384615384615 Time: 0.13303956400341121
+Iteration 1250000. Average jobs: 1.9615384615384615 Time: 0.13337465099903056
+Iteration 1300000. Average jobs: 1.9615384615384615 Time: 0.1336592549996567
+Iteration 1350000. Average jobs: 1.9615384615384615 Time: 0.13277977600228041
+Iteration 1400000. Average jobs: 1.9423076923076923 Time: 0.1330488010062254
+Iteration 1450000. Average jobs: 1.9230769230769231 Time: 0.13276739199500298
+Iteration 1500000. Average jobs: 1.9230769230769231 Time: 0.1333438949950505
+Iteration 1550000. Average jobs: 1.9423076923076923 Time: 0.13306498200108763
+Iteration 1600000. Average jobs: 1.9807692307692308 Time: 0.13305755799956387
+Iteration 1650000. Average jobs: 1.9615384615384615 Time: 0.13316668100014795
+Iteration 1700000. Average jobs: 1.9807692307692308 Time: 0.13193034399591852
+Iteration 1750000. Average jobs: 1.9423076923076923 Time: 0.13287023599696113
+Iteration 1800000. Average jobs: 1.9038461538461537 Time: 0.1320357119984692
+Iteration 1850000. Average jobs: 2.0 Time: 0.13178320799488574
+Iteration 1900000. Average jobs: 1.9807692307692308 Time: 0.13200334000430303
+Iteration 1950000. Average jobs: 2.0 Time: 0.13160618600522866
+Iteration 2000000. Average jobs: 1.9615384615384615 Time: 0.13281017400004202
+Iteration 2050000. Average jobs: 2.0 Time: 0.13291310599743156
+Iteration 2100000. Average jobs: 2.0 Time: 0.13355957799649332
+Iteration 2150000. Average jobs: 2.0 Time: 0.1326911200012546
+Iteration 2200000. Average jobs: 1.9807692307692308 Time: 0.13106852700002491
+Iteration 2250000. Average jobs: 2.0 Time: 0.1330547920006211
+Iteration 2300000. Average jobs: 1.9807692307692308 Time: 0.13235281499510165
+Iteration 2350000. Average jobs: 1.9615384615384615 Time: 0.1331016210024245
+Iteration 2400000. Average jobs: 2.0 Time: 0.13211215499904938
+Iteration 2450000. Average jobs: 2.0 Time: 0.13221955500193872
+Iteration 2500000. Average jobs: 1.9807692307692308 Time: 0.13287175900040893
+Iteration 2550000. Average jobs: 2.0 Time: 0.1326504640019266
+Iteration 2600000. Average jobs: 2.019230769230769 Time: 0.1334328809971339
+Iteration 2650000. Average jobs: 2.019230769230769 Time: 0.13272165699891048
+Iteration 2700000. Average jobs: 1.9615384615384615 Time: 0.13251221500104293
+Iteration 2750000. Average jobs: 2.0 Time: 0.1330852080063778
+Iteration 2800000. Average jobs: 1.9807692307692308 Time: 0.13195946800260572
+Iteration 2850000. Average jobs: 2.0 Time: 0.1326524380056071
+Iteration 2900000. Average jobs: 2.019230769230769 Time: 0.13240051600587321
+Iteration 2950000. Average jobs: 2.0 Time: 0.1329679490008857
+Iteration 3000000. Average jobs: 1.9807692307692308 Time: 0.1332487360050436
+Trial 9 wall time: 100.74105 min
+Trial 9 logged to sweep CSV: /home/alesage/arno_data/CourseRecSys_CLIRS/Results/JCRec/steps_3000000/data_42/courses_100/k_2/sweeps/jcrec_ppo_data42.csv
+Raw eval JSON: /home/alesage/arno_data/CourseRecSys_CLIRS/Results/JCRec/steps_3000000/data_42/courses_100/k_2/raw/jcrec_ppo_data42_rl51_k2_eval.json
+Raw training log: /home/alesage/arno_data/CourseRecSys_CLIRS/Results/JCRec/steps_3000000/data_42/courses_100/k_2/raw/jcrec_ppo_data42_rl51_k2_training.txt
+
+--- Trial 11/12 (trial_id=10, rl_seed=52) ---
+Iteration 50000. Average jobs: 1.3653846153846154 Time: 0.1330243350021192
+Iteration 100000. Average jobs: 1.6730769230769231 Time: 0.13401371899817605
+Iteration 150000. Average jobs: 1.7692307692307692 Time: 0.13285288400220452
+Iteration 200000. Average jobs: 1.75 Time: 0.13417237699468387
+Iteration 250000. Average jobs: 1.75 Time: 0.132642680000572
+Iteration 300000. Average jobs: 1.75 Time: 0.1332469030021457
+Iteration 350000. Average jobs: 1.7692307692307692 Time: 0.1332162549952045
+Iteration 400000. Average jobs: 1.7692307692307692 Time: 0.13337571299780393
+Iteration 450000. Average jobs: 1.7692307692307692 Time: 0.13395771500654519
+Iteration 500000. Average jobs: 1.7692307692307692 Time: 0.13305138499708846
+Iteration 550000. Average jobs: 1.75 Time: 0.133654867997393
+Iteration 600000. Average jobs: 1.75 Time: 0.13326556800166145
+Iteration 650000. Average jobs: 1.75 Time: 0.13299834699864732
+Iteration 700000. Average jobs: 1.75 Time: 0.1330386709960294
+Iteration 750000. Average jobs: 1.7692307692307692 Time: 0.13231145899771946
+Iteration 800000. Average jobs: 1.9423076923076923 Time: 0.1333351879948168
+Iteration 850000. Average jobs: 1.9038461538461537 Time: 0.13280452199978754
+Iteration 900000. Average jobs: 2.0 Time: 0.13283848699938972
+Iteration 950000. Average jobs: 2.0 Time: 0.13342056799592683
+Iteration 1000000. Average jobs: 1.9807692307692308 Time: 0.132150344994443
+Iteration 1050000. Average jobs: 2.0 Time: 0.1331279709993396
+Iteration 1100000. Average jobs: 1.9615384615384615 Time: 0.13278413599618943
+Iteration 1150000. Average jobs: 1.9615384615384615 Time: 0.13309245299751638
+Iteration 1200000. Average jobs: 1.9615384615384615 Time: 0.13431306099664653
+Iteration 1250000. Average jobs: 1.9423076923076923 Time: 0.13387525199505035
+Iteration 1300000. Average jobs: 1.9807692307692308 Time: 0.13370089400268625
+Iteration 1350000. Average jobs: 2.076923076923077 Time: 0.13348963899625232
+Iteration 1400000. Average jobs: 2.0 Time: 0.13438203199621057
+Iteration 1450000. Average jobs: 2.019230769230769 Time: 0.13316466900141677
+Iteration 1500000. Average jobs: 2.0 Time: 0.13296813900524285
+Iteration 1550000. Average jobs: 2.0 Time: 0.13407720100076403
+Iteration 1600000. Average jobs: 2.019230769230769 Time: 0.1335529560019495
+Iteration 1650000. Average jobs: 2.0576923076923075 Time: 0.13364644200191833
+Iteration 1700000. Average jobs: 2.019230769230769 Time: 0.13307649300259072
+Iteration 1750000. Average jobs: 2.019230769230769 Time: 0.13308087099721888
+Iteration 1800000. Average jobs: 2.0 Time: 0.13318119900213787
+Iteration 1850000. Average jobs: 2.019230769230769 Time: 0.1321466800000053
+Iteration 1900000. Average jobs: 2.0 Time: 0.13326036700163968
+Iteration 1950000. Average jobs: 2.0 Time: 0.13173146000190172
+Iteration 2000000. Average jobs: 2.0 Time: 0.13322437000169884
+Iteration 2050000. Average jobs: 2.0 Time: 0.1331677749985829
+Iteration 2100000. Average jobs: 2.0 Time: 0.13275250600418076
+Iteration 2150000. Average jobs: 2.0 Time: 0.13370534100249643
+Iteration 2200000. Average jobs: 1.9615384615384615 Time: 0.13187856700096745
+Iteration 2250000. Average jobs: 1.9615384615384615 Time: 0.13293077900016215
+Iteration 2300000. Average jobs: 2.0 Time: 0.13316242200380657
+Iteration 2350000. Average jobs: 2.0 Time: 0.13345174599817256
+Iteration 2400000. Average jobs: 2.019230769230769 Time: 0.1336948040043353
+Iteration 2450000. Average jobs: 2.0 Time: 0.132401287999528
+Iteration 2500000. Average jobs: 1.9807692307692308 Time: 0.1326960680016782
+Iteration 2550000. Average jobs: 2.0 Time: 0.13241706500411965
+Iteration 2600000. Average jobs: 1.9807692307692308 Time: 0.13228675199206918
+Iteration 2650000. Average jobs: 2.019230769230769 Time: 0.13357873501081485
+Iteration 2700000. Average jobs: 2.0 Time: 0.1324826589989243
+Iteration 2750000. Average jobs: 2.019230769230769 Time: 0.13240019501245115
+Iteration 2800000. Average jobs: 2.019230769230769 Time: 0.13257513400458265
+Iteration 2850000. Average jobs: 2.019230769230769 Time: 0.13301504599803593
+Iteration 2900000. Average jobs: 2.0 Time: 0.1327883030025987
+Iteration 2950000. Average jobs: 1.9807692307692308 Time: 0.13304061599774286
+Iteration 3000000. Average jobs: 2.019230769230769 Time: 0.1335235019942047
+Trial 10 wall time: 100.73092 min
+Trial 10 logged to sweep CSV: /home/alesage/arno_data/CourseRecSys_CLIRS/Results/JCRec/steps_3000000/data_42/courses_100/k_2/sweeps/jcrec_ppo_data42.csv
+Raw eval JSON: /home/alesage/arno_data/CourseRecSys_CLIRS/Results/JCRec/steps_3000000/data_42/courses_100/k_2/raw/jcrec_ppo_data42_rl52_k2_eval.json
+Raw training log: /home/alesage/arno_data/CourseRecSys_CLIRS/Results/JCRec/steps_3000000/data_42/courses_100/k_2/raw/jcrec_ppo_data42_rl52_k2_training.txt
+
+--- Trial 12/12 (trial_id=11, rl_seed=53) ---
+Iteration 50000. Average jobs: 1.3846153846153846 Time: 0.13332815399917308
+Iteration 100000. Average jobs: 1.7692307692307692 Time: 0.13252249399374705
+Iteration 150000. Average jobs: 1.75 Time: 0.1328886919945944
+Iteration 200000. Average jobs: 1.7307692307692308 Time: 0.133744555991143
+Iteration 250000. Average jobs: 1.7692307692307692 Time: 0.13297252700431272
+Iteration 300000. Average jobs: 1.7307692307692308 Time: 0.13327215999015607
+Iteration 350000. Average jobs: 1.7692307692307692 Time: 0.13336554600391537
+Iteration 400000. Average jobs: 1.7307692307692308 Time: 0.13322213500214275
+Iteration 450000. Average jobs: 1.7307692307692308 Time: 0.1334539099916583
+Iteration 500000. Average jobs: 1.7692307692307692 Time: 0.1326106000051368
+Iteration 550000. Average jobs: 1.8076923076923077 Time: 0.13268371700542048
+Iteration 600000. Average jobs: 1.8076923076923077 Time: 0.1335430280014407
+Iteration 650000. Average jobs: 1.8076923076923077 Time: 0.1326993350085104
+Iteration 700000. Average jobs: 1.8076923076923077 Time: 0.13295319100143388
+Iteration 750000. Average jobs: 1.8269230769230769 Time: 0.13170445000287145
+Iteration 800000. Average jobs: 1.8269230769230769 Time: 0.1323501400038367
+Iteration 850000. Average jobs: 1.8269230769230769 Time: 0.13142462499672547
+Iteration 900000. Average jobs: 1.8076923076923077 Time: 0.13251353699888568
+Iteration 950000. Average jobs: 1.8076923076923077 Time: 0.13250015200173948
+Iteration 1000000. Average jobs: 1.8269230769230769 Time: 0.1325086880096933
+Iteration 1050000. Average jobs: 1.8269230769230769 Time: 0.13302886301244143
+Iteration 1100000. Average jobs: 1.8269230769230769 Time: 0.13242490199627355
+Iteration 1150000. Average jobs: 1.8076923076923077 Time: 0.13290048298949841
+Iteration 1200000. Average jobs: 1.8076923076923077 Time: 0.132308122003451
+Iteration 1250000. Average jobs: 1.8269230769230769 Time: 0.13284969799860846
+Iteration 1300000. Average jobs: 1.8269230769230769 Time: 0.13369897000666242
+Iteration 1350000. Average jobs: 1.8269230769230769 Time: 0.13262782999663614
+Iteration 1400000. Average jobs: 1.8269230769230769 Time: 0.13393988099414855
+Iteration 1450000. Average jobs: 1.8269230769230769 Time: 0.13311753900779877
+Iteration 1500000. Average jobs: 1.8269230769230769 Time: 0.13377973099704832
+Iteration 1550000. Average jobs: 1.8269230769230769 Time: 0.1341120949946344
+Iteration 1600000. Average jobs: 1.8269230769230769 Time: 0.1334324019990163
+Iteration 1650000. Average jobs: 1.8076923076923077 Time: 0.1338498450058978
+Iteration 1700000. Average jobs: 1.8269230769230769 Time: 0.13311108700872865
+Iteration 1750000. Average jobs: 1.8269230769230769 Time: 0.13350969400198665
+Iteration 1800000. Average jobs: 1.8076923076923077 Time: 0.13464599700819235
+Iteration 1850000. Average jobs: 1.8076923076923077 Time: 0.13339794699277263
+Iteration 1900000. Average jobs: 1.8076923076923077 Time: 0.13235552099649794
+Iteration 1950000. Average jobs: 1.8076923076923077 Time: 0.13218361699546222
+Iteration 2000000. Average jobs: 1.8269230769230769 Time: 0.1338286730024265
+Iteration 2050000. Average jobs: 1.8269230769230769 Time: 0.13268152200907934
+Iteration 2100000. Average jobs: 1.8269230769230769 Time: 0.13379903600434773
+Iteration 2150000. Average jobs: 1.8269230769230769 Time: 0.13407824200112373
+Iteration 2200000. Average jobs: 1.8076923076923077 Time: 0.13334041798952967
+Iteration 2250000. Average jobs: 1.7884615384615385 Time: 0.13454356299189385
+Iteration 2300000. Average jobs: 1.8076923076923077 Time: 0.13299224300135393
+Iteration 2350000. Average jobs: 1.8461538461538463 Time: 0.13276147299620789
+Iteration 2400000. Average jobs: 1.8461538461538463 Time: 0.13377694599330425
+Iteration 2450000. Average jobs: 1.8461538461538463 Time: 0.13244490999204572
+Iteration 2500000. Average jobs: 1.8076923076923077 Time: 0.13297683600103483
+Iteration 2550000. Average jobs: 1.8461538461538463 Time: 0.13313491198641714
+Iteration 2600000. Average jobs: 1.8461538461538463 Time: 0.1333346769970376
+Iteration 2650000. Average jobs: 1.7884615384615385 Time: 0.13347069299197756
+Iteration 2700000. Average jobs: 1.8269230769230769 Time: 0.13270460700732656
+Iteration 2750000. Average jobs: 1.8269230769230769 Time: 0.13352059699536767
+Iteration 2800000. Average jobs: 1.8076923076923077 Time: 0.13275749600143172
+Iteration 2850000. Average jobs: 1.8461538461538463 Time: 0.13364504001219757
+Iteration 2900000. Average jobs: 1.8461538461538463 Time: 0.1331805789959617
+Iteration 2950000. Average jobs: 1.8461538461538463 Time: 0.13282663399877492
+Iteration 3000000. Average jobs: 1.8461538461538463 Time: 0.13365449800039642
+Trial 11 wall time: 101.18402 min
+Trial 11 logged to sweep CSV: /home/alesage/arno_data/CourseRecSys_CLIRS/Results/JCRec/steps_3000000/data_42/courses_100/k_2/sweeps/jcrec_ppo_data42.csv
+Raw eval JSON: /home/alesage/arno_data/CourseRecSys_CLIRS/Results/JCRec/steps_3000000/data_42/courses_100/k_2/raw/jcrec_ppo_data42_rl53_k2_eval.json
+Raw training log: /home/alesage/arno_data/CourseRecSys_CLIRS/Results/JCRec/steps_3000000/data_42/courses_100/k_2/raw/jcrec_ppo_data42_rl53_k2_training.txt
+
+--- Sweep summary ---
+Trials in CSV: 12/12
+  end mean: 1.947115 95% CI [1.870192, 2.022436]
+  end median: 1.980769 95% CI [1.807692, 2.057692]
+  life mean: 1.951923 95% CI [1.873397, 2.028846]
+  life median: 1.990385 95% CI [1.807692, 2.067308]
+
+--- Trial metrics (long) ---
+Methods: 2 — ['jcrec_dqn', 'jcrec_ppo']
+Bootstrap summary: /home/alesage/arno_data/CourseRecSys_CLIRS/Results/JCRec/steps_3000000/data_42/courses_100/k_2/reports/bootstrap_end_mean.csv
+Bootstrap summary: /home/alesage/arno_data/CourseRecSys_CLIRS/Results/JCRec/steps_3000000/data_42/courses_100/k_2/reports/bootstrap_end_median.csv
+Bootstrap summary: /home/alesage/arno_data/CourseRecSys_CLIRS/Results/JCRec/steps_3000000/data_42/courses_100/k_2/reports/bootstrap_life_mean.csv
+Bootstrap summary: /home/alesage/arno_data/CourseRecSys_CLIRS/Results/JCRec/steps_3000000/data_42/courses_100/k_2/reports/bootstrap_life_median.csv
+Performance analysis: /home/alesage/arno_data/CourseRecSys_CLIRS/Results/JCRec/steps_3000000/data_42/courses_100/k_2/reports/performance_analysis.json
+Trial metrics: /home/alesage/arno_data/CourseRecSys_CLIRS/Results/JCRec/steps_3000000/data_42/courses_100/k_2/reports/trial_metrics_long.csv
+
+Done. Results under: /home/alesage/arno_data/CourseRecSys_CLIRS/Results/JCRec/steps_3000000/data_42/courses_100/k_2
+Orchestration: ['jcrec']
+
+========== Pipeline 1/1: jcrec ==========
+
+Orchestration complete.
