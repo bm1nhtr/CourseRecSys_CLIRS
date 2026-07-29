@@ -1,0 +1,20 @@
+{
+    "trial_id": 0,
+    "data_seed": 42,
+    "rl_seed": 42,
+    "method": "jcrec_fair_ppo",
+    "algorithm": "ppo",
+    "pipeline": "jcrec_fair",
+    "evaluation_split": "test",
+    "training_episodes_from": "train_split_cv",
+    "learner_split": {
+        "holdout": true,
+        "train_size": 36,
+        "test_size": 16
+    },
+    "original_applicable_jobs": 0.0625,
+    "avg_recommendation_time": 0.0028477335000047788,
+    "end": 2.625,
+    "life": 5.444444444444445,
+    "trial_wall_minutes": 94.43853
+}
