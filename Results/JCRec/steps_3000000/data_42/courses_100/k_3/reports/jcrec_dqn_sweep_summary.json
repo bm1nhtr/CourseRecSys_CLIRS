@@ -1,0 +1,57 @@
+{
+  "csv_path": "/home/alesage/arno_data/CourseRecSys_CLIRS/Results/JCRec/steps_3000000/data_42/courses_100/k_3/sweeps/jcrec_dqn_data42.csv",
+  "expected_trials": 12,
+  "completed_trials": 12,
+  "trial_ids": [
+    0,
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7,
+    8,
+    9,
+    10,
+    11
+  ],
+  "missing_trial_ids": [],
+  "metrics": {
+    "end": {
+      "mean": {
+        "mean": 3.4615384615384617,
+        "ci_low": 3.1330128205128207,
+        "ci_high": 3.748397435897436,
+        "std": 0.5589869227218756,
+        "n": 12
+      },
+      "median": {
+        "median": 3.576923076923077,
+        "ci_low": 3.2596153846153846,
+        "ci_high": 3.9134615384615383,
+        "std": 0.5589869227218756,
+        "n": 12
+      }
+    },
+    "life": {
+      "mean": {
+        "mean": 3.4615384615384617,
+        "ci_low": 3.129807692307693,
+        "ci_high": 3.7499999999999996,
+        "std": 0.5629424922641365,
+        "n": 12
+      },
+      "median": {
+        "median": 3.5865384615384617,
+        "ci_low": 3.2596153846153846,
+        "ci_high": 3.9134615384615383,
+        "std": 0.5629424922641365,
+        "n": 12
+      }
+    }
+  },
+  "method": "jcrec_dqn",
+  "data_seed": 42,
+  "rl_seed_base": 42
+}

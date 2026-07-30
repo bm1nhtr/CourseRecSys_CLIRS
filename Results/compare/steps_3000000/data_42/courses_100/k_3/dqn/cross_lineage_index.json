@@ -1,0 +1,20 @@
+{
+  "compare_cell": "/home/alesage/arno_data/CourseRecSys_CLIRS/Results/compare/steps_3000000/data_42/courses_100/k_3/dqn",
+  "algorithm": "dqn",
+  "pairs": {
+    "clirs_vs_jcrec_fair": {
+      "compare_dir": "/home/alesage/arno_data/CourseRecSys_CLIRS/Results/compare/steps_3000000/data_42/courses_100/k_3/dqn/clirs_vs_jcrec_fair",
+      "method_a": "clirs_dqn",
+      "method_b": "jcrec_fair_dqn",
+      "report_md": "/home/alesage/arno_data/CourseRecSys_CLIRS/Results/compare/steps_3000000/data_42/courses_100/k_3/dqn/clirs_vs_jcrec_fair/report.md",
+      "pairwise_comparison_csv": "/home/alesage/arno_data/CourseRecSys_CLIRS/Results/compare/steps_3000000/data_42/courses_100/k_3/dqn/clirs_vs_jcrec_fair/pairwise_comparison.csv"
+    },
+    "clirs_vs_jcrec_author": {
+      "compare_dir": "/home/alesage/arno_data/CourseRecSys_CLIRS/Results/compare/steps_3000000/data_42/courses_100/k_3/dqn/clirs_vs_jcrec_author",
+      "method_a": "clirs_dqn",
+      "method_b": "jcrec_dqn",
+      "report_md": "/home/alesage/arno_data/CourseRecSys_CLIRS/Results/compare/steps_3000000/data_42/courses_100/k_3/dqn/clirs_vs_jcrec_author/report.md",
+      "pairwise_comparison_csv": "/home/alesage/arno_data/CourseRecSys_CLIRS/Results/compare/steps_3000000/data_42/courses_100/k_3/dqn/clirs_vs_jcrec_author/pairwise_comparison.csv"
+    }
+  }
+}
