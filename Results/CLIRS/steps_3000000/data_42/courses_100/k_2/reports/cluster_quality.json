@@ -1,0 +1,107 @@
+{
+  "n_clusters": 8,
+  "silhouette": 0.3583372454348027,
+  "davies_bouldin": 0.9766654510378577,
+  "inertia": 119.34047055963427,
+  "cluster_sizes": {
+    "0": 17,
+    "1": 16,
+    "2": 20,
+    "3": 11,
+    "4": 11,
+    "5": 9,
+    "6": 6,
+    "7": 10
+  },
+  "size_balance_ratio": 0.3,
+  "per_cluster": [
+    {
+      "id": 0,
+      "n": 17,
+      "mean_features": {
+        "Coverage": 0.017689684569479967,
+        "Required Entropy": 0.058823529396093865,
+        "Provided Entropy": 1.953677933708157,
+        "Avg Level Gap": 1.0,
+        "Max Level Gap": 1.0
+      }
+    },
+    {
+      "id": 1,
+      "n": 16,
+      "mean_features": {
+        "Coverage": 0.035099637681159424,
+        "Required Entropy": 0.4897869791022267,
+        "Provided Entropy": 2.5290541936047335,
+        "Avg Level Gap": 1.2987599206349207,
+        "Max Level Gap": 2.0
+      }
+    },
+    {
+      "id": 2,
+      "n": 20,
+      "mean_features": {
+        "Coverage": 0.029891304347826088,
+        "Required Entropy": 0.19446232135216893,
+        "Provided Entropy": 1.750768355925127,
+        "Avg Level Gap": 1.815,
+        "Max Level Gap": 2.1
+      }
+    },
+    {
+      "id": 3,
+      "n": 11,
+      "mean_features": {
+        "Coverage": 0.06291172595520422,
+        "Required Entropy": 0.6140806818440613,
+        "Provided Entropy": 2.798508810998227,
+        "Avg Level Gap": 1.877932688226806,
+        "Max Level Gap": 2.272727272727273
+      }
+    },
+    {
+      "id": 4,
+      "n": 11,
+      "mean_features": {
+        "Coverage": 0.05270092226613965,
+        "Required Entropy": 1.8799247258187746,
+        "Provided Entropy": 2.1994280318865287,
+        "Avg Level Gap": 1.5268398268398267,
+        "Max Level Gap": 2.1818181818181817
+      }
+    },
+    {
+      "id": 5,
+      "n": 9,
+      "mean_features": {
+        "Coverage": 0.013285024154589372,
+        "Required Entropy": 0.943539232657381,
+        "Provided Entropy": 0.4444444443100126,
+        "Avg Level Gap": 1.0,
+        "Max Level Gap": 1.0
+      }
+    },
+    {
+      "id": 6,
+      "n": 6,
+      "mean_features": {
+        "Coverage": 0.013285024154589374,
+        "Required Entropy": -4.808983867166281e-11,
+        "Provided Entropy": 0.3197159722389707,
+        "Avg Level Gap": 1.5555555555555556,
+        "Max Level Gap": 2.0
+      }
+    },
+    {
+      "id": 7,
+      "n": 10,
+      "mean_features": {
+        "Coverage": 0.024637681159420288,
+        "Required Entropy": 1.225488749880076,
+        "Provided Entropy": 1.0506516666542314,
+        "Avg Level Gap": 1.4316666666666669,
+        "Max Level Gap": 2.0
+      }
+    }
+  ]
+}

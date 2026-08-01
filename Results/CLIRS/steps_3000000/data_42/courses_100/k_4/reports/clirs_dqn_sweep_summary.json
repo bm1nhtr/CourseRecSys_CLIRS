@@ -1,0 +1,57 @@
+{
+  "csv_path": "C:\\Users\\Prof\\Desktop\\TRAN\\CourseRecSys_CLIRS\\Results\\CLIRS\\steps_3000000\\data_42\\courses_100\\k_4\\sweeps\\clirs_dqn_data42.csv",
+  "expected_trials": 12,
+  "completed_trials": 12,
+  "trial_ids": [
+    0,
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7,
+    8,
+    9,
+    10,
+    11
+  ],
+  "missing_trial_ids": [],
+  "metrics": {
+    "end": {
+      "mean": {
+        "mean": 2.7552083333333335,
+        "ci_low": 2.4427083333333335,
+        "ci_high": 3.0572916666666665,
+        "std": 0.5724860640754551,
+        "n": 12
+      },
+      "median": {
+        "median": 2.84375,
+        "ci_low": 2.375,
+        "ci_high": 3.0,
+        "std": 0.5724860640754551,
+        "n": 12
+      }
+    },
+    "life": {
+      "mean": {
+        "mean": 6.907407407407408,
+        "ci_low": 6.745370370370371,
+        "ci_high": 7.074074074074075,
+        "std": 0.31007523555132116,
+        "n": 12
+      },
+      "median": {
+        "median": 6.833333333333333,
+        "ci_low": 6.666666666666666,
+        "ci_high": 7.194444444444445,
+        "std": 0.31007523555132116,
+        "n": 12
+      }
+    }
+  },
+  "method": "clirs_dqn",
+  "data_seed": 42,
+  "rl_seed_base": 42
+}

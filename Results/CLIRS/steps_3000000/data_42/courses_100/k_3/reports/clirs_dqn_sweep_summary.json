@@ -1,0 +1,57 @@
+{
+  "csv_path": "/home/alesage/arno_data/CourseRecSys_CLIRS/Results/CLIRS/steps_3000000/data_42/courses_100/k_3/sweeps/clirs_dqn_data42.csv",
+  "expected_trials": 12,
+  "completed_trials": 12,
+  "trial_ids": [
+    0,
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7,
+    8,
+    9,
+    10,
+    11
+  ],
+  "missing_trial_ids": [],
+  "metrics": {
+    "end": {
+      "mean": {
+        "mean": 2.1458333333333335,
+        "ci_low": 1.9583333333333333,
+        "ci_high": 2.333463541666665,
+        "std": 0.3588702812826367,
+        "n": 12
+      },
+      "median": {
+        "median": 2.21875,
+        "ci_low": 1.90625,
+        "ci_high": 2.40625,
+        "std": 0.3588702812826367,
+        "n": 12
+      }
+    },
+    "life": {
+      "mean": {
+        "mean": 4.743055555555556,
+        "ci_low": 4.613425925925926,
+        "ci_high": 4.854166666666667,
+        "std": 0.22446000796124424,
+        "n": 12
+      },
+      "median": {
+        "median": 4.819444444444445,
+        "ci_low": 4.611111111111111,
+        "ci_high": 4.902777777777778,
+        "std": 0.22446000796124424,
+        "n": 12
+      }
+    }
+  },
+  "method": "clirs_dqn",
+  "data_seed": 42,
+  "rl_seed_base": 42
+}
