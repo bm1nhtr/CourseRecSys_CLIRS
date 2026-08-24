@@ -9,7 +9,7 @@
     "results_lineage": "CLIRS",
     "jcrec_fair_results_lineage": "JCRecFair",
     "jcrec_results_lineage": "JCRec",
-    "nb_runs": 6
+    "nb_runs": 12
   },
   "orchestration": {
     "_note": "pipelines/run_pipeline.py runs these in order. jcrec_fair = primary baseline (test split); jcrec = author reproduction.",
