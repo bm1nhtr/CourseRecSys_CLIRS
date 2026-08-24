@@ -14,7 +14,9 @@
   "orchestration": {
     "_note": "pipelines/run_pipeline.py runs these in order. jcrec_fair = primary baseline (test split); jcrec = author reproduction.",
     "pipelines": [
-      "clirs"
+      "clirs",
+      "jcrec_fair",
+      "jcrec"
     ]
   },
   "seeds": {
@@ -40,13 +42,13 @@
   },
   "model": {
     "algorithm": "dqn",
-    "total_steps": 3000000,
-    "eval_freq": 50000,
+    "total_steps": 50000,
+    "eval_freq": 5000,
     "_note": "algorithm: shared by CLIRS + JCRec (dqn | ppo)"
   },
   "environment": {
     "threshold": 0.8,
-    "k": 3
+    "k": 4
   },
   "clustering": {
     "use_clustering": true,
@@ -73,14 +75,14 @@
   },
   "runtime": {
     "_note": "Host runtime settings (n_workers drives parallel trial fan-out). Update with: poetry run python Utils/probe_runtime.py --Config Config/run.json --write",
-    "n_workers": 1,
+    "n_workers": 3,
     "detected": {
-      "n_cpu": 2,
+      "n_cpu": 20,
       "n_gpu": 0,
       "gpu_names": [],
-      "free_ram_gb": 44,
-      "total_ram_gb": 44,
-      "os": "Linux"
+      "free_ram_gb": 8.71,
+      "total_ram_gb": 31.71,
+      "os": "Windows"
     }
   }
 }

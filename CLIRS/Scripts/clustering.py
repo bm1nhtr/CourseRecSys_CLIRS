@@ -14,9 +14,12 @@ The clustering is based on five key features for each course:
 
 Reward shaping (CLIRS): compare each course base reward against the persistent
 adjusted reference R'_adjusted,ref (the last bonused adjusted reward in the sequence).
-1. First recommendation C_1: fixed bonus (first_recommendation multiplier)
-2. Later steps: if R_base > R'_adjusted,ref, apply progress_increase and update the ref
-3. Otherwise: no_improvement multiplier; ref unchanged
+1. First recommendation C_1: fixed bonus (first_recommendation multiplier); sets initial ref and prev_cluster.
+2. Later steps when R_base > R'_adjusted,ref:
+   - same cluster as previous recommendation → same_cluster_increase multiplier
+   - different cluster from previous recommendation → diff_cluster_increase multiplier
+   - ref updated to adjusted reward; prev_cluster updated to current cluster.
+3. Otherwise: no_improvement multiplier; ref and prev_cluster unchanged.
    
 
 
@@ -96,14 +99,14 @@ class CourseClusterer:
         self.selection_report = None
         self.quality_metrics = None
         self.best_reward_so_far = 0.0  # R'_adjusted,ref for the current k-step sequence
+        self.prev_cluster = None       # cluster label of the previous recommendation in the sequence
 
         cfg = config or {}
         # CLIRS keys from Config/run.json clustering.reward_multipliers
         self.reward_multipliers = {
             "first_recommendation": cfg.get("first_recommendation", 1.3),
-            "progress_increase": cfg.get(
-                "progress_increase", cfg.get("diff_cluster_increase", 1.3)
-            ),
+            "same_cluster_increase": cfg.get("same_cluster_increase", 1.1),
+            "diff_cluster_increase": cfg.get("diff_cluster_increase", 1.3),
             "no_improvement": cfg.get("no_improvement", 1.0),
         }
         
@@ -696,33 +699,42 @@ class CourseClusterer:
                 print(f"{feature}: {component[j]:.3f}")
         
     def adjust_reward(self, course_idx, original_reward, prev_reward):
-        """CLIRS persistent adjusted reference reward shaping.
+        """CLIRS cluster-aware persistent adjusted reference reward shaping.
 
         Compares each course base reward (R_base) against R'_adjusted,ref stored in
-        ``best_reward_so_far``. The reference only advances when a bonus is applied.
+        ``best_reward_so_far``. On improvement, the bonus depends on whether the current
+        course belongs to the same cluster as the previous recommendation.
+        The reference only advances when a bonus is applied.
 
         Args:
-            course_idx (int): Index of the current course (unused; kept for API stability)
-            original_reward (float): Base reward (applicable jobs) from the environment
-            prev_reward (float): Adjusted reward from the previous step in the sequence
+            course_idx (int): Index of the current course; used to look up its cluster label.
+            original_reward (float): Base reward (applicable jobs) from the environment.
+            prev_reward (float): Adjusted reward from the previous step in the sequence.
 
         Returns:
-            float: Shaped reward passed to the RL agent
+            float: Shaped reward passed to the RL agent.
         """
         if self.course_clusters is None:
             return original_reward
 
         multipliers = self.reward_multipliers
         first_step = prev_reward is None or prev_reward == 0
+        current_cluster = int(self.course_clusters[course_idx])
 
         if first_step:
             adjusted_reward = original_reward * multipliers["first_recommendation"]
             self.best_reward_so_far = adjusted_reward
+            self.prev_cluster = current_cluster
             return adjusted_reward
 
         if original_reward > self.best_reward_so_far:
-            adjusted_reward = original_reward * multipliers["progress_increase"]
+            if current_cluster == self.prev_cluster:
+                multiplier = multipliers["same_cluster_increase"]
+            else:
+                multiplier = multipliers["diff_cluster_increase"]
+            adjusted_reward = original_reward * multiplier
             self.best_reward_so_far = adjusted_reward
+            self.prev_cluster = current_cluster
             return adjusted_reward
 
-        return original_reward * multipliers["no_improvement"] 
+        return original_reward * multipliers["no_improvement"]

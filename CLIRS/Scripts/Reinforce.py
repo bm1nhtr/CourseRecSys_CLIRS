@@ -59,6 +59,8 @@ class Reinforce:
             eval_freq=self.eval_freq,
             training_log_path=self.training_log_path,
             save_raw=self.save_raw,
+            trial_id=self.run,
+            rl_seed=rl_seed_for_trial(self.config, self.run),
         )
         print(
             f"\nStarting model.learn() on train_env. "

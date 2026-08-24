@@ -2,28 +2,26 @@
   "_meta": {
     "schema_version": 1,
     "description": "Primary experiment configuration for CLIRS. Edit this file; see run.yaml for a flat readable reference.",
-    "status": "active — pipelines/run_pipeline.py loads this file by default",
-    "metrics_note": "Metric definitions (life, end, …) live in Utils/complete_algorithm.py and are copied into Results/.../manifest.json on first trial — not duplicated here."
+    "status": "active \u2014 pipelines/run_pipeline.py loads this file by default",
+    "metrics_note": "Metric definitions (life, end, \u2026) live in Utils/complete_algorithm.py and are copied into Results/.../manifest.json on first trial \u2014 not duplicated here."
   },
-
   "experiment": {
     "results_lineage": "CLIRS",
     "jcrec_fair_results_lineage": "JCRecFair",
     "jcrec_results_lineage": "JCRec",
-    "nb_runs": 12
+    "nb_runs": 6
   },
-
   "orchestration": {
     "_note": "pipelines/run_pipeline.py runs these in order. jcrec_fair = primary baseline (test split); jcrec = author reproduction.",
-    "pipelines": ["clirs"]
+    "pipelines": [
+      "clirs"
+    ]
   },
-
   "seeds": {
     "data": 42,
     "rl_base": 42,
     "_note": "data seed: subsample + split + clustering. rl_seed for trial t = rl_base + t."
   },
-
   "data": {
     "taxonomy_path": "Data/taxonomy.csv",
     "mastery_levels_path": "Data/mastery_levels.json",
@@ -36,24 +34,20 @@
     "nb_jobs": 100,
     "nb_courses": 100
   },
-
   "split": {
     "train_ratio": 0.7,
     "test_ratio": 0.3
   },
-
   "model": {
     "algorithm": "ppo",
     "total_steps": 3000000,
     "eval_freq": 50000,
     "_note": "algorithm: shared by CLIRS + JCRec (dqn | ppo)"
   },
-
   "environment": {
     "threshold": 0.8,
     "k": 3
   },
-
   "clustering": {
     "use_clustering": true,
     "auto_clusters": true,
@@ -62,16 +56,17 @@
     "min_cluster_size": 5,
     "reward_multipliers": {
       "first_recommendation": 1.3,
-      "progress_increase": 1.3,
+      "same_cluster_increase": 1.1,
+      "diff_cluster_increase": 1.3,
       "no_improvement": 1.0,
       "_rules": {
-        "first_recommendation": "C_1 in each k-step sequence; always bonused; sets initial R'_adjusted,ref",
-        "progress_increase": "R_base > R'_adjusted,ref; bonus applied and ref updated",
-        "no_improvement": "R_base <= R'_adjusted,ref; neutral multiplier; ref unchanged"
+        "first_recommendation": "C_1 in each k-step sequence; always bonused; sets initial R'_adjusted,ref and prev_cluster",
+        "same_cluster_increase": "R_base > R'_adjusted,ref AND current cluster == prev cluster; ref and prev_cluster updated",
+        "diff_cluster_increase": "R_base > R'_adjusted,ref AND current cluster != prev cluster; ref and prev_cluster updated",
+        "no_improvement": "R_base <= R'_adjusted,ref; neutral multiplier; ref and prev_cluster unchanged"
       }
     }
   },
-
   "results": {
     "results_path": "Results",
     "save_raw": true

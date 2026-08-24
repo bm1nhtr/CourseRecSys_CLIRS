@@ -299,7 +299,16 @@ class EvaluateCallback(BaseCallback):
         mode (str): File opening mode ('w' for first write, 'a' for append)
     """
     
-    def __init__(self, eval_env, eval_freq, training_log_path, save_raw=True, verbose=1):
+    def __init__(
+        self,
+        eval_env,
+        eval_freq,
+        training_log_path,
+        save_raw=True,
+        verbose=1,
+        trial_id=None,
+        rl_seed=None,
+    ):
         """Initialize the evaluation callback.
 
         Args:
@@ -308,6 +317,8 @@ class EvaluateCallback(BaseCallback):
             training_log_path (str): Absolute path for training monitoring log
             save_raw (bool): Whether to write the training log file
             verbose (int, optional): Verbosity level. Defaults to 1.
+            trial_id (int | None, optional): Trial identifier for clearer logs.
+            rl_seed (int | None, optional): RL seed for clearer logs.
         """
         super(EvaluateCallback, self).__init__(verbose)
         self.eval_env = eval_env
@@ -315,6 +326,8 @@ class EvaluateCallback(BaseCallback):
         self.training_log_path = training_log_path
         self.save_raw = save_raw
         self.mode = "w"
+        self.trial_id = trial_id
+        self.rl_seed = rl_seed
 
     def _on_step(self):
         """Evaluate the model at regular intervals during training.
@@ -356,10 +369,15 @@ class EvaluateCallback(BaseCallback):
             n_monitor = len(monitor_indices)
             mean_jobs = avg_jobs / n_monitor if n_monitor else 0.0
 
+            trial_tag = (
+                f"[trial_id={self.trial_id}, rl_seed={self.rl_seed}] "
+                if self.trial_id is not None and self.rl_seed is not None
+                else ""
+            )
             print(
-                f"Iteration {self.n_calls} — monitoring only (no weight updates). "
-                f"Train-split avg jobs: {mean_jobs} (n={n_monitor}) "
-                f"Time: {time_end - time_start}"
+                f"{trial_tag}Iteration {self.n_calls} — monitoring only "
+                f"(no weight updates). Train-split avg jobs: {mean_jobs} "
+                f"(n={n_monitor}) Time: {time_end - time_start}"
             )
 
             if self.save_raw:
