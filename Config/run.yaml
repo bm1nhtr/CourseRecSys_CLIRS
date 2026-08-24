@@ -62,11 +62,12 @@ min_cluster_size: 5                                                  # FIX - do 
 # Reward multipliers (run.json → clustering.reward_multipliers)
 clustering:
   first_recommendation: 1.3                                          # FIX - do not change
-  progress_increase: 1.3                                             # FIX - do not change
+  same_cluster_increase: 1.1                                         # FIX - do not change
+  diff_cluster_increase: 1.3                                         # FIX - do not change
   no_improvement: 1.0                                                # FIX - do not change
 
 # --- results (run.json → results) ---
-results_path: Results                                                # FIX - do not change
+results_path: Results_copy                                                # FIX - do not change
 save_raw: true                                                       # FIX - do not change
 
 # --- runtime (run.json → runtime) ---

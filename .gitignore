@@ -55,11 +55,11 @@ UIR/
 CLIRS/results/
 results/
 logs/
-backups/
 eda/
 AUDIT_REPORT.md
 PROJECT_SUMMARY.md
 SKILLS.md
+EvaluationOfRLAlgs/
 
 # --- Misc project clutter ---
 trash*
