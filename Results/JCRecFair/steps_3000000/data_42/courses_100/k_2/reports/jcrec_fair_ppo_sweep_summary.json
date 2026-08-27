@@ -1,0 +1,57 @@
+{
+  "csv_path": "/home/alesage/arno_data/CourseRecSys_CLIRS/Results/JCRecFair/steps_3000000/data_42/courses_100/k_2/sweeps/jcrec_fair_ppo_data42.csv",
+  "expected_trials": 12,
+  "completed_trials": 12,
+  "trial_ids": [
+    0,
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7,
+    8,
+    9,
+    10,
+    11
+  ],
+  "missing_trial_ids": [],
+  "metrics": {
+    "end": {
+      "mean": {
+        "mean": 1.0416666666666667,
+        "ci_low": 0.953125,
+        "ci_high": 1.125,
+        "std": 0.160639111807879,
+        "n": 12
+      },
+      "median": {
+        "median": 1.09375,
+        "ci_low": 0.9375,
+        "ci_high": 1.125,
+        "std": 0.160639111807879,
+        "n": 12
+      }
+    },
+    "life": {
+      "mean": {
+        "mean": 2.613425925925926,
+        "ci_low": 2.564814814814815,
+        "ci_high": 2.652777777777778,
+        "std": 0.08073241933456735,
+        "n": 12
+      },
+      "median": {
+        "median": 2.6527777777777777,
+        "ci_low": 2.5694444444444446,
+        "ci_high": 2.6666666666666665,
+        "std": 0.08073241933456735,
+        "n": 12
+      }
+    }
+  },
+  "method": "jcrec_fair_ppo",
+  "data_seed": 42,
+  "rl_seed_base": 42
+}

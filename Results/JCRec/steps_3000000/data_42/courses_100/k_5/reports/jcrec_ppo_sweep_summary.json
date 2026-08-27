@@ -1,0 +1,57 @@
+{
+  "csv_path": "C:\\Users\\Prof\\Desktop\\TRAN\\CourseRecSys_CLIRS\\Results\\JCRec\\steps_3000000\\data_42\\courses_100\\k_5\\sweeps\\jcrec_ppo_data42.csv",
+  "expected_trials": 12,
+  "completed_trials": 12,
+  "trial_ids": [
+    0,
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7,
+    8,
+    9,
+    10,
+    11
+  ],
+  "missing_trial_ids": [],
+  "metrics": {
+    "end": {
+      "mean": {
+        "mean": 11.456730769230772,
+        "ci_low": 11.019230769230772,
+        "ci_high": 11.852564102564104,
+        "std": 0.7640175178731163,
+        "n": 12
+      },
+      "median": {
+        "median": 11.701923076923078,
+        "ci_low": 10.855769230769234,
+        "ci_high": 12.096153846153847,
+        "std": 0.7640175178731163,
+        "n": 12
+      }
+    },
+    "life": {
+      "mean": {
+        "mean": 11.427884615384615,
+        "ci_low": 10.993589743589745,
+        "ci_high": 11.826923076923075,
+        "std": 0.7638854928989228,
+        "n": 12
+      },
+      "median": {
+        "median": 11.596153846153848,
+        "ci_low": 10.855769230769234,
+        "ci_high": 12.096153846153847,
+        "std": 0.7638854928989228,
+        "n": 12
+      }
+    }
+  },
+  "method": "jcrec_ppo",
+  "data_seed": 42,
+  "rl_seed_base": 42
+}

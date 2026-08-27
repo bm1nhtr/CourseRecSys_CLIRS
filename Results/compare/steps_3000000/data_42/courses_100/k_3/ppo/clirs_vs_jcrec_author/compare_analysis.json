@@ -1,0 +1,128 @@
+{
+  "algorithm": "ppo",
+  "method_a": "clirs_ppo",
+  "method_b": "jcrec_ppo",
+  "baseline_pipeline": "jcrec",
+  "compare_dir": "C:\\Users\\Prof\\Desktop\\TRAN\\CourseRecSys_CLIRS\\Results\\compare\\steps_3000000\\data_42\\courses_100\\k_3\\ppo\\clirs_vs_jcrec_author",
+  "compare_trial_metrics_csv": "C:\\Users\\Prof\\Desktop\\TRAN\\CourseRecSys_CLIRS\\Results\\compare\\steps_3000000\\data_42\\courses_100\\k_3\\ppo\\clirs_vs_jcrec_author\\compare_trial_metrics.csv",
+  "pairwise_comparison_csv": "C:\\Users\\Prof\\Desktop\\TRAN\\CourseRecSys_CLIRS\\Results\\compare\\steps_3000000\\data_42\\courses_100\\k_3\\ppo\\clirs_vs_jcrec_author\\pairwise_comparison.csv",
+  "bootstrap_aggregates": {
+    "end_mean": "C:\\Users\\Prof\\Desktop\\TRAN\\CourseRecSys_CLIRS\\Results\\compare\\steps_3000000\\data_42\\courses_100\\k_3\\ppo\\clirs_vs_jcrec_author\\bootstrap_end_mean.csv",
+    "end_median": "C:\\Users\\Prof\\Desktop\\TRAN\\CourseRecSys_CLIRS\\Results\\compare\\steps_3000000\\data_42\\courses_100\\k_3\\ppo\\clirs_vs_jcrec_author\\bootstrap_end_median.csv",
+    "life_mean": "C:\\Users\\Prof\\Desktop\\TRAN\\CourseRecSys_CLIRS\\Results\\compare\\steps_3000000\\data_42\\courses_100\\k_3\\ppo\\clirs_vs_jcrec_author\\bootstrap_life_mean.csv",
+    "life_median": "C:\\Users\\Prof\\Desktop\\TRAN\\CourseRecSys_CLIRS\\Results\\compare\\steps_3000000\\data_42\\courses_100\\k_3\\ppo\\clirs_vs_jcrec_author\\bootstrap_life_median.csv"
+  },
+  "plots": {
+    "end": "C:\\Users\\Prof\\Desktop\\TRAN\\CourseRecSys_CLIRS\\Results\\compare\\steps_3000000\\data_42\\courses_100\\k_3\\ppo\\clirs_vs_jcrec_author\\plots\\ecdf_end_clirs_ppo_vs_jcrec_ppo.png",
+    "life": "C:\\Users\\Prof\\Desktop\\TRAN\\CourseRecSys_CLIRS\\Results\\compare\\steps_3000000\\data_42\\courses_100\\k_3\\ppo\\clirs_vs_jcrec_author\\plots\\ecdf_life_clirs_ppo_vs_jcrec_ppo.png"
+  },
+  "clirs_summary": {
+    "csv_path": "C:\\Users\\Prof\\Desktop\\TRAN\\CourseRecSys_CLIRS\\Results\\CLIRS\\steps_3000000\\data_42\\courses_100\\k_3\\sweeps\\clirs_ppo_data42.csv",
+    "expected_trials": 12,
+    "completed_trials": 12,
+    "trial_ids": [
+      0,
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7,
+      8,
+      9,
+      10,
+      11
+    ],
+    "missing_trial_ids": [],
+    "metrics": {
+      "end": {
+        "mean": {
+          "mean": 2.6510416666666665,
+          "ci_low": 2.4479166666666665,
+          "ci_high": 2.859375,
+          "std": 0.3735372354771058,
+          "n": 12
+        },
+        "median": {
+          "median": 2.59375,
+          "ci_low": 2.46875,
+          "ci_high": 2.875,
+          "std": 0.3735372354771058,
+          "n": 12
+        }
+      },
+      "life": {
+        "mean": {
+          "mean": 5.49537037037037,
+          "ci_low": 5.398148148148149,
+          "ci_high": 5.569444444444444,
+          "std": 0.16146483866913475,
+          "n": 12
+        },
+        "median": {
+          "median": 5.541666666666666,
+          "ci_low": 5.458333333333334,
+          "ci_high": 5.583333333333333,
+          "std": 0.16146483866913475,
+          "n": 12
+        }
+      }
+    }
+  },
+  "baseline_summary": {
+    "csv_path": "C:\\Users\\Prof\\Desktop\\TRAN\\CourseRecSys_CLIRS\\Results\\JCRec\\steps_3000000\\data_42\\courses_100\\k_3\\sweeps\\jcrec_ppo_data42.csv",
+    "expected_trials": 12,
+    "completed_trials": 12,
+    "trial_ids": [
+      0,
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7,
+      8,
+      9,
+      10,
+      11
+    ],
+    "missing_trial_ids": [],
+    "metrics": {
+      "end": {
+        "mean": {
+          "mean": 4.479166666666667,
+          "ci_low": 4.2660256410256405,
+          "ci_high": 4.604166666666667,
+          "std": 0.3548308673361998,
+          "n": 12
+        },
+        "median": {
+          "median": 4.5673076923076925,
+          "ci_low": 4.538461538461538,
+          "ci_high": 4.60576923076923,
+          "std": 0.3548308673361998,
+          "n": 12
+        }
+      },
+      "life": {
+        "mean": {
+          "mean": 4.482371794871795,
+          "ci_low": 4.270833333333333,
+          "ci_high": 4.5993589743589745,
+          "std": 0.3540720559430144,
+          "n": 12
+        },
+        "median": {
+          "median": 4.596153846153846,
+          "ci_low": 4.5576923076923075,
+          "ci_high": 4.60576923076923,
+          "std": 0.3540720559430144,
+          "n": 12
+        }
+      }
+    }
+  },
+  "protocol_note": "Different `end` populations \u2014 author replication context only."
+}

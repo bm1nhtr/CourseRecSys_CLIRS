@@ -1,0 +1,20 @@
+{
+    "trial_id": 6,
+    "data_seed": 42,
+    "rl_seed": 48,
+    "method": "jcrec_fair_dqn",
+    "algorithm": "dqn",
+    "pipeline": "jcrec_fair",
+    "evaluation_split": "test",
+    "training_episodes_from": "train_split_cv",
+    "learner_split": {
+        "holdout": true,
+        "train_size": 36,
+        "test_size": 16
+    },
+    "original_applicable_jobs": 0.0625,
+    "avg_recommendation_time": 0.0023509688749072666,
+    "end": 1.875,
+    "life": 4.972222222222222,
+    "trial_wall_minutes": 64.87271
+}

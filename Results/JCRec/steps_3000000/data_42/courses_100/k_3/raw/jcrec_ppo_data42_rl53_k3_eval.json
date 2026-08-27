@@ -1,0 +1,28 @@
+{
+    "trial_id": 11,
+    "data_seed": 42,
+    "rl_seed": 53,
+    "method": "jcrec_ppo",
+    "algorithm": "ppo",
+    "pipeline": "jcrec",
+    "total_steps": 3000000,
+    "nb_courses": 100,
+    "k": 3,
+    "threshold": 0.8,
+    "clustering_reward_shaping": false,
+    "evaluation_split": "all_learners",
+    "training_episodes_from": "all_learners",
+    "learner_split": {
+        "holdout": false,
+        "n_learners": 52,
+        "train_size": 52,
+        "test_size": 52
+    },
+    "original_attractiveness": 573.7692307692307,
+    "original_applicable_jobs": 0.09615384615384616,
+    "avg_recommendation_time": 0.0030623841538237264,
+    "new_attractiveness": 1177.0,
+    "life": 4.576923076923077,
+    "end": 4.576923076923077,
+    "trial_wall_minutes": 96.33651
+}

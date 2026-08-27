@@ -1,0 +1,27 @@
+{
+    "trial_id": 9,
+    "data_seed": 42,
+    "rl_seed": 51,
+    "method": "clirs_dqn",
+    "algorithm": "dqn",
+    "total_steps": 3000000,
+    "nb_courses": 100,
+    "k": 2,
+    "threshold": 0.8,
+    "clustering_reward_shaping": true,
+    "learner_split": {
+        "train_size": 36,
+        "test_size": 16,
+        "train_ratio": 0.7,
+        "test_ratio": 0.3
+    },
+    "evaluation_split": "test",
+    "training_episodes_from": "train_split_cv",
+    "original_attractiveness": 475.0625,
+    "original_applicable_jobs": 0.0625,
+    "avg_recommendation_time": 0.0146484375,
+    "new_attractiveness": 762.0625,
+    "life": 2.7222222222222223,
+    "end": 0.9375,
+    "trial_wall_minutes": 84.87237
+}

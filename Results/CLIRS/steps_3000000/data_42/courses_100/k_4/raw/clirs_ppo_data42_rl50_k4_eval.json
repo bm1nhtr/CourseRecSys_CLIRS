@@ -1,0 +1,27 @@
+{
+    "trial_id": 8,
+    "data_seed": 42,
+    "rl_seed": 50,
+    "method": "clirs_ppo",
+    "algorithm": "ppo",
+    "total_steps": 3000000,
+    "nb_courses": 100,
+    "k": 4,
+    "threshold": 0.8,
+    "clustering_reward_shaping": true,
+    "learner_split": {
+        "train_size": 36,
+        "test_size": 16,
+        "train_ratio": 0.7,
+        "test_ratio": 0.3
+    },
+    "evaluation_split": "test",
+    "training_episodes_from": "train_split_cv",
+    "original_attractiveness": 475.0625,
+    "original_applicable_jobs": 0.0625,
+    "avg_recommendation_time": 0.0263671875,
+    "new_attractiveness": 1177.375,
+    "life": 9.527777777777779,
+    "end": 6.0,
+    "trial_wall_minutes": 98.27926
+}

@@ -1,0 +1,128 @@
+{
+  "algorithm": "dqn",
+  "method_a": "clirs_dqn",
+  "method_b": "jcrec_fair_dqn",
+  "baseline_pipeline": "jcrec_fair",
+  "compare_dir": "C:\\Users\\Prof\\Desktop\\TRAN\\CourseRecSys_CLIRS\\Results\\compare\\steps_3000000\\data_42\\courses_100\\k_2\\dqn\\clirs_vs_jcrec_fair",
+  "compare_trial_metrics_csv": "C:\\Users\\Prof\\Desktop\\TRAN\\CourseRecSys_CLIRS\\Results\\compare\\steps_3000000\\data_42\\courses_100\\k_2\\dqn\\clirs_vs_jcrec_fair\\compare_trial_metrics.csv",
+  "pairwise_comparison_csv": "C:\\Users\\Prof\\Desktop\\TRAN\\CourseRecSys_CLIRS\\Results\\compare\\steps_3000000\\data_42\\courses_100\\k_2\\dqn\\clirs_vs_jcrec_fair\\pairwise_comparison.csv",
+  "bootstrap_aggregates": {
+    "end_mean": "C:\\Users\\Prof\\Desktop\\TRAN\\CourseRecSys_CLIRS\\Results\\compare\\steps_3000000\\data_42\\courses_100\\k_2\\dqn\\clirs_vs_jcrec_fair\\bootstrap_end_mean.csv",
+    "end_median": "C:\\Users\\Prof\\Desktop\\TRAN\\CourseRecSys_CLIRS\\Results\\compare\\steps_3000000\\data_42\\courses_100\\k_2\\dqn\\clirs_vs_jcrec_fair\\bootstrap_end_median.csv",
+    "life_mean": "C:\\Users\\Prof\\Desktop\\TRAN\\CourseRecSys_CLIRS\\Results\\compare\\steps_3000000\\data_42\\courses_100\\k_2\\dqn\\clirs_vs_jcrec_fair\\bootstrap_life_mean.csv",
+    "life_median": "C:\\Users\\Prof\\Desktop\\TRAN\\CourseRecSys_CLIRS\\Results\\compare\\steps_3000000\\data_42\\courses_100\\k_2\\dqn\\clirs_vs_jcrec_fair\\bootstrap_life_median.csv"
+  },
+  "plots": {
+    "end": "C:\\Users\\Prof\\Desktop\\TRAN\\CourseRecSys_CLIRS\\Results\\compare\\steps_3000000\\data_42\\courses_100\\k_2\\dqn\\clirs_vs_jcrec_fair\\plots\\ecdf_end_clirs_dqn_vs_jcrec_fair_dqn.png",
+    "life": "C:\\Users\\Prof\\Desktop\\TRAN\\CourseRecSys_CLIRS\\Results\\compare\\steps_3000000\\data_42\\courses_100\\k_2\\dqn\\clirs_vs_jcrec_fair\\plots\\ecdf_life_clirs_dqn_vs_jcrec_fair_dqn.png"
+  },
+  "clirs_summary": {
+    "csv_path": "C:\\Users\\Prof\\Desktop\\TRAN\\CourseRecSys_CLIRS\\Results\\CLIRS\\steps_3000000\\data_42\\courses_100\\k_2\\sweeps\\clirs_dqn_data42.csv",
+    "expected_trials": 12,
+    "completed_trials": 12,
+    "trial_ids": [
+      0,
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7,
+      8,
+      9,
+      10,
+      11
+    ],
+    "missing_trial_ids": [],
+    "metrics": {
+      "end": {
+        "mean": {
+          "mean": 1.1197916666666667,
+          "ci_low": 1.046875,
+          "ci_high": 1.1979166666666667,
+          "std": 0.14216850730628414,
+          "n": 12
+        },
+        "median": {
+          "median": 1.15625,
+          "ci_low": 0.96875,
+          "ci_high": 1.21875,
+          "std": 0.14216850730628414,
+          "n": 12
+        }
+      },
+      "life": {
+        "mean": {
+          "mean": 2.694444444444444,
+          "ci_low": 2.67824074074074,
+          "ci_high": 2.7106481481481484,
+          "std": 0.03133755971209822,
+          "n": 12
+        },
+        "median": {
+          "median": 2.7083333333333335,
+          "ci_low": 2.6666666666666665,
+          "ci_high": 2.7222222222222223,
+          "std": 0.03133755971209822,
+          "n": 12
+        }
+      }
+    }
+  },
+  "baseline_summary": {
+    "csv_path": "C:\\Users\\Prof\\Desktop\\TRAN\\CourseRecSys_CLIRS\\Results\\JCRecFair\\steps_3000000\\data_42\\courses_100\\k_2\\sweeps\\jcrec_fair_dqn_data42.csv",
+    "expected_trials": 12,
+    "completed_trials": 12,
+    "trial_ids": [
+      0,
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7,
+      8,
+      9,
+      10,
+      11
+    ],
+    "missing_trial_ids": [],
+    "metrics": {
+      "end": {
+        "mean": {
+          "mean": 1.0260416666666667,
+          "ci_low": 0.9791666666666666,
+          "ci_high": 1.0729166666666667,
+          "std": 0.08196076065946915,
+          "n": 12
+        },
+        "median": {
+          "median": 1.03125,
+          "ci_low": 0.96875,
+          "ci_high": 1.09375,
+          "std": 0.08196076065946915,
+          "n": 12
+        }
+      },
+      "life": {
+        "mean": {
+          "mean": 2.717592592592592,
+          "ci_low": 2.7060185185185186,
+          "ci_high": 2.7291666666666665,
+          "std": 0.0199372378490353,
+          "n": 12
+        },
+        "median": {
+          "median": 2.7222222222222223,
+          "ci_low": 2.6944444444444446,
+          "ci_high": 2.7222222222222223,
+          "std": 0.0199372378490353,
+          "n": 12
+        }
+      }
+    }
+  },
+  "protocol_note": "Both methods report `end` on the **same test_indices** (paired trials, same `data_seed` / `rl_seed` policy). Primary thesis comparison."
+}

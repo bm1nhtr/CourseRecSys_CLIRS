@@ -1,0 +1,57 @@
+{
+  "csv_path": "C:\\Users\\Prof\\Desktop\\TRAN\\CourseRecSys_CLIRS\\Results\\CLIRS\\steps_3000000\\data_42\\courses_100\\k_4\\sweeps\\clirs_ppo_data42.csv",
+  "expected_trials": 12,
+  "completed_trials": 12,
+  "trial_ids": [
+    0,
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7,
+    8,
+    9,
+    10,
+    11
+  ],
+  "missing_trial_ids": [],
+  "metrics": {
+    "end": {
+      "mean": {
+        "mean": 4.994791666666667,
+        "ci_low": 4.604036458333334,
+        "ci_high": 5.390625,
+        "std": 0.7402099351576285,
+        "n": 12
+      },
+      "median": {
+        "median": 4.9375,
+        "ci_low": 4.46875,
+        "ci_high": 5.5625,
+        "std": 0.7402099351576285,
+        "n": 12
+      }
+    },
+    "life": {
+      "mean": {
+        "mean": 8.86342592592593,
+        "ci_low": 8.726851851851853,
+        "ci_high": 9.018518518518519,
+        "std": 0.26576508294287865,
+        "n": 12
+      },
+      "median": {
+        "median": 8.833333333333334,
+        "ci_low": 8.73611111111111,
+        "ci_high": 8.930555555555555,
+        "std": 0.26576508294287865,
+        "n": 12
+      }
+    }
+  },
+  "method": "clirs_ppo",
+  "data_seed": 42,
+  "rl_seed_base": 42
+}
