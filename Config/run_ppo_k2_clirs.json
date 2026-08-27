@@ -39,7 +39,7 @@
     "test_ratio": 0.3
   },
   "model": {
-    "algorithm": "dqn",
+    "algorithm": "ppo",
     "total_steps": 3000000,
     "eval_freq": 50000,
     "_note": "algorithm: shared by CLIRS + JCRec (dqn | ppo)"
